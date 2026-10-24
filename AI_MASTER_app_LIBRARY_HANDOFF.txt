@@ -1,0 +1,331 @@
+================================================================================
+MASTER AI HANDOFF & ARCHITECTURAL CONTINUITY BRIEFING (UPDATED 2026-10-20)
+ECOSYSTEM VERSION: DeconstructionGod_Studio v14.3 + AltVault v3.1 (Stealth Mode)
+================================================================================
+
+0. CRITICAL CONSTRAINTS & STANDING ORDERS FOR ANY FUTURE AI:
+--------------------------------------------------------------------------------
+1) NEVER TOUCH BACKUP:
+   Never modify, move, or delete c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\Backup.
+2) THREE ACTIVE PROJECT DIRECTORIES:
+   * Folder 1 (In-Game Addon): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\AltVault
+   * Folder 2 (Desktop Harvester & AI Forge): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\DeconstructionGod_Studio
+   * Folder 3 (Consolidated 1,083-Addon Vault & SQL Trough): C:\Users\seanw\OneDrive\Desktop\wow forever addons (and Portable_SQL_Trough\)
+3) SPEED & STEALTH ARE PARAMOUNT:
+   * DeconstructionGod_Studio must maintain its Zero-RAM streaming speed.
+   * AltVault must remain in strict **Stealth / Clean-Citizen Mode** (5.22 MB total Lua/DB footprint, 0 idle timers, 0 unsolicited server item queries, 0 YELL addon broadcasts, 0 passive-mouseover whispers, 0 UI taint).
+
+--------------------------------------------------------------------------------
+1. CONSOLIDATED DATA TROUGH STATUS (Portable_SQL_Trough\)
+--------------------------------------------------------------------------------
+* Consolidated Third-Party Addon Folders : 1,083 folders in C:\Users\seanw\OneDrive\Desktop\wow forever addons
+  (All third-party addons across _anniversary_, _classic_, _classic_beta_, _classic_era_, and _retail_ were devoured and consolidated here so _classic_beta_\Interface\AddOns stays clean with only AltVault, DeconstructionGod_Studio, and Backup.)
+* Trough_AddonsInventory.tsv           : 965 unique parent sources (addons, SavedVariables, client binaries/logs)
+* Trough_CodeVault.tsv                 : 528,199 unique code blocks (119,734 Creative Lego Bricks, 269,149+ [Upvalues: ...] chains)
+* Trough_Blueprints.tsv                : 120,899 blueprints, hooks & native engine APIs
+* Trough_EngineAPIs_1_60_1.tsv         : 8,811 native C++ symbols ripped from WowB.exe (1.60.1.70450)
+  - 294 C_* namespaces, 2,072 native events, 6,415 global APIs/methods, 28 C++ widget classes
+* Trough_DatasetSchemas.tsv            : 5,209 structured dataset schemas
+* Trough_GameDataRecords.tsv           : 1,186,335+ game data records, including:
+  - 88,924 Forever relational IDs ripped via upgraded Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs
+  - 33,701 live server DB2 hotfix records (Item, ItemSparse, ItemSearchName, SpellActionBarPref, QuestV2, Spell, CooldownSetSpell, TradeSkillItem) ripped from _classic_beta_\Logs\Hotfix.log (Region 70, cfgContentSetID: 137)
+* Trough_PointsOfInterest.tsv          : 150 High-Priority Forever 1.60.1 Points of Interest across 6 Pillars:
+  - Pillar_0_Client_Binary_Engine (Hotfix.log live stream, General.log LimitedLuaResources 500-Timer quota bypass, Cache\ADB\enUS\DBCache.bin & *Sparse.tmp, Cache\WDB\enUS\*.wdb, FrameXML.log diagnostics)
+  - Pillar_1_HyperLeveling (XP curves, C_GossipInfo/C_QuestLog automation, 7,329 GPS coordinates)
+  - Pillar_2_GoldDominance (No-level white Twink Enchant Bases #7005, #2901, #14092, #6238; Badlands quest bottlenecks #3829, #4389, #3864; Disenchant EV matrices; unlimited vendor arbitrage)
+  - Pillar_3_AltSynergy (Race/Class/Profession synergy matrix, 28-spec BiS, 31-spec Pawn stat weights, 4,330 recipe [Orange/Yellow/Green/Grey] skill-up brackets)
+  - Pillar_4_WorldRadar (C_VignetteInfo 100+ yd pre-nameplate rare/chest detection, UNIT_TARGET raid scanner, COMBAT_LOG_EVENT_UNFILTERED enemy CD tracker)
+  - Pillar_5_Engine_Bypass (1-Timer Coroutine Ring-Buffer Scheduler, Frame/FontString Object Pool, Binary-Search String Packing)
+
+--------------------------------------------------------------------------------
+2. DECONSTRUCTION GOD STUDIO v14.3 UPGRADES (DeconstructionGod_Studio\)
+--------------------------------------------------------------------------------
+* Modular C# Architecture (Studio_Manifest.toc + Nodes\Node_10..Node_35.cs, synced to Engine_DataRipper.cs & Engine_CodeHarvester.cs):
+  - Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs: Added 4 new Forever table parsers (xBareNumKeyStringVal, xBareNumKeyNumTuple, xCsvFirstNumLine, xQuotedNameThresholdTuple).
+  - Node_13_AltVaultBridge.cs: Upgraded Lua raw blob output from [[ ... ]] to [===[ ... ]===] and sanitized inner brackets so Lua 5.1 never triggers 
+esting of [[...]] is deprecated.
+  - Node_32_GuiTab2_SqlTrough.cs: Added Classic_Forever_16001 Era filter and Hotfix_* Type filters to Tab [2] (SQL Trough).
+  - Node_35_GuiTab6_AddonForge.cs: Added the Matrix POIs (150) button to Tab [6] (Addon Forge) so all 150 Points of Interest from Trough_PointsOfInterest.tsv can be browsed, searched, inspected, and wired into the Micro-LLM Inventor.
+
+--------------------------------------------------------------------------------
+3. ALTVAULT v3.1 STEALTH, LIGHTWEIGHT & INTELLIGENCE OVERHAUL (AltVault\)
+--------------------------------------------------------------------------------
+* 96.8% Memory & Disk Reduction (164.2 MB -> 5.22 MB total across all 26 Lua files):
+  - Replaced the 19 multi-expansion DB_TankNode_01..19.lua files (161.3 MB) with a single 2.4 MB Forever-16001-Curated DB_Tank\DB_TankNode_01.lua (18,000 authentic Classic/Forever records) and updated AltVault.toc and Core_MasterLootIndex.lua to unpack MasterDB.RawBlobs lazily on demand and immediately free the raw strings.
+* Fixed All 3 Client Log Lua Errors (FrameXML.log & General.log):
+  1) DB_TankNode [[...]] delimiter nesting -> Fixed via [===[ ... ]===] delimiters.
+  2) DB_ForeverVaultData.lua:44440 nil global GQ -> Fixed GQ.ScoringWeightLabels to FVD.ScoringWeightLabels, unlocking all 7,329 GPS item coordinates in FVD.Coordinates.
+  3) Engine_ForeverVaultIntelligence.lua HydrateIntoMasterDB table collision -> Replaced 31,000-table login hydration loop with zero-allocation ForeverIndex:GetAllIDs(), eliminating both the MasterDB.ByItemID type collision and 15,534 static entries in AltVaultDB.SourceDB SavedVariables.
+* Stealth & Zero-Footprint Guards:
+  - 0 Idle Timers: Net_RadioAndChat.lua uses an on-demand timer (EnsureRadioDrainRunning) that runs only while sendQueue is non-empty and cancels itself when #sendQueue == 0.
+  - 0 Unsolicited Server Queries: Core_TalentsAndCrawler.lua defaults AltVaultDB.ScannerPaused = true and, when manually resumed, steps ONLY through verified ForeverIndex:GetAllIDs() item IDs (never blind-querying invalid IDs).
+  - Silent Comms: Removed "YELL" / "SAY" addon broadcasts and set peer.isSynced = false (isPublicFaceVault = true) on passive mouseover players in RecordPlayerEncounter so passive encounters are never whispered.
+* 4 Event-Driven In-Game Forever Advantage Modules (Engine_ForeverVaultIntelligence.lua):
+  1) Live Rare & Vignette Radar (VIGNETTE_MINIMAP_UPDATED + clickable [📍 Lock 3D GPS Pin] chat link)
+  2) Quest Turn-In Max-Gold & BiS Evaluator (QUEST_COMPLETE highest vendor payout + Official Forever BiS alert)
+  3) Hyper-Leveling Next-Upgrades Solver (/avintel upgrades with clickable 1-click 3D GPS links)
+  4) Gold Arbitrage, Alt Synergy & Stealth Telemetry Suite (/avintel, /avintel gold, /avintel alt)
+
+================================================================================
+================================================================================
+PROJECT HANDOFF & ARCHITECTURAL TAKEOVER BRIEFING
+PROJECT 1: Deconstruction God Studio (v14.2) - Desktop Addon Harvester & AI Forge
+PROJECT 2: AltVault - In-Game WoW Character Armory, 3D Dressing Room & Alt Tracker
+================================================================================
+
+1. EXECUTIVE SUMMARY & CORE PURPOSE OF THIS ECOSYSTEM
+--------------------------------------------------------------------------------
+You are taking over as the Lead Engineering AI for a two-part World of Warcraft 
+development ecosystem built on Windows (running on an HP 17z-cp300 Laptop with 
+an 8-Core/16-Thread AMD Ryzen 7 7730U and 64 GB RAM):
+
+  A. WHY WE BUILT THIS (THE ALTVAULT ORIGIN):
+     Our primary in-game World of Warcraft addon is `AltVault`. Tab 1 of `AltVault`
+     is designed to be an interactive Character Armory and 3D Dressing Room 
+     ("Paperdoll / Try-On Closet") that loads the player's characters, displays 
+     everything they are wearing, and lets them browse and "Try On" any piece of 
+     clothing, armor, weapon, or tier set in the game.
+     
+     Because we cannot query the live WoW game server for an exhaustive list of 
+     all historical Item IDs, Armor Sets, Weapons, Boss Drops, and Spells unless 
+     they are already cached locally, we built **Deconstruction God Studio** ("The 
+     Cookie Monster") to rip that exact data out of existing community addons 
+     (such as `AtlasLootClassic`, `AtlasLootContinued`, `AllTheThings`, `ItemDB`, 
+     `EnhancedTransmogBrowser`, `Altoholic`, `Baganator`, etc.) and compile a 
+     unified local database (`AltVault\DB_MasterHoldingTank.lua` + `DB_Tank\`) that 
+     `AltVault` loads directly in-game!
+
+  B. EVOLVING INTO A UNIVERSAL CODE HARVESTER & AI ADDON FORGE:
+     Beyond ripping 1,561,820+ Game Data IDs (Items, Sets, Spells, Quests, NPCs), 
+     Deconstruction God Studio also harvests, classifies, and cross-references 
+     374,482+ code blocks (including 85,171 specialized "Creative Lego Bricks") 
+     across 648 top-rated addons spanning multiple WoW expansions (3.3.5a, 
+     Classic, SoD/Forever, TBC, Wrath, Cataclysm, MoP, and Retail).
+     
+     It includes an internal Autonomous Synergy Agent + Local LLM Brain (via 
+     Ollama) to cross-reference code blocks, generate cross-expansion polyfill 
+     shims, invent new addon features, and audit both `AltVault` and its own 
+     C#/PowerShell source code for self-improvement.
+
+================================================================================
+2. COMPLETE FILE MANIFEST & ARCHITECTURE (ORIGINAL MONOLITH OVERVIEW)
+================================================================================
+
+PART A: DECONSTRUCTION GOD STUDIO (`DeconstructionGod_Studio\` Directory)
+--------------------------------------------------------------------------------
+The Studio is a zero-dependency, native Windows Forms desktop application that 
+compiles C# engines on the fly via PowerShell (`Add-Type`). It uses a strict 
+**Zero-RAM Streaming Architecture** (processing 1 file at a time and flushing 
+directly to `.tsv` and `.sql` files on disk every 2,500 records) so it can scan 
+648 addons and 1.56M+ records while using only ~14 MB to 31 MB of RAM.
+
+  1. `Launch_DeconstructionGod.bat`
+     - Entry-point batch launcher. Invokes PowerShell with `-ExecutionPolicy Bypass`
+       and launches `Studio_Bootstrap.ps1` (formerly `Studio_MainGUI.ps1`).
+
+  2. `Engine_DataRipper.cs` (NOW SPLIT INTO NODES 10..13 - C# Game Data & ID Extraction Engine)
+     - Scans `.lua`, `.sql`, `.json`, and `.csv` files across dropped addon folders.
+     - Extracts **Item IDs**, **Armor Set IDs**, **Spell IDs**, **Quest IDs**, 
+       and **NPC IDs**, along with their Era (`Classic`, `SoD_Forever`, `TBC`, 
+       `Wrath`, `Retail`), Dungeon/Raid Zone, Boss Header, and Difficulty.
+     - Performs mid-file disk micro-flushing every 2,500 records into 
+       `Portable_SQL_Trough\Trough_DataRecords.tsv` (and `Trough_GameDataRecords.tsv`)
+       and `Trough_MasterSchema.sql`.
+     - **THE ALTVAULT BRIDGE (`StreamLuaFeederFromDiskTrough` in `Node_13_AltVaultBridge.cs`):**
+       Streams all 1.56M+ records from the disk trough into `AltVault\DB_MasterHoldingTank.lua`
+       and `AltVault\DB_Tank\DB_TankNode_01..XX.lua` under `_G.AltVaultMasterDB`.
+
+  3. `Engine_CodeHarvester.cs` (NOW SPLIT INTO NODES 20..26 - C# AST Parser, 3-Pass Graph & LLM Engine)
+     - **Breadth-First Layer-by-Layer Scanner (`ExecuteOmniDeconstruction`):** 
+       Queues 1 Parent Addon at a time, steps through subdirectories layer-by-layer,
+       parses 1 file at a time, flushes to disk, and clears RAM.
+     - **Multi-Language AST & Blueprint Parser:** Extracts functions, classes, and 
+       scripts from Lua, XML, TOC, C++, C#, Python, and SQL.
+     - **18 Creative Lego Brick Classifiers (`ClassifyCreativeLegoBrick`):** 
+       Categorizes functions by structural role (`Lego_Polyfill_And_Compat_Shim`,
+       `Lego_Frame_And_Object_Pool`, `Lego_UI_Grid_Matrix`, `Lego_Search_And_Filter`,
+       `Lego_Async_Throttle_Engine`, `Lego_Tooltip_Data_Injector`, etc.).
+     - **Precision Socket/Plug DNA & Synergy Scorer (0-100):** Tags every function 
+       with its Input Domain Socket and Output Plug.
+     - **3-Pass Deep Cross-Referencing Engine (`RunThreePassDeepCrossReferenceScan`):**
+       Pass 1 (`Trough_AtomicConcepts.tsv`), Pass 2 (`Trough_SynergyMatrix.tsv`),
+       and Pass 3 (`_CoreBridge.lua`).
+
+  4. `Studio_MainGUI.ps1` (NOW SPLIT INTO `Studio_Bootstrap.ps1` + NODES 30..35 - WinForms 6-Tab GUI)
+     - Compiles all 17 C# Nodes into memory and launches the 6-tab interface:
+       Tab [1] Scoreboard, Tab [2] SQL Trough, Tab [3] Code Store, Tab [4] Hooks/Assets,
+       Tab [5] Manual/Audit, and Tab [6] NEW ADDON FORGE.
+
+  5. `Portable_SQL_Trough\` (Disk Database Directory inside `DeconstructionGod_Studio\`)
+     - `Trough_AddonsInventory.tsv`: Telemetry & completion status for all 648 parents.
+     - `Trough_DataRecords.tsv` / `Trough_GameDataRecords.tsv`: All 1,561,820 extracted Game Data IDs.
+     - `Trough_CodeVault.tsv`: All 374,482 harvested code blocks with Socket/Plug DNA.
+     - `Trough_Blueprints.tsv`: All harvested Events, APIs, Hooks, TOC Notes, and Media Assets.
+     - `Trough_AtomicConcepts.tsv`: Pass 1 dissected high-versatility functional bricks.
+     - `Trough_SynergyMatrix.tsv`: Pass 2 cross-referenced 4-organ addon circuits.
+     - `Trough_MasterSchema.sql` & `Trough_CodeVaultSchema.sql`: Portable SQLite schemas.
+     - `Build_SQLite_DB.py`: Optional Python script that compiles the `.sql` files into `DeconstructionTrough.sqlite3`.
+
+================================================================================
+3. CURRENT STATE & IMMEDIATE NEXT OBJECTIVES FOR THE TAKING-OVER AI
+================================================================================
+1. **Current Vault Status:**
+   - **648 Parent Addons** completely scanned and saved on disk (`Portable_SQL_Trough`).
+   - **1,561,820 Game Data IDs** (including massive item/set/transmog tables from 
+     `ItemDB` [301,445 IDs], `QuestMaster` [261,696 IDs], `EnhancedTransmogBrowser` 
+     [205,000+ IDs across eras], `AtlasLootClassic` & `AtlasLootContinued` [91,000+ IDs], 
+     and `AllTheThings` [27,141 IDs]).
+   - **374,482 Code Blocks** and **85,171 Creative Bricks** indexed on disk.
+
+2. **Strict Coding Rules When Editing This Project:**
+   - **RULE #1 (CRITICAL):** Always provide **complete, full-file replacements** (NEVER partial snippets) for any `.cs`, `.ps1`, or `.lua` file. The user keeps files open in Notepad++ and uses Undo (`Ctrl+Z`) to revert if a replacement fails; partial snippets break file structure and caused a temporary failure of all 12 side tabs in `UI_RosterAndScannerTabs.lua` when `MainPanel:RenderActivePane()` was cut off.
+   - **RULE #2:** Never modify or risk `AltVault` Tab 1 (`UI_ArmoryVideoAndPoses.lua`, `UI_ArmoryStage3D.lua`, `UI_ArmoryBottomBoxes.lua`). Tab 1 has complex 1920x1009 16-sheet `.tga` video flipbooks, full-screen screenshot framing, voting buttons, and 19 paperdoll slots. Instead, the 3D Dressing Room and Database Explorer are being built inside **Tab 6 ("6. Item Database")** in `UI_RosterAndScannerTabs.lua` (or via a standalone modular file).
+   - **RULE #3:** In PowerShell, always wrap `$` variables in parentheses like `($studioDir)` (except inside `foreach` loop iterators, or use standard `for (($i)=0; ...)` loops) or use Base64-encoded C# blocks so browser copy-paste never mangles spaces before `$` signs or `@' ... '@` terminators.
+
+================================================================================
+4. DETAILED CHANGELOG OF ARCHITECTURAL MODIFICATIONS (v14.1 -> v14.2)
+================================================================================
+
+A. DECONSTRUCTION GOD STUDIO: 20-FILE `.TOC`-STYLE MODULAR NODE ARCHITECTURE
+--------------------------------------------------------------------------------
+To prevent blowing out the AI context window with 3 massive monolithic files 
+(totaling 5,450+ lines across `Engine_DataRipper.cs` [929 lines], `Engine_CodeHarvester.cs` 
+[2,487 lines], and `Studio_MainGUI.ps1` [2,034 lines]), the Studio was split into 
+**20 small, numbered Node files** using C# `partial class` definitions (`public static partial class DataRipperEngine`, `public static partial class CodeHarvesterEngine`, and `public partial class StudioMainForm : Form`).
+
+Original monolithic files were backed up safely to `DeconstructionGod_Studio\Backup_Monolith_v14.1\`.
+
+  * **Root Boot Files (`DeconstructionGod_Studio\`):**
+    1. `Launch_DeconstructionGod.bat`: Updated to invoke `Studio_Bootstrap.ps1`.
+    2. `Studio_Manifest.toc`: WoW-style `.toc` manifest listing all 17 C# nodes in load order.
+    3. `Studio_Bootstrap.ps1` (`Node_00`): Reads `Studio_Manifest.toc` using a `for` loop, strips duplicate `using` directives, concatenates the `partial` C# classes in memory, compiles via `Add-Type`, and boots `StudioMainForm`.
+    4. `Split_Into_Nodes.ps1`: Base64-encoded C# auto-splitter utility that generated the `Nodes\` directory from the original 3 files.
+
+  * **Group 10 — Data Ripper & AltVault Bridge Nodes (`DeconstructionGod_Studio\Nodes\`):**
+    5. `Node_10_DataModels.cs`: `LootRecord`, `AddonTelemetry`, and Zone/Faction dictionaries.
+    6. `Node_11_DataRegexAndHelpers.cs`: Compiled regexes, `CleanLuaExpr`, Era/ContentType mappers.
+    7. `Node_12_DataParsers.cs`: Lua, Minified table, SQL, JSON, and CSV item/spell/set rippers.
+    8. `Node_13_AltVaultBridge.cs`: Disk Trough flusher and the upgraded **Multi-Node Raw-Blob AltVault Feeder (`StreamLuaFeederFromDiskTrough`)** that splits the 249 MB database into `AltVault\DB_Tank\DB_TankNode_01..XX.lua` (60,000 records per file in 500-row `[[ ... ]]` raw strings) and auto-updates `AltVault.toc`. Also embeds `MasterDB.RacesAndSex` and `MasterDB.Classes`.
+
+  * **Group 20 — Code Harvester, AST & AI Forge Nodes (`DeconstructionGod_Studio\Nodes\`):**
+    9.  `Node_20_HarvesterModels.cs`: `CodeSnippet`, `AtomicConceptEntry`, `BlueprintEntry`, `AddonForgeBlueprint`, and on-demand file reader.
+    10. `Node_21_LegoAndSocketDNA.cs`: 18 Creative Lego classifiers, Socket/Plug DNA, and Synergy scorer (0-100).
+    11. `Node_22_LayerQueueScanner.cs`: Breadth-first layer-by-layer queue and 1-file-at-a-time streamer.
+    12. `Node_23_AstLanguageParsers.cs`: Lua, XML, TOC, C#/C++, Python, and SQL AST/blueprint parsers.
+    13. `Node_24_EmergentGraphEngine.cs`: 3-Pass Deep Cross-Referencer (`Trough_AtomicConcepts.tsv` & `Trough_SynergyMatrix.tsv`) and Lua glue generator.
+    14. `Node_25_OllamaMicroLLM.cs`: Local Ollama warm-up ping, 3x 2K-token stateless micro-tasks, and Self-Auditor.
+    15. `Node_26_ManualAndHandoff.cs`: Searchable manual topics and `AI_MASTER_LIBRARY_HANDOFF.txt` exporter.
+
+  * **Group 30 — WinForms 6-Tab GUI Nodes (`DeconstructionGod_Studio\Nodes\`):**
+    16. `Node_30_GuiCoreAndHud.cs`: `CustomHudProgressBar`, `StudioMainForm` shell, 10-FPS telemetry timer, Top Menu bar.
+    17. `Node_31_GuiTab1_Scoreboard.cs`: View [1] Multi-select Parent Scoreboard and live layer tracker.
+    18. `Node_32_GuiTab2_SqlTrough.cs`: View [2] On-Demand SQL Trough Game Data ID Explorer.
+    19. `Node_33_GuiTab3_CodeStore.cs`: View [3] Creative Code Store and Frankenstein Inspector.
+    20. `Node_34_GuiTab4_5_RagManual.cs`: View [4] Hooks/Assets/RAG Basket & View [5] Searchable Manual.
+    21. `Node_35_GuiTab6_AddonForge.cs`: View [6] Emergent Addon Forge, LLM UI triggers, and Scan/Wipe workflows.
+
+B. ALTVAULT IN-GAME ADDON MODIFICATIONS (`AltVault\` Directory)
+--------------------------------------------------------------------------------
+  1. `AltVault.toc`:
+     - Removed a duplicate `DB_MasterHoldingTank.lua` entry that was previously listed on Line 20 (after `Core_MasterLootIndex.lua`), which was overwriting `MasterDB.HoldingTank` after initialization.
+     - Automatically populated with `DB_Tank\DB_TankNode_01.lua` .. `DB_TankNode_XX.lua` by `Node_13_AltVaultBridge.cs` right after `DB_MasterHoldingTank.lua`.
+
+  2. `Core_MasterLootIndex.lua`:
+     - Added `MasterDB:EnsureIndexesBuilt()` to automatically unpack the 500-row `[[ ... ]]` multi-line string blocks from `MasterDB.RawBlobs` (loaded by `DB_Tank\DB_TankNode_XX.lua`) into `MasterDB.HoldingTank`, freeing raw blob memory as it unpacks.
+     - Automatically builds `MasterDB.ByItemID`, `MasterDB.BySpellID`, `MasterDB.BySetID`, `MasterDB.UniqueItemIDList`, and `MasterDB.Stats` on demand.
+
+  3. `Core_TalentsAndCrawler.lua`:
+     - Updated `StartSilentBackgroundScanner()` to check `ns.MasterDB:EnsureIndexesBuilt()` and iterate through `MasterDB.UniqueItemIDList` (the verified Item IDs from our local database) instead of blindly crawling `150` to `250,000` on the live WoW server.
+     - Added `SeedCacheFromMasterTank(itemID)` to pre-seed item names and drop sources from `MasterDB` into `AltVaultDB.ItemCache` and `AltVaultDB.SourceDB`.
+
+  4. `Engine_GearScore.lua`:
+     - Added `ExtractItemClassAndRaceRestrictions()` to scan item tooltips for explicit `"Classes: ..."` and `"Races: ..."` restrictions (or infer allowed classes from Armor SubType `Plate/Mail/Leather/Cloth/Shields` and `CLASS_WEAPONS`), storing `cl` (allowed classes) and `ra` (allowed races) inside `AltVaultDB.ItemCache[itemID]`.
+
+  5. `UI_RosterAndScannerTabs.lua` (Tab 6 - "6. Item Database"):
+     - Redesigned Tab 6 to host a **2-Row Scanner & Filter Header** (`SearchBox`, `Search`, `Scan From #`, `Turbo`, `Stop/Resume Scan`, `[3D Closet]`, plus flyout dropdown filters for `Class ▼`, `Gear/Armor Type ▼`, `Race ▼`, and `View: 3-Col Grid / List`).
+     - Added a **3-Column Compact Item Tile Grid** so 3x as many items fit on screen compared to the old wide single-column rows.
+     - Added a **Hover Gear Image & 3D Model Flyout Card (`AltVaultItemHoverFlyoutCard`)** that pops up alongside `GameTooltip` when hovering over an item tile.
+     - Added an **Undocked, Draggable & Corner-Resizable 3D Dressing Room Window (`AltVaultTab6FloatingDressUp`)** docked to the right side of `AltVault` so Tab 6 retains 100% of its width.
+
+================================================================================
+5. DETAILED ROOT-CAUSE ANALYSIS OF PROBLEMS ENCOUNTERED & CURRENT BLOCKERS
+================================================================================
+
+PROBLEM 1: THE 249 MB `DB_MasterHoldingTank.lua` CONSTANT-TABLE OVERFLOW (SOLVED)
+--------------------------------------------------------------------------------
+  * **Symptom:** `AltVault\DB_MasterHoldingTank.lua` was 249 MB on disk (containing 1,561,820 records across 648 parent addons), yet in-game Tab 6 displayed `Holding Tank: 0 Records` and fell back to scanning `1..250,000` from the WoW server (caching only 18,285 items).
+  * **Root Cause:** World of Warcraft's Lua 5.1 Virtual Machine has a hard ~32 MB file compilation buffer limit and a maximum constant-table limit (`262,143` constants per function/chunk). A single 249 MB `.lua` file with 1.56 million table entries (`[1] = "...", [1561820] = "..."`) silently failed to compile in WoW's C++ Lua loader, leaving `MasterDB.HoldingTank` empty.
+  * **Also Found:** `Portable_SQL_Trough\` contained both `Trough_DataRecords.tsv` (249 MB) and an empty `Trough_GameDataRecords.tsv` (0 KB); checking `File.Exists("Trough_GameDataRecords.tsv")` without checking file size caused an initial 4.58 KB empty export until fixed.
+  * **Resolution:** Upgraded `Node_13_AltVaultBridge.cs` to split the 249 MB dataset into `AltVault\DB_Tank\DB_TankNode_01.lua` .. `DB_TankNode_XX.lua` (60,000 records per file) using 500-row `[[ ... ]]` multi-line raw string blocks (so 500 records count as only 1 Lua constant). `Core_MasterLootIndex.lua` unpacks those blobs on demand. **Verified Result:** Over 1,000,000+ records now load and display inside WoW in Tab 6!
+
+PROBLEM 2: 3D DRESSING ROOM RACE & SEX SWITCHING ("WHITE BLOB" vs. PRE-PAINTED NPCS) (ACTIVE BLOCKER)
+--------------------------------------------------------------------------------
+  * **Goal:** The user wants to select any playable Race (`Human`, `Orc`, `Dwarf`, `Night Elf`, `Undead`, `Tauren`, `Gnome`, `Troll`, `Goblin`, `Blood Elf`, `Draenei`, `Worgen`, `Pandaren`) and Sex (`Male` or `Female`) in the Tab 6 3D Dressing Room, strip the mannequin to its base undressed racial body (`Undress()`), and `TryOn()` armor and weapons from the database—and also use this to view synced guildmates' characters in 3D when their local `.tga` videos cannot be transmitted over WoW's network sandbox.
+  * **What Went Wrong in Attempt 1 (`SetCustomRace` + `SetUnit("player")`):**
+    In WoW client build `16001`, calling `DressUpModel:SetCustomRace(raceID, genderID)` followed by a fallback to `SetUnit("player")` caused `SetCustomRace` to fail silently and `SetUnit("player")` to reset the model back to the user's Night Elf Female character, only changing/resetting clothing.
+  * **What Went Wrong in Attempt 2 (Legacy Player Base DisplayIDs `49..60` via `SetDisplayInfo`):**
+    Calling `DBTryOnModel:SetDisplayInfo(49)` (Human Male base mesh), `51` (Orc Male), etc., loaded raw unbaked geometry without a character skin shader in client `16001`, resulting in an **untextured "white blob" model**.
+  * **What Went Wrong in Attempt 3 (`SetCreature(npcID)` Workaround):**
+    Using NPC creature IDs (guards/trainers) via `SetCreature(npcID)` loaded textured models, **but** NPC models have pre-painted clothing baked directly into their body textures (so `Undress()` cannot strip them to underwear) and several NPC IDs did not match the intended races.
+  * **How Reference Addons (`EnhancedTransmogBrowser`, `AtlasLoot`, `AllTheThings`) Handle This & Next Engineering Step:**
+    - `AtlasLoot` (`Button\Item_type.lua` & `GUI\ModelFrame.lua`) only uses `SetUnit("player")` for armor try-on and `SetDisplayInfo` for boss/mount creatures.
+    - For true multi-race/multi-sex undressable mannequins in client `16001`, we must inspect the harvested code in **Deconstruction God Studio Tab [3] Code Store** from **`EnhancedTransmogBrowser`** (and `ChonkyCharacterSheet` / `Blizzard_DressUpFrame` / `ModelScene` actor templates) to see whether client `16001` requires a `ModelScene` + `ModelSceneActor` (`SetModelByUnit` / `SetPlayerModelFromGlues` / native race file path) or specific `DressUpModel` initialization order to composite bare racial skin textures without white blobs or pre-painted NPC clothes.
+
+PROBLEM 3: PARTIAL FILE REPLACEMENT BROKE ALL 12 SIDE TABS IN `UI_RosterAndScannerTabs.lua` (REVERTED & RESOLVED)
+--------------------------------------------------------------------------------
+  * **What Went Wrong:** The AI provided a partial snippet (lines 1–395) for `UI_RosterAndScannerTabs.lua` instead of a complete full-file replacement. Pasting the partial snippet broke `MainPanel:RenderActivePane()` at the bottom of `UI_RosterAndScannerTabs.lua`, which is the master tab switcher for all 12 side tabs in `AltVault`.
+  * **Resolution:** The user reverted `UI_RosterAndScannerTabs.lua` via Notepad++ Undo (`Ctrl+Z`) back to the working full-file version. **Going forward, the taking-over AI MUST NEVER output partial file snippets—only 100% complete files.**
+
+================================================================================
+6. OCTOBER 20, 2026 ARCHITECTURAL UPGRADES & COMPLETED MILESTONES
+================================================================================
+
+A. "QUEST FOR ITEM" & "QUEST FOR RECIPE" DUAL-FACTION ACQUISITION TABS (TABS 13 & 14)
+--------------------------------------------------------------------------------
+  * **File Added & Registered in `AltVault.toc`:** `AltVault\UI_QuestForItemAndRecipe.lua`
+  * **What It Does:**
+    1. Adds Tab 13 (**"Quest for Item"**) and Tab 14 (**"Quest for Recipe"**) on `AltVaultMainPanel`.
+    2. Associates both **Alliance** and **Horde** acquisition methods (Quests, Quest Givers, Vendors, Quartermasters, Tarnished Undermine Real Vendors, Faction Reputation Rewards, Trainers, and Dungeon/Raid Bosses) with every equippable item and profession recipe across Classic + WoW Forever (`16001`).
+    3. Includes a 2-Row Filter & Search Header (`SearchBox`, `Source/Method ▼`, `Category/Profession ▼`, `Faction ▼`, `Min Lvl`, `Max Lvl`, Quick-Filter Pills, `[View: 3-Col Grid / List]`, and `[3D Closet]`).
+    4. Supports both a **3-Column Compact Tile Grid** (matching the Tab 6 Dressing Room style) and a **Full In-Pane Dual-Faction Acquisition Dossier** on click, plus right-click `TryOn` in the 3D Closet.
+    5. **WoW Forever Level-60 Item Gatekeeper (`Engine_GearScore.lua`):** Added `Scanner.IsValidWowForeverItem` and `Scanner.PurgeInvalidForeverItems` to block post-Classic expansion items (`ItemID > 24500` and `< 200000`, `reqLvl > 60`, or `iLvl > 100` for standard IDs) while preserving custom WoW Forever items (`ItemID >= 200000` with `reqLvl <= 60`).
+
+B. ZERO-LAG "UPDATE ONCE ON APP OPEN" PERFORMANCE ARCHITECTURE
+--------------------------------------------------------------------------------
+  * **Files Updated:** `Core_Database.lua`, `Core_MacroCache.lua`, `Core_MasterLootIndex.lua`, `Engine_GearScore.lua`, `UI_MainFrame.lua`, `UI_BagOverlay.lua`
+  * **What Was Changed:**
+    1. Removed all continuous background timers (`35s` character sync ticker, `180s` network broadcast ticker, `BAG_UPDATE_DELAYED` / `PLAYER_EQUIPMENT_CHANGED` live rescan spam) that caused frame stutters during gameplay.
+    2. Added `ns.DB.SyncOnceOnAppOpen()` in `Core_Database.lua` and hooked it to `MainPanel:HookScript("OnShow", ...)` in `UI_MainFrame.lua`. Now, your logged-in character's gear, bags, professions, and talents update **once every time you open the AltVault window** (`/av`).
+    3. Set `AltVaultDB.ScannerPaused = true` by default in `Core_MacroCache.lua` so the background server ID crawler never runs unless manually resumed in Tab 6.
+    4. Added `tooltipEvalCache` in `UI_BagOverlay.lua` and `rosterEvalCache` in `Engine_GearScore.lua` so hovering items in bags/banks never re-evaluates roster math on every frame.
+
+C. CONSENT-BASED WHISPER SYNC, SYNC QUEUE (WAITLIST) & GRANULAR PRIVACY
+--------------------------------------------------------------------------------
+  * **Files Updated:** `Net_RadioAndChat.lua`, `Net_SyncAndBroadcast.lua`, `UI_NetTab_VirtualChat.lua`, `UI_NetTabs_GoodsAndRoster.lua`, `UI_ArmoryBottomBoxes.lua`, `UI_RosterAndScannerTabs.lua`
+  * **How Syncing Works Now:**
+    1. **Whisper-Only Requests (Zero Unsolicited Popups):** Players never broadcast automatically to Guild/Party/Raid and nothing ever pops up on screen randomly. To sync, a player types a name and clicks **`[Request Sync]`** (or targets a player and clicks **`[Request Target]`**), which sends a polite chat whisper (`"[AltVault]: <Player> is requesting to sync with you..."`) and places their request into the recipient's **Sync Queue (Waitlist)**.
+    2. **Repurposed Tab 10 -> `Sync Queue & Hub` (`SYNCED_ROSTER`):**
+       - Displays all pending incoming requests in `AltVaultDB.SyncQueue` at the top of the tab.
+       - **Action 1 — One-Way Caller ID Preview:** Click `[1. PREVIEW BASIC PROFILE IN 3D ARMORY]` to inspect the requester's 3D model, equipped gear, level, and profession skill levels **without sharing any of your own data**.
+       - **Action 2 — Accept & Whisper Sync Reply:** Click `[2. ACCEPT & WHISPER SYNC REPLY]` (`GuildNet.ApproveQueueItem`) to approve the request and whisper back **only** the specific category they requested.
+       - **Action 3 — Deny or Ignore Player:** Click `[3. DENY REQUEST]` (`GuildNet.DenyQueueItem`) to remove the request, or Right-Click / Shift-Click to permanently add the player to `AltVaultDB.IgnoredSyncPlayers`.
+       - **DND (`Ignore Syncs: ON/OFF`):** Toggle in the 2-row `NetHeader` bar (`AltVaultDB.SyncDND`) that automatically blocks incoming sync requests while raiding or busy.
+    3. **Granular "Closed Until Requested" Categories:**
+       - Initial Basic Profile sync only shares 3D appearance, equipped gear, level/spec summary, profession skill levels, and alt names.
+       - **Bag Inventory (`BAGS`)**, **Personal Bank (`BANK`)**, **Known Recipes (`RECIPES`)**, **Talent Tree (`TALENTS`)**, **Virtual Guild Network List (`VGUILD`)**, and **Alts (`ALT` — requested one alt at a time)** all appear as **CLOSED** on both the Profile tab and Sync Hub until the peer clicks to request that specific category and you approve it in your Sync Queue.
+       - **Block Friends-of-Friends (`AltVaultDB.BlockFriendsOfFriends`):** Hides your character from being listed when your synced peers share their Virtual Guild Network List (`VGUILD`) with others.
+       - **Virtual Guild Chatroom (`VIRTUAL_CHAT`):** Only whispers chat messages to accepted synced peers (`peer.isSynced ~= false`).
+
+D. OPEN-WORLD GLOWING NAMEPLATE BEACON & OFFLINE ALT PORTRAIT RESTORATION
+--------------------------------------------------------------------------------
+  * **Files Updated:** `UI_ArmoryStage3D.lua`, `Net_SyncAndBroadcast.lua`, `UI_MainFrame.lua`, `UI_LeftSidebar.lua`
+  * **Open-World Nameplate Glow (`[Nameplate Glow: ON/OFF]`):**
+    - Added `AltVaultNameplateGlowToggleBtn` at the top-left of `PaperDollStage` on the Profile (`ARMORY`) tab (`AltVaultDB.NameplateGlowEnabled`, default `true`).
+    - Listens to `NAME_PLATE_UNIT_ADDED` / `NAME_PLATE_UNIT_REMOVED` in `Net_SyncAndBroadcast.lua` (immediately ignoring non-player NPCs/mobs for zero lag) and exchanges a 10-byte `BEACON|1` / `BEACON|0` addon presence flag so only other `AltVault` users see a **Cyan/Gold Glowing Border + `★ [AltVault User]` / `★ [AltVault Synced]`** badge on your nameplate. Toggling it OFF (or enabling DND) immediately hides your nameplate glow in the open world.
+  * **Restored Offline Alts' Saved Portraits / 20s Video Reels & 3D Mannequins:**
+    - Updated `ConfigureAndDress3DCharacterModel` in `UI_ArmoryStage3D.lua` so clicking any of your own offline alts (`Shadow`, `Electra`, `Jaxx`, `Virus`, `Evil`, `Katinka`, `Yess`, etc.) displays their saved `.tga` Profile Photo / 20-Second HD Video Reel (`FlatPhotoCanvas`) by default, with a top-right **`[View: 3D / Reel]`** button that switches to 3D using `RACE_MANNEQUIN_NPCS` (`SetCreature`) for their exact Race and Sex.
+  * **Fixed Uniform Button & Tab Typography:**
+    - Added `StripVisibleText` in `UI_MainFrame.lua` so `FitControlsRowInsideBar` strips WoW `|cffRRGGBB...|r` color escape sequences before measuring text length, enforces a single uniform font size across all buttons in a row, and clamps font string widths (`SetWidth(w - 8)`, `SetWordWrap(false)`) so text never overflows outside buttons.
+  * **Full Project Backup Created:**
+    - Complete backup of both `AltVault` (`1,492` files) and `DeconstructionGod_Studio` (`11` files) is stored in `c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\Backup\`.
+================================================================================

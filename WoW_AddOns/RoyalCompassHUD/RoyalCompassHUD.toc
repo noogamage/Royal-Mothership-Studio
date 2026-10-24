@@ -1,0 +1,9 @@
+## Interface: 11509, 11508, 20505, 50500, 106000
+## Title: |cffffd100Royal Compass HUD|r |cff00ffcc(Flight, Coords & XP/hr)|r
+## Notes: Sleek draggable top HUD showing live (X, Y) coordinates, directional compass to nearest Flight Master, Bag Slots, Gold, and Time-To-Level!
+## Author: Queen Ava & King Stephen
+## Version: 1.0.0
+## SavedVariables: RoyalCompassHUDDB
+## OptionalDeps: TheKingdomForge
+
+RoyalCompassHUD.lua

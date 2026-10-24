@@ -1,0 +1,1572 @@
+================================================================================
+MASTER AI HANDOFF & ARCHITECTURAL CONTINUITY BRIEFING (UPDATED 2026-10-20)
+ECOSYSTEM VERSION: DeconstructionGod_Studio v14.3 + AltVault v3.1 (Stealth Mode)
+================================================================================
+
+0. CRITICAL CONSTRAINTS & STANDING ORDERS FOR ANY FUTURE AI:
+--------------------------------------------------------------------------------
+1) NEVER TOUCH BACKUP:
+   Never modify, move, or delete c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\Backup.
+2) THREE ACTIVE PROJECT DIRECTORIES:
+   * Folder 1 (In-Game Addon): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\AltVault
+   * Folder 2 (Desktop Harvester & AI Forge): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\DeconstructionGod_Studio
+   * Folder 3 (Consolidated 1,083-Addon Vault & SQL Trough): C:\Users\seanw\OneDrive\Desktop\wow forever addons (and Portable_SQL_Trough\)
+3) SPEED & STEALTH ARE PARAMOUNT:
+   * DeconstructionGod_Studio must maintain its Zero-RAM streaming speed.
+   * AltVault must remain in strict **Stealth / Clean-Citizen Mode** (5.22 MB total Lua/DB footprint, 0 idle timers, 0 unsolicited server item queries, 0 YELL addon broadcasts, 0 passive-mouseover whispers, 0 UI taint).
+
+--------------------------------------------------------------------------------
+1. CONSOLIDATED DATA TROUGH STATUS (Portable_SQL_Trough\)
+--------------------------------------------------------------------------------
+* Consolidated Third-Party Addon Folders : 1,083 folders in C:\Users\seanw\OneDrive\Desktop\wow forever addons
+  (All third-party addons across _anniversary_, _classic_, _classic_beta_, _classic_era_, and _retail_ were devoured and consolidated here so _classic_beta_\Interface\AddOns stays clean with only AltVault, DeconstructionGod_Studio, and Backup.)
+* Trough_AddonsInventory.tsv           : 965 unique parent sources (addons, SavedVariables, client binaries/logs)
+* Trough_CodeVault.tsv                 : 528,199 unique code blocks (119,734 Creative Lego Bricks, 269,149+ [Upvalues: ...] chains)
+* Trough_Blueprints.tsv                : 120,899 blueprints, hooks & native engine APIs
+* Trough_EngineAPIs_1_60_1.tsv         : 8,811 native C++ symbols ripped from WowB.exe (1.60.1.70450)
+  - 294 C_* namespaces, 2,072 native events, 6,415 global APIs/methods, 28 C++ widget classes
+* Trough_DatasetSchemas.tsv            : 5,209 structured dataset schemas
+* Trough_GameDataRecords.tsv           : 1,186,335+ game data records, including:
+  - 88,924 Forever relational IDs ripped via upgraded Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs
+  - 33,701 live server DB2 hotfix records (Item, ItemSparse, ItemSearchName, SpellActionBarPref, QuestV2, Spell, CooldownSetSpell, TradeSkillItem) ripped from _classic_beta_\Logs\Hotfix.log (Region 70, cfgContentSetID: 137)
+* Trough_PointsOfInterest.tsv          : 150 High-Priority Forever 1.60.1 Points of Interest across 6 Pillars:
+  - Pillar_0_Client_Binary_Engine (Hotfix.log live stream, General.log LimitedLuaResources 500-Timer quota bypass, Cache\ADB\enUS\DBCache.bin & *Sparse.tmp, Cache\WDB\enUS\*.wdb, FrameXML.log diagnostics)
+  - Pillar_1_HyperLeveling (XP curves, C_GossipInfo/C_QuestLog automation, 7,329 GPS coordinates)
+  - Pillar_2_GoldDominance (No-level white Twink Enchant Bases #7005, #2901, #14092, #6238; Badlands quest bottlenecks #3829, #4389, #3864; Disenchant EV matrices; unlimited vendor arbitrage)
+  - Pillar_3_AltSynergy (Race/Class/Profession synergy matrix, 28-spec BiS, 31-spec Pawn stat weights, 4,330 recipe [Orange/Yellow/Green/Grey] skill-up brackets)
+  - Pillar_4_WorldRadar (C_VignetteInfo 100+ yd pre-nameplate rare/chest detection, UNIT_TARGET raid scanner, COMBAT_LOG_EVENT_UNFILTERED enemy CD tracker)
+  - Pillar_5_Engine_Bypass (1-Timer Coroutine Ring-Buffer Scheduler, Frame/FontString Object Pool, Binary-Search String Packing)
+
+--------------------------------------------------------------------------------
+2. DECONSTRUCTION GOD STUDIO v14.3 UPGRADES (DeconstructionGod_Studio\)
+--------------------------------------------------------------------------------
+* Modular C# Architecture (Studio_Manifest.toc + Nodes\Node_10..Node_35.cs, synced to Engine_DataRipper.cs & Engine_CodeHarvester.cs):
+  - Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs: Added 4 new Forever table parsers (xBareNumKeyStringVal, xBareNumKeyNumTuple, xCsvFirstNumLine, xQuotedNameThresholdTuple).
+  - Node_13_AltVaultBridge.cs: Upgraded Lua raw blob output from [[ ... ]] to [===[ ... ]===] and sanitized inner brackets so Lua 5.1 never triggers 
+esting of [[...]] is deprecated.
+  - Node_32_GuiTab2_SqlTrough.cs: Added Classic_Forever_16001 Era filter and Hotfix_* Type filters to Tab [2] (SQL Trough).
+  - Node_35_GuiTab6_AddonForge.cs: Added the Matrix POIs (150) button to Tab [6] (Addon Forge) so all 150 Points of Interest from Trough_PointsOfInterest.tsv can be browsed, searched, inspected, and wired into the Micro-LLM Inventor.
+
+--------------------------------------------------------------------------------
+3. ALTVAULT v3.1 STEALTH, LIGHTWEIGHT & INTELLIGENCE OVERHAUL (AltVault\)
+--------------------------------------------------------------------------------
+* 96.8% Memory & Disk Reduction (164.2 MB -> 5.22 MB total across all 26 Lua files):
+  - Replaced the 19 multi-expansion DB_TankNode_01..19.lua files (161.3 MB) with a single 2.4 MB Forever-16001-Curated DB_Tank\DB_TankNode_01.lua (18,000 authentic Classic/Forever records) and updated AltVault.toc and Core_MasterLootIndex.lua to unpack MasterDB.RawBlobs lazily on demand and immediately free the raw strings.
+* Fixed All 3 Client Log Lua Errors (FrameXML.log & General.log):
+  1) DB_TankNode [[...]] delimiter nesting -> Fixed via [===[ ... ]===] delimiters.
+  2) DB_ForeverVaultData.lua:44440 nil global GQ -> Fixed GQ.ScoringWeightLabels to FVD.ScoringWeightLabels, unlocking all 7,329 GPS item coordinates in FVD.Coordinates.
+  3) Engine_ForeverVaultIntelligence.lua HydrateIntoMasterDB table collision -> Replaced 31,000-table login hydration loop with zero-allocation ForeverIndex:GetAllIDs(), eliminating both the MasterDB.ByItemID type collision and 15,534 static entries in AltVaultDB.SourceDB SavedVariables.
+* Stealth & Zero-Footprint Guards:
+  - 0 Idle Timers: Net_RadioAndChat.lua uses an on-demand timer (EnsureRadioDrainRunning) that runs only while sendQueue is non-empty and cancels itself when #sendQueue == 0.
+  - 0 Unsolicited Server Queries: Core_TalentsAndCrawler.lua defaults AltVaultDB.ScannerPaused = true and, when manually resumed, steps ONLY through verified ForeverIndex:GetAllIDs() item IDs (never blind-querying invalid IDs).
+  - Silent Comms: Removed "YELL" / "SAY" addon broadcasts and set peer.isSynced = false (isPublicFaceVault = true) on passive mouseover players in RecordPlayerEncounter so passive encounters are never whispered.
+* 4 Event-Driven In-Game Forever Advantage Modules (Engine_ForeverVaultIntelligence.lua):
+  1) Live Rare & Vignette Radar (VIGNETTE_MINIMAP_UPDATED + clickable [📍 Lock 3D GPS Pin] chat link)
+  2) Quest Turn-In Max-Gold & BiS Evaluator (QUEST_COMPLETE highest vendor payout + Official Forever BiS alert)
+  3) Hyper-Leveling Next-Upgrades Solver (/avintel upgrades with clickable 1-click 3D GPS links)
+  4) Gold Arbitrage, Alt Synergy & Stealth Telemetry Suite (/avintel, /avintel gold, /avintel alt)
+
+================================================================================
+================================================================================
+DECONSTRUCTION GOD STUDIO v14.1 - MASTER AI HANDOFF & 648-ADDON FORGE AUDIT
+Generated UTC: 2026-10-20 18:26:07
+Parents: 287 | Data IDs: 1095043 | Code Blocks: 528199 | Creative Bricks: 28796
+================================================================================
+SECTION 1.0: PARENT ADDON SCOREBOARD (287 Parents)
+--------------------------------------------------------------------------------
+  * Parent: AccountPlayed                  :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   9 :: Data IDs:     0 :: Code Blocks:   76 :: Creative Bricks:  25
+  * Parent: AccountPlayed__retail          :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   9 :: Data IDs:     0 :: Code Blocks:   76 :: Creative Bricks:  25
+  * Parent: AccountRepaired                :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     0 :: Code Blocks:   40 :: Creative Bricks:  14
+  * Parent: Ace3__retail                   :: Status:COMPLETED (SAVED)    :: Folders: 21 :: Files:  63 :: Data IDs:     0 :: Code Blocks:  547 :: Creative Bricks: 106
+  * Parent: AtlasLootWishlist              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    4 :: Creative Bricks:   4
+  * Parent: ATT                            :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  33 :: Data IDs:  1530 :: Code Blocks:  444 :: Creative Bricks: 176
+  * Parent: Auctionator__anniversary       :: Status:COMPLETED (SAVED)    :: Folders:187 :: Files: 663 :: Data IDs:  2550 :: Code Blocks: 1709 :: Creative Bricks: 260
+  * Parent: Auctionator__classic           :: Status:COMPLETED (SAVED)    :: Folders:187 :: Files: 663 :: Data IDs:  2550 :: Code Blocks: 1709 :: Creative Bricks: 260
+  * Parent: Auctionator__classic_era       :: Status:COMPLETED (SAVED)    :: Folders:187 :: Files: 663 :: Data IDs:  2550 :: Code Blocks: 1709 :: Creative Bricks: 260
+  * Parent: Auctionator__retail            :: Status:COMPLETED (SAVED)    :: Folders:187 :: Files: 663 :: Data IDs:  2550 :: Code Blocks: 1709 :: Creative Bricks: 260
+  * Parent: BagShare                       :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   13 :: Creative Bricks:   5
+  * Parent: BeStride                       :: Status:COMPLETED (SAVED)    :: Folders: 26 :: Files: 110 :: Data IDs:   687 :: Code Blocks:  743 :: Creative Bricks: 107
+  * Parent: BetterMountViewer              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     2 :: Code Blocks:   58 :: Creative Bricks:  18
+  * Parent: BigWigs_CommonAuras            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:   139 :: Code Blocks:  106 :: Creative Bricks:   6
+  * Parent: BigWigs_Core__retail           :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:    12 :: Code Blocks:  642 :: Creative Bricks:  66
+  * Parent: BigWigs_MarchOnQuelDanas__retail :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   4 :: Data IDs:    30 :: Code Blocks:   50 :: Creative Bricks:   5
+  * Parent: BigWigs_MidnightLairs__retail  :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     7 :: Code Blocks:   13 :: Creative Bricks:   1
+  * Parent: BigWigs_MidnightWorld__retail  :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   5 :: Data IDs:    11 :: Code Blocks:   20 :: Creative Bricks:   3
+  * Parent: BigWigs_Options__retail        :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  33 :: Data IDs:     0 :: Code Blocks:  502 :: Creative Bricks: 109
+  * Parent: BigWigs_Plugins__retail        :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  26 :: Data IDs:    22 :: Code Blocks:  783 :: Creative Bricks: 142
+  * Parent: BigWigs_Sporefall__retail      :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     5 :: Code Blocks:   12 :: Creative Bricks:   2
+  * Parent: BigWigs_TheDreamrift__retail   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:    11 :: Code Blocks:   20 :: Creative Bricks:   1
+  * Parent: BigWigs_TheUnbindingOfKithix__retail :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:    12 :: Code Blocks:   24 :: Creative Bricks:   1
+  * Parent: BigWigs_TheVenomousAbyss__retail :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  10 :: Data IDs:    86 :: Code Blocks:  198 :: Creative Bricks:  17
+  * Parent: BigWigs_TheVoidspire__retail   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   8 :: Data IDs:    57 :: Code Blocks:  118 :: Creative Bricks:  12
+  * Parent: BigWigs__retail                :: Status:COMPLETED (SAVED)    :: Folders: 58 :: Files:  82 :: Data IDs:   147 :: Code Blocks:  532 :: Creative Bricks: 132
+  * Parent: BLib                           :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  25 :: Data IDs:     0 :: Code Blocks:  356 :: Creative Bricks: 112
+  * Parent: BliZzi_Interrupts              :: Status:COMPLETED (SAVED)    :: Folders: 21 :: Files:  44 :: Data IDs:   268 :: Code Blocks:  978 :: Creative Bricks: 310
+  * Parent: BrokerMounts                   :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  15 :: Data IDs:     0 :: Code Blocks:  107 :: Creative Bricks:  27
+  * Parent: broker_simulationcraft         :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:   7 :: Data IDs:     0 :: Code Blocks:   20 :: Creative Bricks:   7
+  * Parent: BtWQuests                      :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  29 :: Data IDs:     0 :: Code Blocks:  777 :: Creative Bricks:  74
+  * Parent: BtWQuestsBattleForAzeroth      :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  72 :: Data IDs:  3420 :: Code Blocks:   59 :: Creative Bricks:   0
+  * Parent: BtWQuestsBattleForAzerothPrologue :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  13 :: Data IDs:    57 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsCataclysm             :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  91 :: Data IDs:  4512 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsCataclysm__retail     :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  95 :: Data IDs:  4512 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsClassic               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   1 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsDragonflight          :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  70 :: Data IDs:  2178 :: Code Blocks:    6 :: Creative Bricks:   0
+  * Parent: BtWQuestsDragonflightPrologue  :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  36 :: Data IDs:    90 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsLegion                :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  84 :: Data IDs:  2580 :: Code Blocks:   27 :: Creative Bricks:   0
+  * Parent: BtWQuestsMidnight              :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  67 :: Data IDs:  1327 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsMistsOfPandaria       :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  53 :: Data IDs:   813 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsMistsOfPandaria__retail :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  53 :: Data IDs:   813 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsShadowlands           :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  69 :: Data IDs:  2176 :: Code Blocks:    6 :: Creative Bricks:   0
+  * Parent: BtWQuestsShadowlandsPrologue   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  36 :: Data IDs:    45 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsTheBurningCrusade     :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  60 :: Data IDs:  1516 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsTheBurningCrusade__classic :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  60 :: Data IDs:  1479 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsTheBurningCrusade__retail :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  65 :: Data IDs:  1478 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsTheWarWithin          :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  67 :: Data IDs:  2148 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsWarlordsOfDraenor     :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  65 :: Data IDs:  1110 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsWrathOfTheLichKing    :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  60 :: Data IDs:  2089 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuestsWrathOfTheLichKing__retail :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  65 :: Data IDs:  2089 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: BtWQuests__classic             :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  29 :: Data IDs:     0 :: Code Blocks:  772 :: Creative Bricks:  72
+  * Parent: BtWQuests__retail              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  29 :: Data IDs:     0 :: Code Blocks:  779 :: Creative Bricks:  74
+  * Parent: Buffsmith                      :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  34 :: Data IDs:    24 :: Code Blocks:  279 :: Creative Bricks:  77
+  * Parent: Buffsmith__retail              :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  34 :: Data IDs:    24 :: Code Blocks:  279 :: Creative Bricks:  77
+  * Parent: CallbackHandler-1.0            :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   4 :: Data IDs:     0 :: Code Blocks:    4 :: Creative Bricks:   2
+  * Parent: Chocobo                        :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  33 :: Data IDs:    24 :: Code Blocks:  130 :: Creative Bricks:  11
+  * Parent: ChooseMount                    :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files:  66 :: Data IDs:     0 :: Code Blocks:  482 :: Creative Bricks:  94
+  * Parent: ClassicRaidFrames              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   10 :: Creative Bricks:   3
+  * Parent: ClassUIEnhanced                :: Status:COMPLETED (SAVED)    :: Folders: 45 :: Files: 257 :: Data IDs:  2146 :: Code Blocks: 4446 :: Creative Bricks: 973
+  * Parent: ClassUIEnhanced__classic       :: Status:COMPLETED (SAVED)    :: Folders: 45 :: Files: 257 :: Data IDs:  2146 :: Code Blocks: 4446 :: Creative Bricks: 973
+  * Parent: clcInfo                        :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  47 :: Data IDs:     0 :: Code Blocks:  402 :: Creative Bricks:  77
+  * Parent: clcInfo_Options                :: Status:COMPLETED (SAVED)    :: Folders: 19 :: Files: 101 :: Data IDs:     0 :: Code Blocks:  979 :: Creative Bricks: 161
+  * Parent: CooldownButtons                :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  33 :: Data IDs:     0 :: Code Blocks:  106 :: Creative Bricks:  25
+  * Parent: CooldownButtons_Options        :: Status:COMPLETED (SAVED)    :: Folders: 12 :: Files:  51 :: Data IDs:     0 :: Code Blocks:  543 :: Creative Bricks:  93
+  * Parent: CooldownTimeline2              :: Status:COMPLETED (SAVED)    :: Folders: 30 :: Files: 111 :: Data IDs:    16 :: Code Blocks: 1272 :: Creative Bricks: 244
+  * Parent: CooldownTimeline3              :: Status:COMPLETED (SAVED)    :: Folders: 33 :: Files: 125 :: Data IDs:    16 :: Code Blocks: 1377 :: Creative Bricks: 270
+  * Parent: Coolinator                     :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  84 :: Data IDs:   154 :: Code Blocks:  813 :: Creative Bricks: 146
+  * Parent: Coolinator__retail             :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  84 :: Data IDs:   154 :: Code Blocks:  813 :: Creative Bricks: 146
+  * Parent: CoolLine                       :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:   8 :: Data IDs:     0 :: Code Blocks:   20 :: Creative Bricks:   2
+  * Parent: CraftSim                       :: Status:COMPLETED (SAVED)    :: Folders: 68 :: Files: 234 :: Data IDs: 10362 :: Code Blocks: 2166 :: Creative Bricks: 369
+  * Parent: CraftSimConcQueue              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    5 :: Creative Bricks:   2
+  * Parent: CraftSimToTSM                  :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:     3 :: Code Blocks:   20 :: Creative Bricks:   7
+  * Parent: CraftSimulator                 :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   5 :: Data IDs:     0 :: Code Blocks:   87 :: Creative Bricks:  36
+  * Parent: CraftSimVendorBuy              :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    5 :: Creative Bricks:   0
+  * Parent: CursorCooldown                 :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  83 :: Data IDs:     0 :: Code Blocks:  693 :: Creative Bricks: 145
+  * Parent: Details_TimeLine               :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  13 :: Data IDs:     0 :: Code Blocks:   15 :: Creative Bricks:   6
+  * Parent: DiveHelper                     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   5 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   7
+  * Parent: ElvUI_Companions               :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  16 :: Data IDs:     0 :: Code Blocks:   32 :: Creative Bricks:  14
+  * Parent: ElvUI_SpicieAuras              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   12 :: Creative Bricks:   3
+  * Parent: EnhancedCrafting               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   9
+  * Parent: EverAuras                      :: Status:COMPLETED (SAVED)    :: Folders: 42 :: Files: 160 :: Data IDs:   264 :: Code Blocks: 2823 :: Creative Bricks: 570
+  * Parent: EverAurasArchive               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   1 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: EverAurasModelPaths            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: EverAurasOptions               :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files: 150 :: Data IDs:     0 :: Code Blocks: 1484 :: Creative Bricks: 320
+  * Parent: EZMount                        :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  22 :: Data IDs:    38 :: Code Blocks:  177 :: Creative Bricks:  86
+  * Parent: ForeverChronicle               :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  36 :: Data IDs:  9453 :: Code Blocks:  408 :: Creative Bricks: 113
+  * Parent: ForeverCooldowns               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  21 :: Data IDs:     8 :: Code Blocks:  272 :: Creative Bricks:  95
+  * Parent: ForeverForge_LFGBulletinBoard__classic_beta :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  13 :: Data IDs:     0 :: Code Blocks:  280 :: Creative Bricks:  96
+  * Parent: ForeverThreat__classic_beta    :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   7 :: Data IDs:     0 :: Code Blocks:  169 :: Creative Bricks:  55
+  * Parent: FuocoNote                      :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  13 :: Data IDs:  1468 :: Code Blocks:  201 :: Creative Bricks:  74
+  * Parent: GCDCastbar                     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:     0 :: Code Blocks:  140 :: Creative Bricks:  34
+  * Parent: GCDwithPing                    :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     0 :: Code Blocks:  163 :: Creative Bricks:  42
+  * Parent: Glimpse_Travel                 :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  39 :: Data IDs:     8 :: Code Blocks:   96 :: Creative Bricks:  12
+  * Parent: GoGoMount                      :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  18 :: Data IDs:  1669 :: Code Blocks:   75 :: Creative Bricks:  47
+  * Parent: Grid                           :: Status:COMPLETED (SAVED)    :: Folders: 28 :: Files: 111 :: Data IDs:     3 :: Code Blocks: 1102 :: Creative Bricks: 203
+  * Parent: GridAlternativeLayouts         :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: GS_Forever_Match_Mounts        :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:    23 :: Code Blocks:   83 :: Creative Bricks:  30
+  * Parent: Guildbook                      :: Status:COMPLETED (SAVED)    :: Folders: 39 :: Files:  51 :: Data IDs:  1210 :: Code Blocks:  725 :: Creative Bricks: 259
+  * Parent: Guildbook_ClassicEra           :: Status:COMPLETED (SAVED)    :: Folders: 52 :: Files:  94 :: Data IDs: 19508 :: Code Blocks: 1026 :: Creative Bricks: 335
+  * Parent: Guildbook_TSDB                 :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: HealBot_Plugin_MyCooldowns     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   97 :: Creative Bricks:  16
+  * Parent: Hermes                         :: Status:COMPLETED (SAVED)    :: Folders: 39 :: Files: 133 :: Data IDs:   133 :: Code Blocks: 1202 :: Creative Bricks: 227
+  * Parent: Hermes-UI                      :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  17 :: Data IDs:     0 :: Code Blocks:  506 :: Creative Bricks:  79
+  * Parent: HHPH                           :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   11 :: Creative Bricks:   5
+  * Parent: HivemindHelper                 :: Status:COMPLETED (SAVED)    :: Folders: 20 :: Files:  57 :: Data IDs:    15 :: Code Blocks:  613 :: Creative Bricks: 120
+  * Parent: InteractiveEmoteWheel          :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   3 :: Data IDs:     0 :: Code Blocks:   18 :: Creative Bricks:   5
+  * Parent: InterruptTrack                 :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  60 :: Data IDs:    13 :: Code Blocks:  484 :: Creative Bricks: 129
+  * Parent: Journalator                    :: Status:COMPLETED (SAVED)    :: Folders: 14 :: Files:  87 :: Data IDs:    16 :: Code Blocks:  335 :: Creative Bricks: 106
+  * Parent: Journalator_Display            :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files: 121 :: Data IDs:     0 :: Code Blocks:  383 :: Creative Bricks: 126
+  * Parent: Journalator_Display__anniversary :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files: 121 :: Data IDs:     0 :: Code Blocks:  383 :: Creative Bricks: 126
+  * Parent: Journalator_Display__classic   :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files: 121 :: Data IDs:     0 :: Code Blocks:  383 :: Creative Bricks: 126
+  * Parent: Journalator_Display__retail    :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files: 121 :: Data IDs:     0 :: Code Blocks:  383 :: Creative Bricks: 126
+  * Parent: Journalator_OptionsUI          :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  11 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   4
+  * Parent: Journalator_OptionsUI__anniversary :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  11 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   4
+  * Parent: Journalator_OptionsUI__classic :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  11 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   4
+  * Parent: Journalator_OptionsUI__retail  :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  11 :: Data IDs:     0 :: Code Blocks:   26 :: Creative Bricks:   4
+  * Parent: Journalator_Statistics         :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  18 :: Data IDs:     0 :: Code Blocks:   49 :: Creative Bricks:   7
+  * Parent: Journalator_Statistics__anniversary :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  18 :: Data IDs:     0 :: Code Blocks:   49 :: Creative Bricks:   7
+  * Parent: Journalator_Statistics__classic :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  18 :: Data IDs:     0 :: Code Blocks:   49 :: Creative Bricks:   7
+  * Parent: Journalator_Statistics__retail :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  18 :: Data IDs:     0 :: Code Blocks:   49 :: Creative Bricks:   7
+  * Parent: Journalator__anniversary       :: Status:COMPLETED (SAVED)    :: Folders: 14 :: Files:  87 :: Data IDs:    16 :: Code Blocks:  335 :: Creative Bricks: 106
+  * Parent: Journalator__classic           :: Status:COMPLETED (SAVED)    :: Folders: 14 :: Files:  87 :: Data IDs:    16 :: Code Blocks:  335 :: Creative Bricks: 106
+  * Parent: Journalator__retail            :: Status:COMPLETED (SAVED)    :: Folders: 14 :: Files:  87 :: Data IDs:    16 :: Code Blocks:  335 :: Creative Bricks: 106
+  * Parent: Juked                          :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:   111 :: Code Blocks:   59 :: Creative Bricks:  12
+  * Parent: Keyframe                       :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  54 :: Data IDs:  1427 :: Code Blocks:  816 :: Creative Bricks: 234
+  * Parent: Krowi_AchievementFilter        :: Status:COMPLETED (SAVED)    :: Folders:111 :: Files: 532 :: Data IDs:    16 :: Code Blocks: 2481 :: Creative Bricks: 471
+  * Parent: Krowi_AchievementFilter_Khamuls_ExpMetaAchievementFilter :: Status:COMPLETED (SAVED)    :: Folders: 21 :: Files: 109 :: Data IDs:     0 :: Code Blocks:  277 :: Creative Bricks:  35
+  * Parent: Kui_Mount                      :: Status:COMPLETED (SAVED)    :: Folders:  4 :: Files:   8 :: Data IDs:     0 :: Code Blocks:   73 :: Creative Bricks:  22
+  * Parent: LAAL                           :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     2 :: Code Blocks:    4 :: Creative Bricks:   3
+  * Parent: LAAL__retail                   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     2 :: Code Blocks:    4 :: Creative Bricks:   3
+  * Parent: LibMountInfo                   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   19 :: Creative Bricks:   1
+  * Parent: LibStub                        :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: ListLoot                       :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   8 :: Data IDs:     0 :: Code Blocks:  384 :: Creative Bricks: 130
+  * Parent: LiteMount                      :: Status:COMPLETED (SAVED)    :: Folders: 13 :: Files: 104 :: Data IDs:    59 :: Code Blocks:  756 :: Creative Bricks: 140
+  * Parent: LiteMount__retail              :: Status:COMPLETED (SAVED)    :: Folders: 13 :: Files: 104 :: Data IDs:    59 :: Code Blocks:  756 :: Creative Bricks: 140
+  * Parent: Long-Forgotten Hippogryph      :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  13 :: Data IDs:     0 :: Code Blocks:   45 :: Creative Bricks:  16
+  * Parent: MaleMountChicken               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    6 :: Creative Bricks:   0
+  * Parent: MasterMount                    :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     0 :: Code Blocks:   71 :: Creative Bricks:  13
+  * Parent: MCL                            :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files:  95 :: Data IDs:  2887 :: Code Blocks: 1049 :: Creative Bricks: 316
+  * Parent: MDTGuide                       :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   8 :: Data IDs:    17 :: Code Blocks:   76 :: Creative Bricks:  13
+  * Parent: MDTHelper                      :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   9 :: Data IDs:     0 :: Code Blocks:  192 :: Creative Bricks:  81
+  * Parent: MDTLiveRoute                   :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  65 :: Data IDs:     0 :: Code Blocks:  575 :: Creative Bricks:  96
+  * Parent: MDTMiniRoute                   :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   4 :: Data IDs:     0 :: Code Blocks:  215 :: Creative Bricks:  45
+  * Parent: MDT_Legacy                     :: Status:COMPLETED (SAVED)    :: Folders: 48 :: Files:  72 :: Data IDs:  4980 :: Code Blocks:    6 :: Creative Bricks:   1
+  * Parent: MDT_Legacy__retail             :: Status:COMPLETED (SAVED)    :: Folders: 52 :: Files:  90 :: Data IDs:  4732 :: Code Blocks:    4 :: Creative Bricks:   2
+  * Parent: MDT_QoL                        :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   82 :: Creative Bricks:  21
+  * Parent: MeToo                          :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:     0 :: Code Blocks:   34 :: Creative Bricks:   7
+  * Parent: MiniCompactRunes               :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  35 :: Data IDs:     0 :: Code Blocks:  147 :: Creative Bricks:  54
+  * Parent: MiniMount                      :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  20 :: Data IDs:    33 :: Code Blocks:   83 :: Creative Bricks:  17
+  * Parent: ModelPique                     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   7 :: Data IDs:  5870 :: Code Blocks:   11 :: Creative Bricks:   3
+  * Parent: MogMount                       :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  10 :: Data IDs:     0 :: Code Blocks:   55 :: Creative Bricks:  11
+  * Parent: MountCollector                 :: Status:COMPLETED (SAVED)    :: Folders: 36 :: Files: 123 :: Data IDs:   583 :: Code Blocks:  737 :: Creative Bricks: 158
+  * Parent: MountFarmHelper                :: Status:COMPLETED (SAVED)    :: Folders: 28 :: Files: 108 :: Data IDs:    84 :: Code Blocks:  564 :: Creative Bricks: 123
+  * Parent: Mountfund                      :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  16 :: Data IDs:  1272 :: Code Blocks:  250 :: Creative Bricks:  77
+  * Parent: MountHelper                    :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   7 :: Data IDs:     0 :: Code Blocks:    4 :: Creative Bricks:   2
+  * Parent: MountJournalEnhanced           :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  92 :: Data IDs:  1986 :: Code Blocks:  600 :: Creative Bricks: 155
+  * Parent: MountLockoutTracker            :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   4 :: Data IDs:   144 :: Code Blocks:   33 :: Creative Bricks:   8
+  * Parent: MountMacro                     :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  23 :: Data IDs:    12 :: Code Blocks:  160 :: Creative Bricks:  36
+  * Parent: MountsJournalUI__classic_beta  :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  68 :: Data IDs:    13 :: Code Blocks:  920 :: Creative Bricks: 227
+  * Parent: MountsJournalUI__retail        :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  70 :: Data IDs:    13 :: Code Blocks:  927 :: Creative Bricks: 227
+  * Parent: MountsJournal_ElvUI_Skin       :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   45 :: Creative Bricks:  32
+  * Parent: MountsJournal__classic_beta    :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  40 :: Data IDs:   133 :: Code Blocks:  388 :: Creative Bricks:  73
+  * Parent: MountsJournal__retail          :: Status:COMPLETED (SAVED)    :: Folders: 10 :: Files:  40 :: Data IDs:  1691 :: Code Blocks:  392 :: Creative Bricks:  73
+  * Parent: MountSpy                       :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  10 :: Data IDs:     0 :: Code Blocks:   69 :: Creative Bricks:   9
+  * Parent: MountsRarity                   :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   5 :: Data IDs:     0 :: Code Blocks:    7 :: Creative Bricks:   1
+  * Parent: Mounty                         :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   5 :: Data IDs:     0 :: Code Blocks:   97 :: Creative Bricks:  11
+  * Parent: MouseOverTooltip               :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  40 :: Data IDs:     0 :: Code Blocks:  163 :: Creative Bricks:  35
+  * Parent: mpdm                           :: Status:COMPLETED (SAVED)    :: Folders: 34 :: Files:  91 :: Data IDs:   283 :: Code Blocks: 1072 :: Creative Bricks: 173
+  * Parent: MythicDungeonTools             :: Status:COMPLETED (SAVED)    :: Folders: 38 :: Files: 138 :: Data IDs:   784 :: Code Blocks: 1089 :: Creative Bricks: 323
+  * Parent: MythicDungeonTools_NextPullTracker :: Status:COMPLETED (SAVED)    :: Folders: 13 :: Files:  51 :: Data IDs:     4 :: Code Blocks:  183 :: Creative Bricks:  26
+  * Parent: MythicDungeonTools_UI          :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   10 :: Creative Bricks:   2
+  * Parent: MythicDungeonTools__retail     :: Status:COMPLETED (SAVED)    :: Folders: 35 :: Files: 119 :: Data IDs:  1726 :: Code Blocks: 1115 :: Creative Bricks: 291
+  * Parent: MythicPlusPartyShuffle         :: Status:COMPLETED (SAVED)    :: Folders: 20 :: Files:  47 :: Data IDs:    63 :: Code Blocks:  521 :: Creative Bricks: 131
+  * Parent: NameplateCooldowns             :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files:  78 :: Data IDs:   530 :: Code Blocks:  570 :: Creative Bricks: 128
+  * Parent: Narcissus                      :: Status:COMPLETED (SAVED)    :: Folders:106 :: Files: 189 :: Data IDs:  4508 :: Code Blocks: 3860 :: Creative Bricks: 913
+  * Parent: Narcissus_Achievements         :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  23 :: Data IDs:    10 :: Code Blocks:  421 :: Creative Bricks:  82
+  * Parent: Narcissus_Achievements__retail :: Status:COMPLETED (SAVED)    :: Folders:  7 :: Files:  18 :: Data IDs:    10 :: Code Blocks:  421 :: Creative Bricks:  81
+  * Parent: Narcissus_BagFilter            :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  11 :: Data IDs:     0 :: Code Blocks:  202 :: Creative Bricks:  72
+  * Parent: Narcissus_Barbershop           :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   9 :: Data IDs:    84 :: Code Blocks:  347 :: Creative Bricks:  84
+  * Parent: Narcissus_Database_Item        :: Status:COMPLETED (SAVED)    :: Folders:  4 :: Files:  22 :: Data IDs: 36506 :: Code Blocks:   63 :: Creative Bricks:  19
+  * Parent: Narcissus_Database_Item__retail :: Status:COMPLETED (SAVED)    :: Folders:  4 :: Files:  17 :: Data IDs: 36506 :: Code Blocks:   63 :: Creative Bricks:  19
+  * Parent: Narcissus_Database_NPC         :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  22 :: Data IDs: 18475 :: Code Blocks:   36 :: Creative Bricks:  11
+  * Parent: Narcissus_Database_NPC__retail :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  19 :: Data IDs: 44637 :: Code Blocks:   59 :: Creative Bricks:  20
+  * Parent: Narcissus_GamePad              :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  20 :: Data IDs:     0 :: Code Blocks:  144 :: Creative Bricks:  29
+  * Parent: Narcissus_GamePad__retail      :: Status:COMPLETED (SAVED)    :: Folders:  8 :: Files:  21 :: Data IDs:     0 :: Code Blocks:  149 :: Creative Bricks:  28
+  * Parent: Narcissus__retail              :: Status:COMPLETED (SAVED)    :: Folders:148 :: Files: 322 :: Data IDs:  7685 :: Code Blocks: 6662 :: Creative Bricks:1700
+  * Parent: NeedToKnow                     :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  37 :: Data IDs:     0 :: Code Blocks:  383 :: Creative Bricks:  91
+  * Parent: NextPull                       :: Status:COMPLETED (SAVED)    :: Folders:  4 :: Files:   7 :: Data IDs:     0 :: Code Blocks:   66 :: Creative Bricks:  14
+  * Parent: NugRunning                     :: Status:COMPLETED (SAVED)    :: Folders: 14 :: Files:  69 :: Data IDs:   141 :: Code Blocks:  803 :: Creative Bricks: 123
+  * Parent: NugRunningOptions              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   7 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: NWLibraries                    :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  32 :: Data IDs:     0 :: Code Blocks:  252 :: Creative Bricks:  74
+  * Parent: NWTankAnnouncer                :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   15 :: Creative Bricks:   3
+  * Parent: OldGrommsToolkit               :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  54 :: Data IDs:     0 :: Code Blocks:  228 :: Creative Bricks:  54
+  * Parent: Pawn__retail                   :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  30 :: Data IDs:    26 :: Code Blocks:  350 :: Creative Bricks:  82
+  * Parent: PetBattleCooldowns             :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  20 :: Data IDs:     0 :: Code Blocks:   84 :: Creative Bricks:  12
+  * Parent: PetsAndMounts                  :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files:  44 :: Data IDs:     2 :: Code Blocks:  400 :: Creative Bricks: 104
+  * Parent: PetsAndMountsConfig            :: Status:COMPLETED (SAVED)    :: Folders: 11 :: Files:  41 :: Data IDs:     8 :: Code Blocks:  591 :: Creative Bricks: 101
+  * Parent: PetsAndMountsLoader            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: PetSkillScout                  :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  26 :: Data IDs:   683 :: Code Blocks:  253 :: Creative Bricks:  90
+  * Parent: Pokedex                        :: Status:COMPLETED (SAVED)    :: Folders: 19 :: Files:  68 :: Data IDs:    48 :: Code Blocks:  642 :: Creative Bricks: 130
+  * Parent: ProfessionMaster               :: Status:COMPLETED (SAVED)    :: Folders: 21 :: Files: 172 :: Data IDs: 28783 :: Code Blocks: 1094 :: Creative Bricks: 376
+  * Parent: ProfessionMaster__classic      :: Status:COMPLETED (SAVED)    :: Folders: 21 :: Files: 172 :: Data IDs: 28783 :: Code Blocks: 1094 :: Creative Bricks: 376
+  * Parent: ProfessionShoppingList__retail :: Status:COMPLETED (SAVED)    :: Folders: 12 :: Files:  41 :: Data IDs: 11295 :: Code Blocks:  151 :: Creative Bricks:  70
+  * Parent: Quartz_Procs                   :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  14 :: Data IDs:     0 :: Code Blocks:   39 :: Creative Bricks:   9
+  * Parent: QuestSectionsForever           :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   15 :: Creative Bricks:   6
+  * Parent: RaidMount                      :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  34 :: Data IDs:   191 :: Code Blocks:  200 :: Creative Bricks:  65
+  * Parent: RandomMountContinued           :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     0 :: Code Blocks:   27 :: Creative Bricks:  11
+  * Parent: RangeLens                      :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   5 :: Data IDs:     8 :: Code Blocks:  200 :: Creative Bricks:  65
+  * Parent: RareTrackerCore                :: Status:COMPLETED (SAVED)    :: Folders: 32 :: Files:  87 :: Data IDs:    26 :: Code Blocks:  718 :: Creative Bricks: 184
+  * Parent: RareTrackerWorldBosses         :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  13 :: Data IDs:     5 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: Raven                          :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files:  68 :: Data IDs:   779 :: Code Blocks:  762 :: Creative Bricks: 149
+  * Parent: Raven_Options                  :: Status:COMPLETED (SAVED)    :: Folders: 11 :: Files:  49 :: Data IDs:     0 :: Code Blocks: 4813 :: Creative Bricks: 124
+  * Parent: Raven_Options__retail          :: Status:COMPLETED (SAVED)    :: Folders: 11 :: Files:  49 :: Data IDs:     0 :: Code Blocks: 4813 :: Creative Bricks: 124
+  * Parent: Raven__retail                  :: Status:COMPLETED (SAVED)    :: Folders: 23 :: Files:  68 :: Data IDs:   779 :: Code Blocks:  762 :: Creative Bricks: 149
+  * Parent: ravMounts                      :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   9 :: Data IDs:     9 :: Code Blocks:   32 :: Creative Bricks:   8
+  * Parent: ReadyMacros                    :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   7 :: Data IDs:     0 :: Code Blocks:   58 :: Creative Bricks:   8
+  * Parent: RogueEnergyCombo               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     1 :: Code Blocks:   69 :: Creative Bricks:  28
+  * Parent: RogueResources                 :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:  127 :: Creative Bricks:  44
+  * Parent: SafeGuardGODMODE               :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files: 158 :: Data IDs:  1135 :: Code Blocks: 1707 :: Creative Bricks: 453
+  * Parent: Satchel                        :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  14 :: Data IDs:     0 :: Code Blocks:  254 :: Creative Bricks:  79
+  * Parent: SavedInstances                 :: Status:COMPLETED (SAVED)    :: Folders: 24 :: Files:  80 :: Data IDs:   918 :: Code Blocks:  748 :: Creative Bricks: 156
+  * Parent: ShaluSoundAlerts               :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  25 :: Data IDs:    46 :: Code Blocks:  806 :: Creative Bricks: 218
+  * Parent: ShamanForever                  :: Status:COMPLETED (SAVED)    :: Folders: 11 :: Files:  61 :: Data IDs:     0 :: Code Blocks: 1675 :: Creative Bricks: 369
+  * Parent: SilenceBanLu                   :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    6 :: Creative Bricks:   1
+  * Parent: SimpleCraftSim                 :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   23 :: Creative Bricks:   6
+  * Parent: SimpleMD                       :: Status:COMPLETED (SAVED)    :: Folders: 18 :: Files:  45 :: Data IDs:     0 :: Code Blocks:  168 :: Creative Bricks:  39
+  * Parent: SimpleMD_Options               :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files:  73 :: Data IDs:     0 :: Code Blocks:  789 :: Creative Bricks: 144
+  * Parent: Simscraft                      :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  36 :: Data IDs:     0 :: Code Blocks:  298 :: Creative Bricks:  45
+  * Parent: Simulationcraft_History        :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   5 :: Data IDs:     0 :: Code Blocks:   50 :: Creative Bricks:  20
+  * Parent: Simulationcraft__retail        :: Status:COMPLETED (SAVED)    :: Folders: 12 :: Files:  22 :: Data IDs:   897 :: Code Blocks:  174 :: Creative Bricks:  41
+  * Parent: SkironCooldownManager          :: Status:COMPLETED (SAVED)    :: Folders: 58 :: Files: 227 :: Data IDs:    62 :: Code Blocks: 1852 :: Creative Bricks: 367
+  * Parent: Skyview                        :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   15 :: Creative Bricks:   6
+  * Parent: SmexySimInfo                   :: Status:COMPLETED (SAVED)    :: Folders: 24 :: Files:  68 :: Data IDs:    38 :: Code Blocks:  571 :: Creative Bricks: 116
+  * Parent: Sorted                         :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  43 :: Data IDs:     3 :: Code Blocks:  769 :: Creative Bricks: 194
+  * Parent: SortedPawnReloaded             :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   15 :: Creative Bricks:   2
+  * Parent: Sorted_Auctionator             :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_Auctionator__retail     :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_CanIMogIt               :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   4 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_CanIMogIt__retail       :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   4 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_Pawn                    :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_Pawn__retail            :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    3 :: Creative Bricks:   1
+  * Parent: Sorted_Scrap                   :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    6 :: Creative Bricks:   2
+  * Parent: Sorted_Scrap__retail           :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    6 :: Creative Bricks:   2
+  * Parent: Sorted_TSM                     :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    4 :: Creative Bricks:   2
+  * Parent: Sorted_TSM__retail             :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:   6 :: Data IDs:     0 :: Code Blocks:    4 :: Creative Bricks:   2
+  * Parent: Sorted__retail                 :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  41 :: Data IDs:     3 :: Code Blocks:  769 :: Creative Bricks: 193
+  * Parent: Springfur Alpaca               :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  17 :: Data IDs:     0 :: Code Blocks:   46 :: Creative Bricks:  15
+  * Parent: src                            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:  12 :: Data IDs:     0 :: Code Blocks:   55 :: Creative Bricks:   9
+  * Parent: StepCounterForever             :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:   6 :: Data IDs:     2 :: Code Blocks:   74 :: Creative Bricks:  16
+  * Parent: StevTankUI                     :: Status:COMPLETED (SAVED)    :: Folders: 12 :: Files:  11 :: Data IDs:  1055 :: Code Blocks:  104 :: Creative Bricks:  30
+  * Parent: TbdWidgets                     :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:  29 :: Data IDs:     0 :: Code Blocks:   89 :: Creative Bricks:  25
+  * Parent: TFTB                           :: Status:COMPLETED (SAVED)    :: Folders: 28 :: Files: 128 :: Data IDs:   229 :: Code Blocks:  852 :: Creative Bricks: 133
+  * Parent: ThulePercentTrack              :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   16 :: Creative Bricks:   5
+  * Parent: titan-simulationcraft          :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   3 :: Data IDs:     0 :: Code Blocks:   12 :: Creative Bricks:   2
+  * Parent: TitanMount                     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   32 :: Creative Bricks:   8
+  * Parent: TokenPanda                     :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files:  55 :: Data IDs:     1 :: Code Blocks:  368 :: Creative Bricks: 115
+  * Parent: TokenPanda__retail             :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files:  55 :: Data IDs:     1 :: Code Blocks:  368 :: Creative Bricks: 115
+  * Parent: TomoMod                        :: Status:COMPLETED (SAVED)    :: Folders: 88 :: Files: 320 :: Data IDs:   203 :: Code Blocks: 3803 :: Creative Bricks:1093
+  * Parent: TomoMod_AstralForge            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:  110 :: Creative Bricks:  14
+  * Parent: TomoMod_CDStudio               :: Status:COMPLETED (SAVED)    :: Folders:  4 :: Files:   6 :: Data IDs:   788 :: Code Blocks:  100 :: Creative Bricks:  28
+  * Parent: TomoMod_GroupStudio            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   95 :: Creative Bricks:  20
+  * Parent: TomoMod_MythicPlus             :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   6 :: Data IDs:     0 :: Code Blocks:  108 :: Creative Bricks:  35
+  * Parent: TomoMod_Options                :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  23 :: Data IDs:     1 :: Code Blocks:  339 :: Creative Bricks: 105
+  * Parent: TomoMod_ResourceCastStudio     :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   4 :: Data IDs:     0 :: Code Blocks:   84 :: Creative Bricks:  16
+  * Parent: TomTom__retail                 :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  74 :: Data IDs:   477 :: Code Blocks:  728 :: Creative Bricks: 169
+  * Parent: TooltipID                      :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  15 :: Data IDs:     0 :: Code Blocks:   10 :: Creative Bricks:  10
+  * Parent: TooltipID__retail              :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  15 :: Data IDs:     0 :: Code Blocks:   10 :: Creative Bricks:  10
+  * Parent: TradeBulletinBoard             :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:   60 :: Creative Bricks:  20
+  * Parent: TradeSkillMaster_CoolDowns     :: Status:COMPLETED (SAVED)    :: Folders:  6 :: Files:  12 :: Data IDs:    84 :: Code Blocks:   26 :: Creative Bricks:   3
+  * Parent: TrashGoblin                    :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    9 :: Creative Bricks:   4
+  * Parent: TweaksUI_Cooldowns             :: Status:COMPLETED (SAVED)    :: Folders: 19 :: Files:  70 :: Data IDs:     9 :: Code Blocks: 2168 :: Creative Bricks: 506
+  * Parent: TweaksUI_Cooldowns__retail     :: Status:COMPLETED (SAVED)    :: Folders: 19 :: Files:  70 :: Data IDs:     9 :: Code Blocks: 2168 :: Creative Bricks: 506
+  * Parent: VisibleStats                   :: Status:COMPLETED (SAVED)    :: Folders:  5 :: Files:   3 :: Data IDs:    40 :: Code Blocks:   17 :: Creative Bricks:   9
+  * Parent: VocalRaidAssistant             :: Status:COMPLETED (SAVED)    :: Folders: 22 :: Files:  71 :: Data IDs:     0 :: Code Blocks:  563 :: Creative Bricks:  99
+  * Parent: Wanderer                       :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  73 :: Data IDs:     0 :: Code Blocks:  973 :: Creative Bricks: 289
+  * Parent: WandererBags                   :: Status:COMPLETED (SAVED)    :: Folders:  2 :: Files:  18 :: Data IDs:     0 :: Code Blocks:   75 :: Creative Bricks:   6
+  * Parent: WarbandNexus                   :: Status:COMPLETED (SAVED)    :: Folders: 33 :: Files: 285 :: Data IDs:  1308 :: Code Blocks: 6064 :: Creative Bricks:1336
+  * Parent: WeakAuras                      :: Status:COMPLETED (SAVED)    :: Folders: 32 :: Files: 156 :: Data IDs:    63 :: Code Blocks: 3498 :: Creative Bricks: 543
+  * Parent: WeakAurasArchive               :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   1 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: WeakAurasModelPaths            :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   2 :: Data IDs:     0 :: Code Blocks:    0 :: Creative Bricks:   0
+  * Parent: WeakAurasOptions               :: Status:COMPLETED (SAVED)    :: Folders: 16 :: Files: 150 :: Data IDs:     0 :: Code Blocks: 1619 :: Creative Bricks: 312
+  * Parent: WeakAurasTemplates             :: Status:COMPLETED (SAVED)    :: Folders:  3 :: Files:  17 :: Data IDs:   448 :: Code Blocks:   46 :: Creative Bricks:   7
+  * Parent: XalsQuestCompass               :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  11 :: Data IDs:     0 :: Code Blocks:  151 :: Creative Bricks:  46
+  * Parent: XalsQuestCompass__retail       :: Status:COMPLETED (SAVED)    :: Folders:  9 :: Files:  11 :: Data IDs:     0 :: Code Blocks:  151 :: Creative Bricks:  46
+  * Parent: YayMounts                      :: Status:COMPLETED (SAVED)    :: Folders: 15 :: Files:  62 :: Data IDs:    28 :: Code Blocks:  513 :: Creative Bricks:  89
+  * Parent: ZoneMount                      :: Status:COMPLETED (SAVED)    :: Folders:  1 :: Files:   7 :: Data IDs:     1 :: Code Blocks:   48 :: Creative Bricks:   8
+
+================================================================================
+SECTION 2.0: TOP HIGH-SYNERGY CREATIVE BRICKS (WITH PRECISION SOCKET DNA)
+================================================================================
+### CREATIVE LEGO CATEGORY: Lego_Utility_And_Math (Total Harvested Blocks: 408465)
+    Frankenstein Repurpose Idea: Compact helper/getter from !BugGrabber. [Upvalues: isDisplayRegistered@L186]
+
+### CREATIVE LEGO CATEGORY: Lego_Async_Throttle_Engine (Total Harvested Blocks: 14704)
+    Frankenstein Repurpose Idea: Non-blocking coroutine or frame-budget throttle -> Wrap around heavy AH scans or 200,000-row DB queries for zero FPS drop. [Upvalues: isEnabled@L32]
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:CastBar.Initialize() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Async_Scheduler | File:!WilduTools\modules\castBar.lua:504-566 | APIs:hooksecurefunc:SetLook, hooksecurefunc:SetScale, C_Timer.After
+      function CastBar.Initialize()
+          if initialized or not PlayerCastingBarFrame then
+              return
+          end
+          initialized = true
+      
+          PlayerCastingBarFrame:HookScript("OnShow", function()
+              CastBar.ApplyScale()
+              CastBar.ApplySimplifiedStyle()
+              CastBar.ApplyTimerStyle()
+              CastBar.SyncWidth()
+              CastBar.RefreshTicks()
+      -- ... [51 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:createMoneyFrame() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Async_Scheduler,Plug_Computed_Value | File:Accountant_Classic\Core\MoneyFrame.lua:90-112 | APIs:
+      local function createMoneyFrame()
+      	local f
+      	if not f then f = CreateFrame("Frame", "AccountantClassicMoneyInfoFrame", UIParent) end
+      	
+      	f:SetWidth(160)
+      	f:SetHeight(21)
+      	local point, _, relativePoint, ofsx, ofsy = unpack(addon.db.profile.MnyFramePoint)
+      	f:SetPoint(point or "TOPLEFT", UIParent, relativePoint or "TOPLEFT", ofsx or 10, ofsy or -80)
+      	f:SetClampedToScreen(true)
+      	f:SetMovable(true)
+      	f:EnableMouse(true)
+      	f:RegisterForDrag("LeftButton")
+      -- ... [11 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:91/100 | Parent:Ace3 | Sig:ChatThrottleLib.OnUpdate(this,delay) | Sockets:Socket_Generic -> Plug_Async_Scheduler,Plug_Computed_Value | File:Ace3\AceComm-3.0\ChatThrottleLib.lua:446-516 | APIs:
+      function ChatThrottleLib.OnUpdate(this,delay)
+      	local self = ChatThrottleLib
+      
+      	self.OnUpdateDelay = self.OnUpdateDelay + delay
+      	self.BlockedQueuesDelay = self.BlockedQueuesDelay + delay
+      	if self.OnUpdateDelay < 0.08 then
+      		return
+      	end
+      	self.OnUpdateDelay = 0
+      
+      	self:UpdateAvail()
+      
+      -- ... [59 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:91/100 | Parent:AceCommQueue-1.0 | Sig:scheduleRetry(key, pri, item) | Sockets:Socket_Item -> Plug_Table_Dataset,Plug_Async_Scheduler,Plug_Item_Data | File:AceCommQueue-1.0\AceCommQueue-1.0.lua:529-563 | APIs:C_Timer.After
+      scheduleRetry = function(key, pri, item)
+      	local attempts = AceCommQueue.retryAttempts or 0
+      	if attempts <= 0 then return false end
+      
+      	-- Fire-and-forget by design, so C_Timer.After is the right call and not a
+      	-- LibStub-consumer timer-discipline violation: nothing ever cancels this.
+      	-- Feature-detected because the .toc spans six client flavors, and retrying
+      	-- with no delay at all would hammer a channel the client just refused.
+      	if not (C_Timer and C_Timer.After) then
+      		dbg("drain(%s): send refused — no C_Timer, cannot back off, reporting instead", key)
+      		return false
+      	end
+      -- ... [23 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:100/100 | Parent:AddonFactory | Sig:ChatThrottleLib:Init() | Sockets:Socket_Chat_Comm,Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Network_Packet,Plug_Async_Scheduler,Plug_Computed_Value | File:AddonFactory\Libs\ChatThrottleLib\ChatThrottleLib.lua:172-227 | APIs:hooksecurefunc:SendChatMessage, hooksecurefunc:_G, hooksecurefunc:SendAddonMessage
+      function ChatThrottleLib:Init()
+      
+      	-- Set up queues
+      	if not self.Prio then
+      		self.Prio = {}
+      		self.Prio["ALERT"] = { ByName = {}, Ring = Ring:New(), avail = 0 }
+      		self.Prio["NORMAL"] = { ByName = {}, Ring = Ring:New(), avail = 0 }
+      		self.Prio["BULK"] = { ByName = {}, Ring = Ring:New(), avail = 0 }
+      	end
+      
+      	-- v4: total send counters per priority
+      	for _, Prio in pairs(self.Prio) do
+      -- ... [44 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Secure_Action_Macro (Total Harvested Blocks: 9616)
+    Frankenstein Repurpose Idea: Combat-safe SecureActionButton / StateDriver logic -> Pair with UnitFrames or custom action buttons for 1-click spell/item use. [Upvalues: DEBUG@L6, API@L7, ActionBars@L9, Automation@L10, Nameplates@L14, eventHandlers@L27]
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:ClickCastModifierFix:Init() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render | File:!WilduTools\modules\clickCastModifierFix.lua:321-380 | APIs:hooksecurefunc:CompactUnitFrame_SetUpFrame, hooksecurefunc:CompactUnitFrame_SetUnit, hooksecurefunc:InitializePartyMemberFrames, hooksecurefunc:SetProfileByInfo, hooksecurefunc:ResetCurrentProfile
+      function ClickCastModifierFix:Init()
+          if initialized then
+              return
+          end
+          initialized = true
+          DEBUG.startDebugTimer("CLICK_CAST_MODIFIER_FIX_INIT_START")
+      
+          hooksecurefunc("CompactUnitFrame_SetUpFrame", function(frame)
+              ClickCastModifierFix:RegisterFrame(frame)
+          end)
+          hooksecurefunc("CompactUnitFrame_SetUnit", function(frame)
+              if registeredFrames[frame] and enabled then
+      -- ... [48 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:80/100 | Parent:Accountant_Classic | Sig:lib:UIDropDownMenu_InitializeHelper(frame) | Sockets:Socket_UI_Frame -> Plug_State_Mutation | File:Accountant_Classic\Libs\LibUIDropDownMenu\LibUIDropDownMenu.lua:88-112 | APIs:
+      function lib:UIDropDownMenu_InitializeHelper(frame)
+      	-- This deals with the potentially tainted stuff!
+      	if ( frame ~= L_UIDROPDOWNMENU_OPEN_MENU ) then
+      		L_UIDROPDOWNMENU_MENU_LEVEL = 1;
+      	end
+      
+      	-- Set the frame that's being intialized
+      	delegateFrame:SetAttribute("initmenu", frame);
+      
+      	-- Hide all the buttons
+      	local button, dropDownList;
+      	for i = 1, L_UIDROPDOWNMENU_MAXLEVELS, 1 do
+      -- ... [13 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:80/100 | Parent:Ace3 | Sig:frame:OnKeyDown(self, key) | Sockets:Socket_UI_Frame -> Plug_State_Mutation | File:Ace3\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.lua:558-571 | APIs:
+      		frame:SetScript("OnKeyDown", function(self, key)
+      			if key == "ESCAPE" then
+      				if not InCombatLockdown() then
+      					self:SetPropagateKeyboardInput(false)
+      				end
+      				if self.cancel:IsShown() then
+      					self.cancel:Click()
+      				else -- Showing a validation error
+      					self:Hide()
+      				end
+      			elseif not InCombatLockdown() then
+      				self:SetPropagateKeyboardInput(true)
+      -- ... [2 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:80/100 | Parent:AdvancedInterfaceOptions | Sig:addon:SetCVar(cvar, value, ...) | Sockets:Socket_Generic -> Plug_State_Mutation | File:AdvancedInterfaceOptions\basicOptions.lua:203-215 | APIs:
+      function addon:SetCVar(cvar, value, ...) -- save our cvar to the db
+        if not InCombatLockdown() then
+          SetCVar(cvar, value, ...)
+          addon:RecordCVar(cvar, value)
+          -- Clear entry from ModifiedCVars if we're modifying it directly
+          -- Enforced settings don't use this function, so shouldn't wipe them out
+          if AdvancedInterfaceOptionsSaved.ModifiedCVars[cvar:lower()] then
+            AdvancedInterfaceOptionsSaved.ModifiedCVars[cvar:lower()] = nil
+          end
+        else
+          --print("Can't modify interface options in combat")
+        end
+      -- ... [1 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:100/100 | Parent:AishCore | Sig:SetupEditMode(done) | Sockets:Socket_Table_Array -> Plug_Table_Dataset,Plug_Computed_Value | File:AishCore\Modules\AishUISetup.lua:360-403 | APIs:C_EditMode.GetLayouts, C_EditMode.SetActiveLayout, C_EditMode.ConvertStringToLayoutInfo, C_EditMode.SaveLayouts
+      local function SetupEditMode(done)
+        if done.editMode or InCombatLockdown() or not EditModeReady() then return end
+        local info = C_EditMode.GetLayouts()
+        if not (info and info.layouts) then return end
+        local mgr = EditModeManagerFrame
+        local layouts = EditModePresetLayoutManager:GetCopyOfPresetLayouts()
+        local presetCount = #layouts
+      
+        local idx = FindSavedLayout(info)
+        if idx then
+          -- Disposition déjà présente sur le compte : simple activation sur ce perso
+          done.editMode = true
+      -- ... [32 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Custom_Widget_Skin (Total Harvested Blocks: 19207)
+    Frankenstein Repurpose Idea: Custom dark UI skinning, dropdown, scrollframe, or animation -> Graft onto any UI Frame for pro visual polish. [Upvalues: addon@L4, DEBUG@L6, API@L7, Minimap@L13, UTM@L17]
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:ensureIsolatedManagerPanel() | Sockets:Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Computed_Value | File:!WilduTools\libs\LibEQOL-1.0\LibEQOLEditMode.lua:843-895 | APIs:hooksecurefunc:Show, hooksecurefunc:Hide
+      local function ensureIsolatedManagerPanel()
+          if managerBroker.provider ~= lib or not EditModeManagerFrame then
+              return nil
+          end
+          if isolatedManagerPanel then
+              return isolatedManagerPanel
+          end
+      
+          -- Keep the panel addon-owned, but mirror the original Edit Mode placement
+          -- and border without restoring its taint-prone ScrollFrame/widget tree.
+          local panel = CreateFrame("Frame", nil, UIParent)
+          panel:SetPoint("TOPLEFT", EditModeManagerFrame, "BOTTOMLEFT", 0, -6)
+      -- ... [41 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:Accountant_Classic | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Computed_Value | File:Accountant_Classic\Libs\AceGUI-3.0\widgets\AceGUIContainer-DropDownGroup.lua:108-155 | APIs:
+      local function Constructor()
+      	local frame = CreateFrame("Frame")
+      	frame:SetHeight(100)
+      	frame:SetWidth(100)
+      	frame:SetFrameStrata("FULLSCREEN_DIALOG")
+      
+      	local titletext = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	titletext:SetPoint("TOPLEFT", 4, -5)
+      	titletext:SetPoint("TOPRIGHT", -4, -5)
+      	titletext:SetJustifyH("LEFT")
+      	titletext:SetHeight(18)
+      
+      -- ... [36 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:91/100 | Parent:Ace3 | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Computed_Value | File:Ace3\AceGUI-3.0\widgets\AceGUIContainer-DropDownGroup.lua:108-155 | APIs:
+      local function Constructor()
+      	local frame = CreateFrame("Frame")
+      	frame:SetHeight(100)
+      	frame:SetWidth(100)
+      	frame:SetFrameStrata("FULLSCREEN_DIALOG")
+      
+      	local titletext = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	titletext:SetPoint("TOPLEFT", 4, -5)
+      	titletext:SetPoint("TOPRIGHT", -4, -5)
+      	titletext:SetJustifyH("LEFT")
+      	titletext:SetHeight(18)
+      
+      -- ... [36 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:93/100 | Parent:AddonFactory | Sig:Update(frame, numItems, numToDisplay, buttonHeight) | Sockets:Socket_Item,Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Item_Data | File:AddonFactory\Templates\ScrollFrames.lua:170-232 | APIs:
+      	Update = function(frame, numItems, numToDisplay, buttonHeight)
+      		-- My own FauxScrollFrame_Update() from SharedUIPanelTemplates.lua
+      		-- If more than one screen full of skills then show the scrollbar
+      		
+      		numToDisplay = numToDisplay or frame.numRows
+      		buttonHeight = buttonHeight or frame.rowHeight
+      		
+      		local scrollBar = frame.ScrollBar
+      
+      		if numItems > numToDisplay then
+      			frame:Show()
+      		else
+      -- ... [51 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:91/100 | Parent:AdvancedInterfaceOptions | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceGUI-3.0\widgets\AceGUIContainer-DropDownGroup.lua:108-155 | APIs:
+      local function Constructor()
+      	local frame = CreateFrame("Frame")
+      	frame:SetHeight(100)
+      	frame:SetWidth(100)
+      	frame:SetFrameStrata("FULLSCREEN_DIALOG")
+      
+      	local titletext = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	titletext:SetPoint("TOPLEFT", 4, -5)
+      	titletext:SetPoint("TOPRIGHT", -4, -5)
+      	titletext:SetJustifyH("LEFT")
+      	titletext:SetHeight(18)
+      
+      -- ... [36 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_State_Event_Router (Total Harvested Blocks: 4069)
+    Frankenstein Repurpose Idea: Event-driven state dispatcher -> Use as the trigger plug to fire Data Producers and UI Renderers. [Upvalues: eventHandlers@L27]
+    [1] Synergy:96/100 | Parent:!WilduTools | Sig:CreateBossAuraContainer(parent, groupKey, unit, filter, maxCount, isDebuff) | Sockets:Socket_Spell_Aura,Socket_Unit_GUID,Socket_Table_Array,Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Spell_Data | File:!WilduTools\modules\unitFrames\BossFrames.lua:252-291 | APIs:C_AddOns.IsAddOnLoaded, C_AddOns.LoadAddOn
+      local function CreateBossAuraContainer(parent, groupKey, unit, filter, maxCount, isDebuff)
+          if not C_AddOns.IsAddOnLoaded("Blizzard_AuraContainer") then
+              C_AddOns.LoadAddOn("Blizzard_AuraContainer")
+          end
+      
+          local container = CreateFrame("AuraContainer", nil, parent, "CustomAuraContainerTemplate")
+          container:SetPoint("LEFT", parent, "LEFT", 0, 0)
+          container:SetSize(1, 1)
+      
+          container:SetFlowLayoutAxis(AnchorUtil.FlowLayoutAxis.Horizontal)
+          container:SetFlowLayoutAnchorPoint("LEFT")
+          container:SetFlowLayoutGrowthDirection(AnchorUtil.FlowDirection.Right, AnchorUtil.FlowDirection.Down)
+      -- ... [28 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:Ace3 | Sig:RegisterBucket(self, event, interval, callback, isMessage) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Ace3\AceBucket-3.0\AceBucket-3.0.lua:122-166 | APIs:
+      local function RegisterBucket(self, event, interval, callback, isMessage)
+      	-- try to fetch the librarys
+      	if not AceEvent or not AceTimer then
+      		AceEvent = LibStub:GetLibrary("AceEvent-3.0", true)
+      		AceTimer = LibStub:GetLibrary("AceTimer-3.0", true)
+      		if not AceEvent or not AceTimer then
+      			error(MAJOR .. " requires AceEvent-3.0 and AceTimer-3.0", 3)
+      		end
+      	end
+      
+      	if type(event) ~= "string" and type(event) ~= "table" then error("Usage: RegisterBucket(event, interval, callback): 'event' - string or table expected.", 3) end
+      	if not callback then
+      -- ... [33 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:98/100 | Parent:AishCore | Sig:SetPlatActive(on) | Sockets:Socket_Unit_GUID,Socket_Table_Array -> Plug_State_Mutation | File:AishCore\Modules\AddonFonts.lua:293-308 | APIs:C_NamePlate.GetNamePlates
+      local function SetPlatActive(on)
+        if on then
+          platEv:RegisterEvent("NAME_PLATE_UNIT_ADDED")
+          platEv:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
+          platEv:RegisterEvent("PLAYER_REGEN_DISABLED")
+          ListenAuras()
+          for _, np in ipairs(C_NamePlate.GetNamePlates()) do
+            local unit = np.namePlateUnitToken
+            if unit then MarkDirty(unit, "added") end
+          end
+        else
+          platEv:UnregisterAllEvents()
+      -- ... [4 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:91/100 | Parent:AllPlayed | Sig:RegisterBucket(self, event, interval, callback, isMessage) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:AllPlayed\libs\AceBucket-3.0\AceBucket-3.0.lua:122-166 | APIs:
+      local function RegisterBucket(self, event, interval, callback, isMessage)
+      	-- try to fetch the librarys
+      	if not AceEvent or not AceTimer then
+      		AceEvent = LibStub:GetLibrary("AceEvent-3.0", true)
+      		AceTimer = LibStub:GetLibrary("AceTimer-3.0", true)
+      		if not AceEvent or not AceTimer then
+      			error(MAJOR .. " requires AceEvent-3.0 and AceTimer-3.0", 3)
+      		end
+      	end
+      
+      	if type(event) ~= "string" and type(event) ~= "table" then error("Usage: RegisterBucket(event, interval, callback): 'event' - string or table expected.", 3) end
+      	if not callback then
+      -- ... [33 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:85/100 | Parent:AllTheThings | Sig:Contribute(contrib) | Sockets:Socket_Generic -> Plug_State_Mutation | File:AllTheThings\src\Modules\Contributor.lua:4202-4224 | APIs:
+      local function Contribute(contrib)
+      	app.Contributor = contrib == 1 and true or nil
+      	AllTheThingsSavedVariables.Contributor = app.Contributor and 1 or 0
+      	local contribModule = app.Modules.Contributor or app.EmptyTable
+      	if app.Contributor then
+      		app.print("Thanks for helping to contribute to ATT! There may be additional chat and report sounds to help with finding additional discrepancies in ATT data.")
+      		if contribModule.Events then
+      			for event,func in pairs(contribModule.Events) do
+      				-- app.PrintDebug("Contribute.RegisterFuncEvent",event)
+      				api:RegisterFuncEvent(event,func)
+      			end
+      		end
+      -- ... [11 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_UI_Grid_Matrix (Total Harvested Blocks: 17973)
+    Frankenstein Repurpose Idea: Dynamic icon/slot grid or virtualized scroll row layout -> Feed an Item/Spell table array into this to render a live matrix. [Upvalues: API@L6]
+    [1] Synergy:96/100 | Parent:!WilduTools | Sig:showOverlapMenu(hits, cursorX, cursorY, primary) | Sockets:Socket_Table_Array,Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:!WilduTools\libs\LibEQOL-1.0\LibEQOLEditMode.lua:4511-4561 | APIs:
+      local function showOverlapMenu(hits, cursorX, cursorY, primary)
+          if #hits <= 1 then
+              hideOverlapMenu()
+              return
+          end
+          local menu = ensureOverlapMenu()
+          local buttons = menu.buttons
+          local maxWidth = 0
+          local yOffset = -8
+          table.sort(hits, function(a, b)
+              if a == primary then
+                  return true
+      -- ... [39 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:96/100 | Parent:Accountant_Classic | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Async_Scheduler,Plug_Computed_Value | File:Accountant_Classic\Libs\AceGUI-3.0\widgets\AceGUIWidget-Slider.lua:212-279 | APIs:C_Timer.After
+      local function Constructor()
+      	local frame = CreateFrame("Frame", nil, UIParent)
+      
+      	frame:EnableMouse(true)
+      	frame:SetScript("OnMouseDown", Frame_OnMouseDown)
+      
+      	local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	label:SetPoint("TOPLEFT")
+      	label:SetPoint("TOPRIGHT")
+      	label:SetJustifyH("CENTER")
+      	label:SetHeight(15)
+      
+      -- ... [56 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:96/100 | Parent:Ace3 | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Async_Scheduler,Plug_Computed_Value | File:Ace3\AceGUI-3.0\widgets\AceGUIWidget-Slider.lua:212-279 | APIs:C_Timer.After
+      local function Constructor()
+      	local frame = CreateFrame("Frame", nil, UIParent)
+      
+      	frame:EnableMouse(true)
+      	frame:SetScript("OnMouseDown", Frame_OnMouseDown)
+      
+      	local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	label:SetPoint("TOPLEFT")
+      	label:SetPoint("TOPRIGHT")
+      	label:SetJustifyH("CENTER")
+      	label:SetHeight(15)
+      
+      -- ... [56 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:86/100 | Parent:AddonFactory | Sig:OnBind(frame) | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:AddonFactory\Templates\ScrollFrames.lua:13-61 | APIs:
+      	OnBind = function(frame)
+      		local scrollBar = frame.ScrollBar
+      		
+      		scrollBar.ScrollDownButton:Disable()
+      		scrollBar.ScrollUpButton:Disable()
+      		scrollBar:SetMinMaxValues(0, 0)
+      		scrollBar:SetValue(0)
+      		
+      		frame.offset = 0
+      		
+      		if frame.scrollBarHideable then
+      			scrollBar:Hide()
+      -- ... [37 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:96/100 | Parent:AdvancedInterfaceOptions | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Async_Scheduler,Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceGUI-3.0\widgets\AceGUIWidget-Slider.lua:212-279 | APIs:C_Timer.After
+      local function Constructor()
+      	local frame = CreateFrame("Frame", nil, UIParent)
+      
+      	frame:EnableMouse(true)
+      	frame:SetScript("OnMouseDown", Frame_OnMouseDown)
+      
+      	local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      	label:SetPoint("TOPLEFT")
+      	label:SetPoint("TOPRIGHT")
+      	label:SetJustifyH("CENTER")
+      	label:SetHeight(15)
+      
+      -- ... [56 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Hook_And_Automation (Total Harvested Blocks: 13598)
+    Frankenstein Repurpose Idea: Secure hook or interactive script trigger -> Intercept default Blizzard frames or automate clicks/actions. [Upvalues: CopyTextEditBoxOnKeyUp@L588]
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:Internal:EnsureDialog() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:!WilduTools\libs\LibEQOL-1.0\LibEQOLEditMode.lua:4646-4710 | APIs:hooksecurefunc:SaveLayouts, C_EditMode.GetLayouts, hooksecurefunc:Show, hooksecurefunc:Hide, hooksecurefunc:SelectSystem, C_EditMode.OnLayoutDeleted, hooksecurefunc:OnLayoutDeleted, C_EditMode.OnLayoutAdded, hooksecurefunc:OnLayoutAdded
+      function Internal:EnsureDialog()
+          if not self.dialog then
+              self.dialog = self.CreateDialog()
+              self.dialog:HookScript("OnHide", function()
+                  resetSelectionIndicators()
+              end)
+              applyDialogPosition(self.dialog)
+          end
+      
+          if not self._dialogInfrastructureReady then
+              self._dialogInfrastructureReady = true
+      
+      -- ... [53 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:94/100 | Parent:Accountant_Classic | Sig:createTab(parent, index, text) | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:Accountant_Classic\Core\Tabs.lua:51-75 | APIs:
+      local function createTab(parent, index, text)
+      	local template
+      	if Client.isAnyClassic then
+      		template = "CharacterFrameTabButtonTemplate"
+      	end
+      
+      	local tab = CreateFrame("Button", parent:GetName().."Tab"..index, parent, template)
+      	tab:SetID(index)
+      	tab:SetSize(10, 32)
+      	if not template then
+      		createRetailTabTextures(tab)
+      	else
+      -- ... [13 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:91/100 | Parent:Ace3 | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:Ace3\AceGUI-3.0\widgets\AceGUIContainer-BlizOptionsGroup.lua:101-141 | APIs:
+      local function Constructor()
+      	local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
+      	frame:Hide()
+      
+      	-- support functions for the Blizzard Interface Options
+      	frame.okay = okay
+      	frame.cancel = cancel
+      	frame.default = default
+      	frame.refresh = refresh
+      
+      	-- 10.0 support function aliases (cancel has been removed)
+      	frame.OnCommit = okay
+      -- ... [29 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:86/100 | Parent:AddonFactory | Sig:frame:OnEvent(self, event, prefix, message, distribution, sender) | Sockets:Socket_Chat_Comm,Socket_UI_Frame -> Plug_Table_Dataset,Plug_Computed_Value | File:AddonFactory\Core\Comm.lua:34-68 | APIs:
+      frame:SetScript("OnEvent", function(self, event, prefix, message, distribution, sender)
+      	if event ~= "CHAT_MSG_ADDON" then return end
+      	
+      	sender = Ambiguate(sender, "none")
+      	
+      	local control, chunk = match(message, "^([\001-\009])(.*)")
+      	
+      	if control then
+      		local uniqueID = format("%s|%s|%s", prefix, distribution, sender)
+      		
+      		if control == HEADER_FIRST_MSG then
+      			incomingChunks[uniqueID] = {}
+      -- ... [23 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:91/100 | Parent:AdvancedInterfaceOptions | Sig:Constructor() | Sockets:Socket_UI_Frame -> Plug_UI_Visual_Render,Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceGUI-3.0\widgets\AceGUIContainer-BlizOptionsGroup.lua:101-141 | APIs:
+      local function Constructor()
+      	local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
+      	frame:Hide()
+      
+      	-- support functions for the Blizzard Interface Options
+      	frame.okay = okay
+      	frame.cancel = cancel
+      	frame.default = default
+      	frame.refresh = refresh
+      
+      	-- 10.0 support function aliases (cancel has been removed)
+      	frame.OnCommit = okay
+      -- ... [29 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Search_And_Filter (Total Harvested Blocks: 10110)
+    Frankenstein Repurpose Idea: Real-time text search, fuzzy matcher, or comparator sort -> Place between a raw DB table and a UI Grid Matrix. [Upvalues: DEBUG@L6]
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:CastBar.GetTickTooltip() | Sockets:Socket_Spell_Aura,Socket_Table_Array,Socket_UI_Frame -> Plug_Table_Dataset,Plug_Spell_Data | File:!WilduTools\modules\castBar.lua:416-440 | APIs:C_Spell.GetSpellName
+      function CastBar.GetTickTooltip()
+          local description = L["Shows periodic damage and healing tick boundaries for supported player channelled spells."]
+          local _, class = UnitClass("player")
+          local spellIDs = CLASS_TICK_SPELLS[class]
+          if not spellIDs then
+              return description
+          end
+      
+          local spellNames = {}
+          local seen = {}
+          for _, spellID in ipairs(spellIDs) do
+              local spellName = C_Spell.GetSpellName(spellID)
+      -- ... [13 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:onShareMoney(arg1) | Sockets:Socket_Generic -> Plug_Computed_Value | File:Accountant_Classic\Core\Core.lua:1140-1198 | APIs:
+      local function onShareMoney(arg1)
+      	local oldType = AC_LOGTYPE;
+      	if (oldType == "LOOT") then
+      		return;
+      	end
+      
+      	local money;
+      
+      	-- Parse the message for money gained.
+      	local _, _, gold = strfind(arg1, L["(%d+) Gold"])
+      	local _, _, silver = strfind(arg1, L["(%d+) Silver"])
+      	local _, _, copper = strfind(arg1, L["(%d+) Copper"])
+      -- ... [47 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:91/100 | Parent:AddonFactory | Sig:addon:GetAddOnVersionInfo(name) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:AddonFactory\Core\Tools.lua:154-170 | APIs:C_AddOns.GetAddOnMetadata
+      function addon:GetAddOnVersionInfo(name)
+      
+      	--[[ 
+      		Provides :
+      			addon.Version = "v12.0.001"
+      			--addon.VersionNum = 11 00 007
+      			addon.VersionNum = 1200000
+      		
+      		Usage :
+      			addon.Version, addon.VersionNum = AddonFactory:GetAddOnVersionInfo(addonName)
+      	]]
+      
+      -- ... [5 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:91/100 | Parent:AdvancedInterfaceOptions | Sig:addon:GetCVars() | Sockets:Socket_Table_Array -> Plug_Table_Dataset,Plug_Computed_Value | File:AdvancedInterfaceOptions\cvars.lua:1163-1177 | APIs:
+      function addon:GetCVars()
+        local cvars = {}
+        for _, info in ipairs(addon:GetAllCommands()) do
+          if
+            info.commandType == 0 -- cvar, rather than script
+            and info.category ~= 0 -- ignore debug category
+            and not strfind(info.command:lower(), "debug") -- a number of commands with "debug" in their name are inexplicably not in the "debug" category
+            and info.category ~= 8 -- ignore GM category
+            and addon:CVarExists(info.command) -- real cvar?
+          then
+            table.insert(cvars, info)
+          end
+      -- ... [3 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:100/100 | Parent:AishCore | Sig:ComputeTraitBranchPoints() | Sockets:Socket_Table_Array -> Plug_Table_Dataset,Plug_Computed_Value | File:AishCore\Core.lua:131-201 | APIs:C_Traits.GetGroupDisplayInfoByTreeID, C_ClassTalents.GetActiveConfigID, C_Traits.GetConfigInfo, C_Traits.GetTreeNodes, C_Traits.GetNodeInfo
+      	function ComputeTraitBranchPoints()
+      		if not (C_ClassTalents and C_Traits and C_Traits.GetGroupDisplayInfoByTreeID) then return nil end
+      		local okC, cfgID = pcall(C_ClassTalents.GetActiveConfigID)
+      		if not okC or not cfgID then return nil end
+      		local okCfg, cfg = pcall(C_Traits.GetConfigInfo, cfgID)
+      		if not (okCfg and cfg and cfg.treeIDs and cfg.treeIDs[1]) then return nil end
+      		local treeID = cfg.treeIDs[1]
+      
+      		local okG, groups = pcall(C_Traits.GetGroupDisplayInfoByTreeID, treeID)
+      		if not (okG and type(groups) == "table" and #groups >= 2) then return nil end
+      		-- orderIndex donne l'ordre d'affichage des branches, qui suit celui des specialisations.
+      		table.sort(groups, function(a, b) return (a.orderIndex or 0) < (b.orderIndex or 0) end)
+      -- ... [59 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Data_Compression_Sync (Total Harvested Blocks: 6850)
+    Frankenstein Repurpose Idea: Data packing, bitmasking, or addon channel sync -> Use for compact SavedVariables or cross-player guild data sync.
+    [1] Synergy:99/100 | Parent:!WilduTools | Sig:LibEQOLWILDUTOOLS_MultiDropdownMixin:SerializeSelection(tbl) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Network_Packet,Plug_Computed_Value | File:!WilduTools\libs\LibEQOL-1.0\LibEQOLSettingsMultiDropdown.lua:396-409 | APIs:
+      function LibEQOLWILDUTOOLS_MultiDropdownMixin:SerializeSelection(tbl)
+          if type(tbl) ~= "table" then
+              return ""
+          end
+      
+          local keys = {}
+          for k, v in pairs(tbl) do
+              if v and (type(k) == "string" or type(k) == "number") then
+                  table.insert(keys, k)
+              end
+          end
+          SortMixedKeys(keys)
+      -- ... [2 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:keybindingValidateFunc(text) | Sockets:Socket_Generic -> Plug_Network_Packet,Plug_Computed_Value | File:Accountant_Classic\Libs\AceConfig-3.0\AceConfigCmd-3.0\AceConfigCmd-3.0.lua:265-321 | APIs:
+      local function keybindingValidateFunc(text)
+      	if text == nil or text == "NONE" then
+      		return nil
+      	end
+      	text = text:upper()
+      	local shift, ctrl, alt
+      	local modifier
+      	while true do
+      		if text == "-" then
+      			break
+      		end
+      		modifier, text = strsplit('-', text, 2)
+      -- ... [45 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:99/100 | Parent:Ace3 | Sig:SerializeValue(v, res, nres) | Sockets:Socket_Generic -> Plug_Network_Packet,Plug_Computed_Value | File:Ace3\AceSerializer-3.0\AceSerializer-3.0.lua:54-110 | APIs:
+      local function SerializeValue(v, res, nres)
+      	-- We use "^" as a value separator, followed by one byte for type indicator
+      	local t=type(v)
+      
+      	if t=="string" then		-- ^S = string (escaped to remove nonprints, "^"s, etc)
+      		res[nres+1] = "^S"
+      		res[nres+2] = gsub(v,"[%c \94\126\127]", SerializeStringHelper)
+      		nres=nres+2
+      
+      	elseif t=="number" then	-- ^N = number (just tostring()ed) or ^F (float components)
+      		local str = tostring(v)
+      		if tonumber(str)==v  --[[not in 4.3 or str==serNaN]] then
+      -- ... [45 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:91/100 | Parent:AceCommQueue-1.0 | Sig:ctlStillQueued(q) | Sockets:Socket_Chat_Comm -> Plug_Network_Packet,Plug_Computed_Value | File:AceCommQueue-1.0\AceCommQueue-1.0.lua:325-352 | APIs:
+      local function ctlStillQueued(q)
+      	local CTL = _G.ChatThrottleLib
+      	if not (CTL and type(CTL.Prio) == "table") then return false end
+      
+      	local prefix, dist, target = q.inFlightPrefix, q.inFlightDist, q.inFlightTarget
+      	for _, Prio in pairs(CTL.Prio) do
+      		local byName = type(Prio) == "table" and Prio.ByName or nil
+      		if type(byName) == "table" then
+      			for _, pipe in pairs(byName) do
+      				if type(pipe) == "table" then
+      					-- CTL stores the raw SendAddonMessage arguments positionally:
+      					-- [1] prefix, [2] text, [3] chattype (the distribution),
+      -- ... [16 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:80/100 | Parent:AddonFactory | Sig:addon:SendChatMessage(prefix, message, distribution, target) | Sockets:Socket_Unit_GUID,Socket_Chat_Comm -> Plug_Network_Packet | File:AddonFactory\Core\Comm.lua:82-115 | APIs:
+      function addon:SendChatMessage(prefix, message, distribution, target)
+      	-- Overall same code as AceComm in here, their code was already pretty optimized.
+      	
+      	-- Is there already a control character at the beginning ?
+      	if match(message, "^[\001-\009]") then
+      		message = HEADER_ESCAPE_CTRL .. message
+      	end
+      	
+      	-- Smaller message ? send directly
+      	if #message <= 255 then
+      		CTL:SendAddonMessage("NORMAL", prefix, message, distribution, target)
+      		return
+      -- ... [22 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Metatable_OOP_Engine (Total Harvested Blocks: 6729)
+    Frankenstein Repurpose Idea: Metatable class inheritance or lazy-loading table router -> Use for zero-memory on-demand database lookups. [Upvalues: bigWigsAbilityWidgets@L182]
+    [1] Synergy:91/100 | Parent:!WilduTools | Sig:setmetatable({}) | Sockets:Socket_Table_Array -> Plug_Computed_Value | File:!WilduTools\modules\addonsTweaks.lua:182-207 | APIs:C_AddOns.IsAddOnLoaded
+      local bigWigsAbilityWidgets = setmetatable({}, { __mode = "k" })
+      local bigWigsAbilityColorHooksInstalled = false
+      
+      ---@param widget table|nil
+      ---@return table|nil bigWigs
+      ---@return table|nil module
+      ---@return number|string|nil key
+      local function GetBigWigsAbilityContext(widget)
+          if not widget or widget.type ~= "CheckBox" or not widget.text or type(widget.GetUserData) ~= "function" then
+              return nil, nil, nil
+          end
+      
+      -- ... [14 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:Accountant_Classic | Sig:AceAddon:NewAddon(objectorname, ...) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Accountant_Classic\Libs\AceAddon-3.0\AceAddon-3.0.lua:101-139 | APIs:
+      function AceAddon:NewAddon(objectorname, ...)
+      	local object,name
+      	local i=1
+      	if type(objectorname)=="table" then
+      		object=objectorname
+      		name=...
+      		i=2
+      	else
+      		name=objectorname
+      	end
+      	if type(name)~="string" then
+      		error(("Usage: NewAddon([object,] name, [lib, lib, lib, ...]): 'name' - string expected got '%s'."):format(type(name)), 2)
+      -- ... [27 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:91/100 | Parent:Ace3 | Sig:AceAddon:NewAddon(objectorname, ...) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Ace3\AceAddon-3.0\AceAddon-3.0.lua:101-139 | APIs:
+      function AceAddon:NewAddon(objectorname, ...)
+      	local object,name
+      	local i=1
+      	if type(objectorname)=="table" then
+      		object=objectorname
+      		name=...
+      		i=2
+      	else
+      		name=objectorname
+      	end
+      	if type(name)~="string" then
+      		error(("Usage: NewAddon([object,] name, [lib, lib, lib, ...]): 'name' - string expected got '%s'."):format(type(name)), 2)
+      -- ... [27 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:86/100 | Parent:AddonFactory | Sig:setmetatable({}) | Sockets:Socket_Table_Array -> Plug_Computed_Value | File:AddonFactory\Core\Locale.lua:14-39 | APIs:
+      local defaultProxy = setmetatable({}, {
+      	__newindex = function(self, key, value) 
+      		-- if the key does not exist, create it
+      		if not rawget(currentDomain, key) then
+      			-- allow 'true' to be used to set the key as the default value
+      			rawset(currentDomain, key, value == true and key or value)
+      		end
+      	end,
+      	__index = function(self, key)
+      		print("indexing: " .. (key or "nil"))
+      	end,
+      })
+      -- ... [14 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:91/100 | Parent:AdvancedInterfaceOptions | Sig:setmetatable({}) | Sockets:Socket_Table_Array -> Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.lua:73-98 | APIs:
+      	local pool = setmetatable({},{__mode="k"})
+      	function new()
+      		--newcount = newcount + 1
+      		local t = next(pool)
+      		if t then
+      			pool[t] = nil
+      			return t
+      		else
+      			--createdcount = createdcount + 1
+      			return {}
+      		end
+      	end
+      -- ... [14 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Hyperlink_And_Chat_Filter (Total Harvested Blocks: 1097)
+    Frankenstein Repurpose Idea: Chat stream interceptor or custom clickable /H hyperlink builder -> Use for clickable loot alerts or chat command links. [Upvalues: Automation@L6, addon@L8, DEBUG@L9]
+    [1] Synergy:95/100 | Parent:!WilduTools | Sig:Automation:InitAutoBuyDecorItems() | Sockets:Socket_Item -> Plug_Async_Scheduler | File:!WilduTools\modules\automation.lua:359-406 | APIs:hooksecurefunc:StaticPopup_Show, C_Item.IsDecorItem, C_Timer.After
+      function Automation:InitAutoBuyDecorItems()
+          DEBUG.startDebugTimer("AUTOMATION_INIT_AUTO_BUY_DECOR_ITEMS_START")
+          if ns.db.profile.automation_autoBuyDecorItemsEnabled then
+              addon:Print(L["Automatic Decor Item Buying enabled"])
+          end
+      
+          hooksecurefunc("StaticPopup_Show", function(which)
+              if not ns.db.profile.automation_autoBuyDecorItemsEnabled then
+                  return
+              end
+              if not C_Item or not C_Item.IsDecorItem then
+                  return
+      -- ... [36 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:AceConsole:GetArgs(str, numargs, startpos) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Accountant_Classic\Libs\AceConsole-3.0\AceConsole-3.0.lua:140-205 | APIs:
+      function AceConsole:GetArgs(str, numargs, startpos)
+      	numargs = numargs or 1
+      	startpos = max(startpos or 1, 1)
+      
+      	local pos=startpos
+      
+      	-- find start of new arg
+      	pos = strfind(str, "[^ ]", pos)
+      	if not pos then	-- whoops, end of string
+      		return nils(numargs, 1e9)
+      	end
+      
+      -- ... [54 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:86/100 | Parent:Ace3 | Sig:AceConsole:GetArgs(str, numargs, startpos) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Ace3\AceConsole-3.0\AceConsole-3.0.lua:140-205 | APIs:
+      function AceConsole:GetArgs(str, numargs, startpos)
+      	numargs = numargs or 1
+      	startpos = max(startpos or 1, 1)
+      
+      	local pos=startpos
+      
+      	-- find start of new arg
+      	pos = strfind(str, "[^ ]", pos)
+      	if not pos then	-- whoops, end of string
+      		return nils(numargs, 1e9)
+      	end
+      
+      -- ... [54 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:96/100 | Parent:AddonFactory | Sig:GetSpellIconAndLink(spellID) | Sockets:Socket_Item,Socket_Spell_Aura -> Plug_Table_Dataset,Plug_Item_Data | File:AddonFactory\Services\SimpleHTML.lua:99-122 | APIs:C_Spell.GetSpellLink, C_Spell.GetSpellInfo
+      		GetSpellIconAndLink = function(spellID)
+      			local link = C_Spell.GetSpellLink(spellID)
+      			local info = C_Spell.GetSpellInfo(spellID)
+      			
+      			if not info then print(spellID) end
+      
+      			local name = info.name 
+      			local icon = info.iconID
+      
+      			if link and icon then
+      				local _, endPos = string.find(link, "|h")
+      				
+      -- ... [12 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:86/100 | Parent:AishCore | Sig:EnsureTransmogButton(button) | Sockets:Socket_UI_Frame -> Plug_Tooltip_Lines,Plug_UI_Visual_Render,Plug_Computed_Value | File:AishCore\Modules\CharacterArmory.lua:751-776 | APIs:
+      local function EnsureTransmogButton(button)
+          if button.AISH_Transmog then return button.AISH_Transmog end
+          local btn = CreateFrame("Button", nil, button)
+          btn:SetFrameLevel(button:GetFrameLevel() + 3)
+          local tex = btn:CreateTexture(nil, "OVERLAY")
+          tex:SetAllPoints()
+          tex:SetColorTexture(1, 0.85, 1, 0.9)
+          btn:SetScript("OnClick", function(self)
+              if not self.itemLink then return end
+              if IsShiftKeyDown() then
+                  HandleModifiedItemClick(self.itemLink)
+              else
+      -- ... [14 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Polyfill_And_Compat_Shim (Total Harvested Blocks: 2830)
+    Frankenstein Repurpose Idea: Universal cross-expansion polyfill wrapper -> Makes addon code run seamlessly across 3.3.5a, Classic, Wrath, and Retail.
+    [1] Synergy:100/100 | Parent:!WilduTools | Sig:IsUpgradeForEquippedSlot(itemLink, equipLoc, equippedSlot, itemLevel, primaryStat, hasPrimaryStat) | Sockets:Socket_Item -> Plug_Item_Data | File:!WilduTools\modules\baganatorIcons.lua:73-121 | APIs:C_Item.GetItemInfoInstant, C_Item.DoesItemExist, C_Item.GetCurrentItemLevel, C_Item.GetDetailedItemLevelInfo
+      local function IsUpgradeForEquippedSlot(itemLink, equipLoc, equippedSlot, itemLevel, primaryStat, hasPrimaryStat)
+          local equippedLink = GetInventoryItemLink("player", equippedSlot)
+          if not equippedLink then
+              if equippedSlot == INVSLOT_OFFHAND then
+                  local mainHandLink = GetInventoryItemLink("player", INVSLOT_MAINHAND)
+                  if mainHandLink then
+                      local _, _, _, mainHandEquipLoc = C_Item.GetItemInfoInstant(mainHandLink)
+                      if mainHandEquipLoc == "INVTYPE_2HWEAPON"
+                          or mainHandEquipLoc == "INVTYPE_RANGED"
+                          or mainHandEquipLoc == "INVTYPE_RANGEDRIGHT"
+                      then
+                          return false
+      -- ... [37 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:AddonFactory | Sig:GetItemIconLink(itemID) | Sockets:Socket_Item -> Plug_Table_Dataset,Plug_Item_Data | File:AddonFactory\Services\SimpleHTML.lua:51-66 | APIs:C_Item.GetItemInfo
+      		GetItemIconLink = function(itemID)
+      			local _, link, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(itemID)
+      
+      			if link and icon then
+      				local _, endPos = string.find(link, "|h")
+      				
+      				if endPos then
+      					-- get the payload before the first |h, and use it as-is to build the icon link
+      					local payload = string.sub(link, 1, endPos - 2)
+      					return format("%s|h|T%s:20:20|t|h|r", payload, icon)
+      				end
+      			end
+      -- ... [4 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:100/100 | Parent:AishCore | Sig:ItemTags(itemID, bag, slot) | Sockets:Socket_Item -> Plug_Table_Dataset,Plug_Item_Data | File:AishCore\Modules\ExtraBars.lua:248-280 | APIs:C_Container.GetContainerItemInfo, C_Container.GetContainerItemQuestInfo, C_Item.GetItemInfoInstant
+      local function ItemTags(itemID, bag, slot)
+        local tags = {}
+        if HEALTHSTONES[itemID] then tags.healthstone = true end
+        local info = C_Container.GetContainerItemInfo(bag, slot)
+        if info and info.hasLoot then tags.openable = true end
+        local quest = C_Container.GetContainerItemQuestInfo(bag, slot)
+        if quest and (quest.isQuestItem or quest.questID) and HasUseSpell(itemID) then tags.quest = true end
+        if HasUseSpell(itemID) and IsKnowledge(itemID) then tags.knowledge = true end
+        local _, _, _, _, _, classID, subClassID = C_Item.GetItemInfoInstant(itemID)
+        if classID == CONSUMABLE and HasUseSpell(itemID) then
+          local typed = false
+          for tag, sub in pairs(SUB) do
+      -- ... [21 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:91/100 | Parent:AllPlayed | Sig:XPToNextLevel(level) | Sockets:Socket_Generic -> Plug_Computed_Value | File:AllPlayed\AllPlayed.lua:6168-6204 | APIs:
+      function XPToNextLevel( level )
+      	if XPToNextLevelCache[level] == nil then
+      		-- There are currently 4 different formulas to get the XP to next level
+      		-- I expect the formulas under 60 to change quite a bit
+      		-- See <http://www.wowwiki.com/Formulas:XP_To_Level> for details
+      		if     ( level < 32  ) then
+      			-- level 1 to 31
+      			XPToNextLevelCache[level] = (40 * level * level)  +  (360 * level)
+      			-- There is a little weird exception for level 29 to 31
+      			if     level == 29 then XPToNextLevelCache[level] = XPToNextLevelCache[level] + 1 * MXP(level)
+      			elseif level == 30 then XPToNextLevelCache[level] = XPToNextLevelCache[level] + 3 * MXP(level)
+      			elseif level == 31 then XPToNextLevelCache[level] = XPToNextLevelCache[level] + 6 * MXP(level)
+      -- ... [25 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:99/100 | Parent:AllTheThings | Sig:GetSourceID(itemLink, quick) | Sockets:Socket_Item -> Plug_Table_Dataset,Plug_Item_Data | File:AllTheThings\src\Classes\Transmog.lua:104-148 | APIs:
+      local function GetSourceID(itemLink, quick)
+      	if not itemLink or (C_Item_IsDressableItemByID and not C_Item_IsDressableItemByID(itemLink)) then return nil, false end
+      
+      	-- Updated function courtesy of CanIMogIt, Thanks AmiYuy and Team! :D
+      	-- (requires loaded ItemInfo to work for modified appearances)
+      	if GetItemInfo(itemLink) then
+      		local sourceID = select(2, C_TransmogCollection_GetItemInfo(itemLink));
+      		-- app.PrintDebug("TMOGSourceID",sourceID,itemLink)
+      		if sourceID then return sourceID, true; end
+      	end
+      
+      	-- app.PrintDebug("Failed to directly retrieve SourceID",itemLink)
+      -- ... [33 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Tooltip_Data_Injector (Total Harvested Blocks: 6634)
+    Frankenstein Repurpose Idea: Tooltip hook & line injector -> Connect an ItemID/SpellID data lookup plug straight into this tooltip renderer. [Upvalues: DataBrokers@L4, nameObject@L13]
+    [1] Synergy:86/100 | Parent:!WilduTools | Sig:CreateSpellRow(parent, index) | Sockets:Socket_Spell_Aura,Socket_UI_Frame -> Plug_Tooltip_Lines,Plug_UI_Visual_Render,Plug_Spell_Data | File:!WilduTools\modules\dummyTrainer.lua:369-409 | APIs:
+      local function CreateSpellRow(parent, index)
+          local row = CreateFrame("Frame", nil, parent)
+          row:SetHeight(ROW_HEIGHT)
+          row:SetPoint("TOPLEFT", parent, "TOPLEFT", 20, -SPELL_ROWS_TOP - (index - 1) * (ROW_HEIGHT + 2))
+          row:SetPoint("RIGHT", parent, "RIGHT", -20, 0)
+      
+          row.icon = row:CreateTexture(nil, "ARTWORK")
+          row.icon:SetSize(ROW_HEIGHT, ROW_HEIGHT)
+          row.icon:SetPoint("LEFT")
+          row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+      
+          row.bar = CreateFrame("StatusBar", nil, row)
+      -- ... [29 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:addon:OnInitialize() | Sockets:Socket_Generic -> Plug_Tooltip_Lines,Plug_Computed_Value | File:Accountant_Classic\Core\Core.lua:1963-2008 | APIs:
+      function addon:OnInitialize()
+      	self.db = AceDB:New("Accountant_ClassicDB", private.constants.defaults, true);
+      	profile = self.db.profile
+      	if not self.db then
+      		self:Print("Error: Database not loaded correctly.  Please exit out of WoW and delete the Accountant Classic database file Accountant_Classic.lua) found in: \\World of Warcraft\\WTF\\Account\\<Account Name>>\\SavedVariables\\")
+      		return
+      	end
+      	self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
+      	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
+      	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
+      
+      	LDB.type = "data source";
+      -- ... [34 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:86/100 | Parent:Ace3 | Sig:OptionOnMouseOver(widget, event) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Tooltip_Lines,Plug_UI_Visual_Render,Plug_Computed_Value | File:Ace3\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.lua:495-533 | APIs:
+      local function OptionOnMouseOver(widget, event)
+      	--show a tooltip/set the status bar to the desc text
+      	local user = widget:GetUserDataTable()
+      	local opt = user.option
+      	local options = user.options
+      	local path = user.path
+      	local appName = user.appName
+      	local tooltip = AceConfigDialog.tooltip
+      
+      	tooltip:SetOwner(widget.frame, "ANCHOR_TOPRIGHT")
+      
+      	local tooltipHyperlink = GetOptionsMemberValue("tooltipHyperlink", opt, options, path, appName)
+      -- ... [27 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:80/100 | Parent:Achievements | Sig:ShowAchievementStatus(a, criteria, detail) | Sockets:Socket_UI_Frame -> Plug_Tooltip_Lines | File:Achievements\Functions.lua:24-96 | APIs:
+      local function ShowAchievementStatus( a, criteria, detail )
+      
+      	local _, aName, _, completedA, _, _, _, description = GetAchievementInfo( a.id ) -- Results might be nil or aName == ""
+      	if ns.firstOne == true then
+      		GameTooltip:AddLine( "\n" ..ns.colour.prefix ..ns.L[ "Achievements" ] )
+      		ns.firstOne = false
+      	end
+      	ns.CompletionShow( completedA, ( ( ns.colour.achieveH or ns.colour.highlight ) ..( ( a.name == nil )
+      									and ( ( aName == nil or aName == "" ) and ns.L[ "Try again" ] or aName )
+      									or ( ns.StringSubstitutions( a.name ) ) ) ) )
+      
+      	local continue = ( a.criteria == nil ) and criteria or a.criteria
+      -- ... [61 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:86/100 | Parent:AdvancedInterfaceOptions | Sig:OptionOnMouseOver(widget, event) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Tooltip_Lines,Plug_UI_Visual_Render,Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.lua:495-533 | APIs:
+      local function OptionOnMouseOver(widget, event)
+      	--show a tooltip/set the status bar to the desc text
+      	local user = widget:GetUserDataTable()
+      	local opt = user.option
+      	local options = user.options
+      	local path = user.path
+      	local appName = user.appName
+      	local tooltip = AceConfigDialog.tooltip
+      
+      	tooltip:SetOwner(widget.frame, "ANCHOR_TOPRIGHT")
+      
+      	local tooltipHyperlink = GetOptionsMemberValue("tooltipHyperlink", opt, options, path, appName)
+      -- ... [27 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Frame_And_Object_Pool (Total Harvested Blocks: 1936)
+    Frankenstein Repurpose Idea: Zero-lag UI frame/widget recycling pool -> Pair with any Grid Matrix or Nameplate HUD to eliminate garbage collection stutter. [Upvalues: WILDU_GREEN_R@L57, WILDU_GREEN_G@L58, WILDU_GREEN_B@L59, UNEXPLORED_ALPHA@L60, EXCLUDED_REVEAL_ART_IDS@L61, GetExplorationAreaKey@L70]
+    [1] Synergy:98/100 | Parent:!WilduTools | Sig:CreateSimplePool(createFunc, resetFunc) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Async_Scheduler,Plug_Computed_Value | File:!WilduTools\libs\LibEQOL-1.0\LibEQOLEditMode.lua:1129-1163 | APIs:
+      local function CreateSimplePool(createFunc, resetFunc)
+          local pool = {
+              activeObjects = {},
+              inactiveObjects = {},
+          }
+      
+          function pool:Acquire()
+              local object = tremove(self.inactiveObjects)
+              local new = object == nil
+              if new then
+                  object = createFunc(self)
+                  resetFunc(self, object, true)
+      -- ... [23 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:86/100 | Parent:Accountant_Classic | Sig:AceGUI:Create(widgetType) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Async_Scheduler,Plug_Computed_Value | File:Accountant_Classic\Libs\AceGUI-3.0\AceGUI-3.0.lua:138-165 | APIs:
+      function AceGUI:Create(widgetType)
+      	if WidgetRegistry[widgetType] then
+      		local widget = newWidget(widgetType)
+      
+      		if rawget(widget, "Acquire") then
+      			widget.OnAcquire = widget.Acquire
+      			widget.Acquire = nil
+      		elseif rawget(widget, "Aquire") then
+      			widget.OnAcquire = widget.Aquire
+      			widget.Aquire = nil
+      		end
+      
+      -- ... [16 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:86/100 | Parent:Ace3 | Sig:AceGUI:Create(widgetType) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Async_Scheduler,Plug_Computed_Value | File:Ace3\AceGUI-3.0\AceGUI-3.0.lua:138-165 | APIs:
+      function AceGUI:Create(widgetType)
+      	if WidgetRegistry[widgetType] then
+      		local widget = newWidget(widgetType)
+      
+      		if rawget(widget, "Acquire") then
+      			widget.OnAcquire = widget.Acquire
+      			widget.Acquire = nil
+      		elseif rawget(widget, "Aquire") then
+      			widget.OnAcquire = widget.Aquire
+      			widget.Aquire = nil
+      		end
+      
+      -- ... [16 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:86/100 | Parent:AdvancedInterfaceOptions | Sig:AceGUI:Create(widgetType) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Async_Scheduler,Plug_Computed_Value | File:AdvancedInterfaceOptions\libs\AceGUI-3.0\AceGUI-3.0.lua:138-165 | APIs:
+      function AceGUI:Create(widgetType)
+      	if WidgetRegistry[widgetType] then
+      		local widget = newWidget(widgetType)
+      
+      		if rawget(widget, "Acquire") then
+      			widget.OnAcquire = widget.Acquire
+      			widget.Acquire = nil
+      		elseif rawget(widget, "Aquire") then
+      			widget.OnAcquire = widget.Aquire
+      			widget.Aquire = nil
+      		end
+      
+      -- ... [16 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:100/100 | Parent:AishCore | Sig:Draw(pin) | Sockets:Socket_Map_Coord,Socket_Table_Array,Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Async_Scheduler,Plug_Map_Waypoint | File:AishCore\Modules\MapReveal.lua:60-108 | APIs:C_Map.GetMapArtID, C_MapExplorationInfo.GetExploredMapTextures, C_Map.GetMapArtLayers
+      local function Draw(pin)
+        ReleaseAll(pin)
+        local c = Cfg()
+        if not c.mapReveal then return end
+        local map = pin.GetMap and pin:GetMap()
+        local mapID = map and map.GetMapID and map:GetMapID()
+        if not mapID then return end
+        local artID = C_Map.GetMapArtID and C_Map.GetMapArtID(mapID)
+        local list = artID and Overlays(artID)
+        if not list then return end
+      
+        local explored = {}
+      -- ... [37 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_Spatial_And_Pin_Math (Total Harvested Blocks: 2650)
+    Frankenstein Repurpose Idea: 2D coordinate distance, waypoint arrow rotation, or map pin projection -> Pair with QuestieDB/GatherMate2 node tables. [Upvalues: Map@L4, WhenBattlefieldMapLoaded@L39, WhenWorldMapLoaded@L47, SetupUnexploredAreas@L198]
+    [1] Synergy:90/100 | Parent:!WilduTools | Sig:Map:SetWorldQuestRewardIcons(enabled) | Sockets:Socket_Map_Coord -> Plug_State_Mutation | File:!WilduTools\modules\map.lua:338-353 | APIs:C_AddOns.IsAddOnLoaded, hooksecurefunc:RefreshVisuals
+      function Map:SetWorldQuestRewardIcons(enabled)
+          if not enabled and not C_AddOns.IsAddOnLoaded("Blizzard_WorldMap") then
+              return
+          end
+      
+          WhenWorldMapLoaded(function()
+              if not worldQuestRewardIconsHooked then
+                  worldQuestRewardIconsHooked = true
+                  hooksecurefunc(WorldMap_WorldQuestPinMixin, "RefreshVisuals", ApplyWorldQuestRewardIcon)
+              end
+      
+              for pin in WorldMapFrame:EnumeratePinsByTemplate("WorldMap_WorldQuestPinTemplate") do
+      -- ... [4 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:80/100 | Parent:Accountant_Classic | Sig:onUpdate(self) | Sockets:Socket_Generic -> Plug_Async_Scheduler | File:Accountant_Classic\Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua:195-209 | APIs:
+      	local function onUpdate(self)
+      		local mx, my = Minimap:GetCenter()
+      		local px, py = GetCursorPosition()
+      		local scale = Minimap:GetEffectiveScale()
+      		px, py = px / scale, py / scale
+      		local pos = 225
+      		if self.db then
+      			pos = deg(atan2(py - my, px - mx)) % 360
+      			self.db.minimapPos = pos
+      		else
+      			pos = deg(atan2(py - my, px - mx)) % 360
+      			self.minimapPos = pos
+      -- ... [3 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:96/100 | Parent:AddonFactory | Sig:GetIconAngle() | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:AddonFactory\Templates\MinimapButton.lua:5-34 | APIs:
+      	local function GetIconAngle()
+      		local xPos, yPos = GetCursorPosition()
+      		
+      		-- 12.x : Get the ui scale inside this function, Blizzard no longer properly returns it outside.
+      		local uiScale = UIParent:GetScale()
+      
+      		-- X-Axis
+      		local left = Minimap:GetLeft()
+      		local right = Minimap:GetRight()
+      		local offsetX = (right - left) / 2
+      
+      		-- Y-Axis
+      -- ... [18 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:100/100 | Parent:AishCore | Sig:SlashCmdList["AISHHP"](msg) | Sockets:Socket_Unit_GUID,Socket_Table_Array,Socket_UI_Frame -> Plug_Table_Dataset,Plug_UI_Visual_Render,Plug_Unit_State | File:AishCore\Modules\HealthCircle.lua:1204-1271 | APIs:C_CurveUtil.CreateCurve
+      SlashCmdList["AISHHP"] = function(msg)
+        local P = "|cff33ff99[AishCore soins]|r "
+        -- "/aishhp rot" : une rotation de texture accepte-t-elle une valeur secrete ? (piste pour la prevision en arc)
+        if msg == "rot" then
+          local okV, sv = pcall(UnitHealthPercent, "player", false, CurveConstants.ZeroToOne or CurveConstants.ScaleTo100)
+          print(P .. "valeur de test secrete=" .. tostring(okV and issecretvalue and issecretvalue(sv)))
+          local f = CreateFrame("Frame")
+          local t = f:CreateTexture()
+          local okR, errR = pcall(t.SetRotation, t, sv)
+          print(P .. "Texture:SetRotation(secret) -> " .. (okR and "ACCEPTE" or ("refuse : " .. tostring(errR))))
+          local okC = C_CurveUtil and C_CurveUtil.CreateCurve
+          print(P .. "C_CurveUtil.CreateCurve -> " .. (okC and "present" or "absent"))
+      -- ... [56 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:90/100 | Parent:AllPlayed | Sig:onUpdate(self) | Sockets:Socket_Generic -> Plug_Async_Scheduler | File:AllPlayed\libs\LibDBIcon-1.0\LibDBIcon-1.0.lua:121-132 | APIs:
+      	local function onUpdate(self)
+      		local mx, my = Minimap:GetCenter()
+      		local px, py = GetCursorPosition()
+      		local scale = Minimap:GetEffectiveScale()
+      		px, py = px / scale, py / scale
+      		if self.db then
+      			self.db.minimapPos = math.deg(math.atan2(py - my, px - mx)) % 360
+      		else
+      			self.minimapPos = math.deg(math.atan2(py - my, px - mx)) % 360
+      		end
+      		updatePosition(self)
+      	end
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_CombatLog_SubEvent_Parser (Total Harvested Blocks: 1356)
+    Frankenstein Repurpose Idea: Real-time CombatLog subevent parser -> Feed output into TactiVision threat bars, custom DPS meters, or boss alert triggers. [Upvalues: SyncAccountDataRoot@L54, GetCurrentCharTable@L115, MigrateDataVersions@L131, RemoveUnknownStubs@L151, MigrateCharacterKeys@L174, EnsureAccountId@L235]
+    [1] Synergy:86/100 | Parent:AltArmy_TBC | Sig:DS:HandleCombatLogForLevelHistory(payload) | Sockets:Socket_Generic -> Plug_Computed_Value | File:AltArmy_TBC\Data\DataStore\DataStoreLevelHistory.lua:410-456 | APIs:
+      function DS:HandleCombatLogForLevelHistory(payload)
+          if not IsLevelHistoryEnabled() then return end
+          if type(payload) ~= "table" then return end
+          if not UnitGUID then return end
+      
+          local subevent = payload[2]
+          local sourceGUID = payload[4]
+          local sourceName = payload[5]
+          local destGUID = payload[8]
+          local playerGUID = UnitGUID("player")
+          if not playerGUID then return end
+      
+      -- ... [35 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:Attune | Sig:Attune_NpcIdFromGUID(guid) | Sockets:Socket_Unit_GUID -> Plug_Unit_State | File:Attune\Attune.lua:1339-1368 | APIs:C_CreatureInfo.GetCreatureID
+      local function Attune_NpcIdFromGUID(guid)
+      	-- Use == nil (not truthiness): secret strings error on string conversion.
+      	if guid == nil then return -1 end
+      
+      	-- Forever/Midnight: PARTY_KILL / UNIT_DIED may pass secret GUIDs.
+      	-- strsplit/tostring on secrets errors under tainted execution.
+      	if issecretvalue and issecretvalue(guid) then
+      		-- UnitTokenFromGUID accepts secret GUIDs when tainted; UnitCreatureID
+      		-- returns a readable ID when unit identity is not restricted (e.g. open world).
+      		local unit = UnitTokenFromGUID and UnitTokenFromGUID(guid)
+      		if unit ~= nil and UnitCreatureID then
+      			local id = UnitCreatureID(unit)
+      -- ... [18 more lines in block]
+    ----------------------------------------------------------------------------
+    [3] Synergy:100/100 | Parent:BetterBlizzFrames | Sig:BuffCastCheck() | Sockets:Socket_Spell_Aura -> Plug_Async_Scheduler,Plug_Spell_Data | File:BetterBlizzFrames\classics\modules\auras.lua:176-216 | APIs:C_Timer.After, C_Timer.NewTimer
+      local function BuffCastCheck()
+          local _, subEvent, _, _, _, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
+          if subEvent ~= "SPELL_CAST_SUCCESS" then return end
+          if not castToAuraMap[spellID] then return end
+      
+          local auraID = castToAuraMap[spellID]
+      
+          local data = trackedAuras[auraID]
+          local duration = data.duration
+      
+          activeNonDurationAuras[auraID] = GetTime()
+      
+      -- ... [29 more lines in block]
+    ----------------------------------------------------------------------------
+    [4] Synergy:100/100 | Parent:BetterBlizzPlates | Sig:TrackAuraAfterCast() | Sockets:Socket_Spell_Aura,Socket_Unit_GUID,Socket_Table_Array -> Plug_Async_Scheduler,Plug_Spell_Data | File:BetterBlizzPlates\classics\modules\auras.lua:2138-2190 | APIs:C_Timer.After, C_NamePlate.GetNamePlates, C_Timer.NewTimer
+      local function TrackAuraAfterCast()
+          local _, subEvent, _, sourceGUID, _, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
+          if subEvent ~= "SPELL_CAST_SUCCESS" then return end
+          if stanceAuras[spellID] and sourceGUID then
+              activeStanceAuras[sourceGUID] = spellID
+      
+              C_Timer.After(0.1, function()
+                  for _, nameplate in ipairs(C_NamePlate.GetNamePlates()) do
+                      local frame = nameplate.UnitFrame
+                      if frame and frame.unit and UnitGUID(frame.unit) == sourceGUID then
+                          BBP.UpdateBuffs(frame.BuffFrame, frame.unit, nil, {helpful = true}, frame)
+                          break
+      -- ... [41 more lines in block]
+    ----------------------------------------------------------------------------
+    [5] Synergy:80/100 | Parent:BigWigs_Core | Sig:bossUtilityFrame:OnEvent() | Sockets:Socket_UI_Frame -> Plug_State_Mutation | File:BigWigs_Core\BossPrototype.lua:1450-1496 | APIs:
+      	bossUtilityFrame:SetScript("OnEvent", function()
+      		local time, event, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, extraSpellId, amount = CombatLogGetCurrentEventInfo()
+      		if allowedEvents[event] then
+      			if event == "UNIT_DIED" then
+      				local creatureID = GetCreatureID(destGUID)
+      				if creatureID then
+      					for i = #enabledModules, 1, -1 do
+      						local self = enabledModules[i]
+      						local m = eventMap[self][event]
+      						if m and m[creatureID] then
+      							local func = m[creatureID]
+      							args.mobId, args.destGUID, args.destName, args.destFlags, args.destRaidFlags, args.time = creatureID, destGUID, destName, destFlags, destRaidFlags, time
+      -- ... [35 more lines in block]
+    ----------------------------------------------------------------------------
+
+### CREATIVE LEGO CATEGORY: Lego_CrossLang_Algorithm (Total Harvested Blocks: 375)
+    Frankenstein Repurpose Idea: C# algorithm/schema from Backup_Monolith_v14.1 -> Port logic or SQL structure into your Lua/Python tools.
+    [1] Synergy:91/100 | Parent:Backup_Monolith_v14.1 | Sig:GetSnippetPreviewLinesOnDemand(string fullFilePath, int startLine, int endLine, int maxPreviewLines) | Sockets:Socket_Generic -> Plug_Table_Dataset,Plug_Computed_Value | File:Backup_Monolith_v14.1\Engine_CodeHarvester.cs:230-253 | APIs:
+          public static string GetSnippetPreviewLinesOnDemand(string fullFilePath, int startLine, int endLine, int maxPreviewLines) {
+              if (string.IsNullOrEmpty(fullFilePath) || !File.Exists(fullFilePath)) return "    -- [Source file unavailable]";
+              try {
+                  StringBuilder sb = new StringBuilder();
+                  int targetEnd = Math.Min(endLine, startLine + maxPreviewLines - 1);
+                  using (StreamReader sr = new StreamReader(fullFilePath, Encoding.UTF8)) {
+                      string ln;
+                      int curLine = 0;
+                      while ((ln = sr.ReadLine()) != null) {
+                          curLine++;
+                          if (curLine >= startLine && curLine <= targetEnd) {
+                              sb.AppendLine("      " + ln);
+      -- ... [12 more lines in block]
+    ----------------------------------------------------------------------------
+    [2] Synergy:91/100 | Parent:QuestTogether | Sig:def request(self, path, method="GET", payload=None, *, files=None) | Sockets:Socket_Map_Coord -> Plug_Table_Dataset,Plug_Map_Waypoint | File:QuestTogether\scripts\discord_changelog.py:105-177 | APIs:
+          def request(self, path, method="GET", payload=None, *, files=None):
+              if not path.startswith("/") or path.startswith("//"):
+                  raise ChangelogError("invalid API path")
+              headers = {"Authorization": ("Bot " if self.base == DISCORD_API else "Bearer ") + self.token,
+                         "User-Agent": "QuestTogether-release-notes", "Accept": "application/json"}
+              if self.base == GITHUB_API:
+                  headers["X-GitHub-Api-Version"] = "2022-11-28"
+              body = None
+              if payload is not None:
+                  headers["Content-Type"] = "application/json"
+                  body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+              if files:
+      -- ... [61 more lines in block]
+    ----------------------------------------------------------------------------
+

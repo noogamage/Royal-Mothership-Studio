@@ -1,0 +1,8 @@
+## Interface: 16001, 11504, 11505, 11506, 20504, 50400, 50401, 110105
+## Title: |cff00e5ffForeverCombatPilot|r |cffffd100[Classic & Forever Combat Pilot + NEC Rank Advisor]|r
+## Notes: Native C_AssistedCombat 1-Button Assistant + Multi-Rank Spellbook Scanner + Rank-1 Interrupt Reflex + NEC 210.20(A) Mana Load Derating.
+## SavedVariables: ForeverCombatPilotDB
+## Version: 1.0.0
+## Author: DeconstructionGod_Studio v14.3
+
+Engine_ForeverCombatPilot.lua

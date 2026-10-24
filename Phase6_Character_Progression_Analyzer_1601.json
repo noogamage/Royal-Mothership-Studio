@@ -1,0 +1,462 @@
+{
+  "phase": "Phase 6 - Player Character & Alt-Roster Progression Analyzer, Ignition Sequence & 70/30 AH Liquidity Engine (WoW Forever 1.60.1.70425)",
+  "counts": {
+    "bootstrap_ignition_steps": 8,
+    "disenchant_skill_brackets": 10,
+    "ah_30_70_liquidity_rules": 16,
+    "character_analyzer_modules": 5
+  },
+  "bootstrap_ignition_sequence": [
+    {
+      "sequence_step": 1,
+      "phase_label": "IGNITION STEP 1: The Backbone Skinner Pioneer (Starter Sub-Zone -> Lv 6-7)",
+      "active_character_slot": "Slot 3: THE ARMOR KIT & QUIVER ARTISAN",
+      "character_class_and_profs": "Hunter (Skinning at Lv 2-3 + Leatherworking at Lv 5)",
+      "start_level": 1,
+      "target_level": 7,
+      "estimated_minutes": 45,
+      "profession_unlock_action": "At Lv 1 you have 0 copper. Quest 1->3 in starter valley (12 mins) to loot ~1.5 Silver. Walk to first town (Goldshire/Razor Hill/Kharanos/Dolanaar) at Lv 3, buy Skinning Knife (82c) + train Skinning (10c, NO level 5 requirement!). Grind beasts + starter quests to Lv 6-7 (Skinning hits ~45-60). Run to Capital City at Lv 5-6 to train Apprentice Leatherworking (10c) & Cooking.",
+      "seventy_percent_guild_stash": "Keep 70% of Light Leather (~35x), Ruined Leather Scraps, Linen Cloth (~20x), and craft 4x Light Armor Kits (+8 Armor) + 3-4x Embossed Leather Vests / Handstitched Leather Belts (BoE LW Greens!). Mail these + 8 Silver seed coin to Slot 1 (The Royal Banker).",
+      "thirty_percent_ah_liquidation": "Post 30% of haul on the Capital City AH: 1-2 stacks of Light Leather + 2x Light Armor Kits. Generates your first 15-30 Silver in steady liquid cash while you log onto the next toon!",
+      "why_this_exact_order_math": "Starting with the Hunter Skinner to Lv 6-7 solves the 'Zero-Copper & Level-5 Gate Paradox': Skinning unlocks before Lv 5, beasts drop the highest vendor gray value per kill, and by Lv 7 your Hunter funds the Banker's training AND crafts the exact Lv 5 Leatherworking BoE Greens the Banker needs to Disenchant!"
+    },
+    {
+      "sequence_step": 2,
+      "phase_label": "IGNITION STEP 2: The Royal Banker & AH Sovereign (Lv 1 -> Lv 5 Capital City Lock-In)",
+      "active_character_slot": "Slot 1: THE ROYAL BANKER & AH SOVEREIGN",
+      "character_class_and_profs": "Mage (Enchanting + Alchemy at Lv 5)",
+      "start_level": 1,
+      "target_level": 5,
+      "estimated_minutes": 22,
+      "profession_unlock_action": "Power-level 1->5 in starter valley (22 mins), then immediately run to the Capital City (Stormwind/Ironforge or Orgrimmar/Thunder Bluff). Open the Hunter's mail (8 Silver + LW Greens + Linen + Light Armor Kits). Train Apprentice Enchanting (10c) + Apprentice Alchemy (10c) right at Level 5!",
+      "seventy_percent_guild_stash": "Disenchant the Hunter's crafted LW Greens at Enchanting Skill 1 -> yields Strange Dust + Lesser Magic Essence! Craft Runed Copper Rod (once Blacksmith sends Inert Copper Rod in Step 3) + Novice's Practice Wand / Lesser Magic Wand (Lv 5, 11.3 DPS!). Park Banker at Capital City AH/Bank/Mailbox.",
+      "thirty_percent_ah_liquidation": "List 30% of surplus Strange Dust or 1x Lesser Magic Wand on AH (sells for 8-15 Silver to caster mains!). Register Guild Charter at Guild Master.",
+      "why_this_exact_order_math": "Getting the Banker to Level 5 second unlocks Apprentice Enchanting (Skill 1-75) + Disenchanting + Apprentice Alchemy (Skill 1-75) BEFORE the rest of the alt army generates hundreds of items, turning the Banker into an active factory instead of a passive mule."
+    },
+    {
+      "sequence_step": 3,
+      "phase_label": "IGNITION STEP 3: The Forge & Rod Titan (Lv 1 -> Lv 6 Mining + Blacksmithing)",
+      "active_character_slot": "Slot 5: THE FORGE & ROD TITAN",
+      "character_class_and_profs": "Paladin or Warrior (Mining at Lv 2-3 + Blacksmithing at Lv 5)",
+      "start_level": 1,
+      "target_level": 6,
+      "estimated_minutes": 40,
+      "profession_unlock_action": "Open Banker Care Package (Light Armor Kits + 2 Silver). Buy Mining Pick (81c) + learn Mining at Lv 2-3. Mine Copper Veins along starter ridge to Lv 6 (Mining hits ~35). Run to Capital City at Lv 5-6, learn Blacksmithing, smelt Copper Bars, craft Rough Sharpening Stones (hits BS Skill 15), and craft INERT COPPER RODS (1x Rough Grinding Stone + 5x Copper Bar)!",
+      "seventy_percent_guild_stash": "Keep 70% of Copper Bars/Rough Stones; mail 1x Inert Copper Rod + Copper Bars + BoE Greens to the Banker Enchanter, and mail Rough Sharpening Stones (+2 Weapon Dmg) to melee alts.",
+      "thirty_percent_ah_liquidation": "List 30% on AH: 2-3x Inert Copper Rods (massive markup because every Enchanter on WoW Forever needs one from a Blacksmith!) + 1 stack of Copper Bars.",
+      "why_this_exact_order_math": "Unlocks the Banker's Runed Copper Rod at BS Skill 15 so the Banker can immediately enchant Tier 1 White Heirlooms and craft Lesser Magic Wands!"
+    },
+    {
+      "sequence_step": 4,
+      "phase_label": "IGNITION STEP 4: The Bag & Cloth Baron (Lv 1 -> Lv 7 Tailoring + Skinning)",
+      "active_character_slot": "Slot 2: THE BAG & CLOTH BARON",
+      "character_class_and_profs": "Mage (Tailoring at Lv 5 + Skinning at Lv 2)",
+      "start_level": 1,
+      "target_level": 7,
+      "estimated_minutes": 40,
+      "profession_unlock_action": "Equip the Banker's newly crafted Level 5 Lesser Magic Wand (11.3 DPS \u2014 2-shots every starter mob!). Shred humanoid camps from Lv 1->7 for Linen Cloth. Run to Capital City at Lv 5-6, learn Tailoring, spin Bolts of Linen Cloth, and craft Linen Bags (6-slot) + WoW Forever Custom LINEN REAGENT BAGS (gray=65)!",
+      "seventy_percent_guild_stash": "70% Guild Allocation: Mail 3x Linen Bags + 1x Linen Reagent Bag to the Banker, Hunter, Paladin, and next alts, plus mail White Linen Robes/Brown Linen Vests (BoE Greens) to the Banker to Disenchant!",
+      "thirty_percent_ah_liquidation": "30% AH Liquidation: List Linen Bags and Custom Linen Reagent Bags on the AH for instant gold flow.",
+      "why_this_exact_order_math": "Eliminates the 16-slot backpack bottleneck across the entire account on Day 1. Every alt after Step 4 starts with 3x Linen Bags + 1x Linen Reagent Bag (40-42 total slots!)."
+    },
+    {
+      "sequence_step": 5,
+      "phase_label": "IGNITION STEP 5: The Botanical Speedster (Lv 1 -> Lv 7 Herbalism + Mining)",
+      "active_character_slot": "Slot 4: THE BOTANICAL SPEEDSTER",
+      "character_class_and_profs": "Druid (Herbalism + Mining at Lv 2-3)",
+      "start_level": 1,
+      "target_level": 7,
+      "estimated_minutes": 38,
+      "profession_unlock_action": "Opens 4-Bag Care Package from Tailor + Light Armor Kits from Hunter. Learns Herbalism + Mining at Lv 2-3 (Tauren starts at 16 Herbalism!). Sweeps starter & border zones for Peacebloom, Silverleaf, Earthroot, Mageroyal, and Copper Ore to Lv 7.",
+      "seventy_percent_guild_stash": "70% Guild Allocation: Mail 50+ Peacebloom/Silverleaf/Earthroot to the Level 5 Banker Alchemist to brew Elixir of Lion's Strength, Elixir of Minor Fortitude, Minor Healing Potions, and Minor Mana Potions!",
+      "thirty_percent_ah_liquidation": "30% AH Liquidation: Sell 30% of raw herbs + surplus Minor Healing/Mana Potions on AH.",
+      "why_this_exact_order_math": "Fuels the Banker Alchemist to hit Alchemy Skill 60+, unlocking Elixir of Minor Strength & Minor Mana Potions\u2014which the Hunter LW needs to craft Forceful & Mystic Medium Armor Kits in Band 2!"
+    },
+    {
+      "sequence_step": 6,
+      "phase_label": "IGNITION STEP 6: Complete Band 1 Sweep Across Remaining Alts (Lv 1 -> Lv 6-7)",
+      "active_character_slot": "Slots 6, 7, 8, 9, 10 (Rogue, Shaman, Warlock, Priest, Warrior)",
+      "character_class_and_profs": "Remaining Roster (Engineering, Dual-Gatherers, Tailors)",
+      "start_level": 1,
+      "target_level": 7,
+      "estimated_minutes": 120,
+      "profession_unlock_action": "Every remaining alt logs in to a mailbox overflowing with: 3x Linen Bags + 1x Linen Reagent Bag (40 slots!), 4x Light Armor Kits, Enchanted Tier 1 White Heirlooms (+15 HP Chest, +Weapon Dmg / Lesser Magic Wand), and Strength/Fortitude Elixirs! Each alt breezes from Lv 1->7 in ~25 mins and visits the Capital City at Lv 5 to start accumulating Rested XP.",
+      "seventy_percent_guild_stash": "70% of all Linen, Light Leather, Copper Ore, Rough Stone, Herbs, and Locked Chests flow into the Banker & Rogue Engineer.",
+      "thirty_percent_ah_liquidation": "30% of all gathered commodities & Portable Reagent Bots (Engineering gray=25) hit the AH.",
+      "why_this_exact_order_math": "Parking all alts at a Capital City Inn at Level 6-7 activates the 150% Rested XP multiplier across your entire 10-character army!"
+    },
+    {
+      "sequence_step": 7,
+      "phase_label": "BAND 2 LOCKSTEP RELAY: Banker Lv 5 -> Lv 10 + Roster Lv 7 -> Lv 14",
+      "active_character_slot": "Banker to Lv 10 FIRST, then Roster in Rested XP Rotation",
+      "character_class_and_profs": "All 10 Characters (Journeyman Profession Cap 150 Unlock)",
+      "start_level": 7,
+      "target_level": 14,
+      "estimated_minutes": 180,
+      "profession_unlock_action": "Wait until Banker has Rested XP -> push Banker from Lv 5 -> Lv 10 (takes ~35 mins with Enchanted Wand + Heirlooms) so Banker unlocks JOURNEYMAN ENCHANTING & ALCHEMY (Skill 75->150)! Now the Banker can Disenchant ALL Lv 10-25 Greens (Skill 25-75) and brew Elixir of Giant Growth & Lesser Mana Potions!",
+      "seventy_percent_guild_stash": "70% Guild Allocation: Hunter crafts 4x Forceful Medium Armor Kits & 4x Mystic Medium Armor Kits (using Banker's Strange Dust + Elixirs/Potions); Tailor crafts 8-slot Woolen Bags + Woolen Reagent Bags; Banker crafts Greater Magic Wands (Lv 13, 17.5 DPS!).",
+      "thirty_percent_ah_liquidation": "30% AH Liquidation: Post Forceful/Mystic Medium Armor Kits, Woolen Reagent Bags, Greater Magic Wands, and Inert Silver Rods.",
+      "why_this_exact_order_math": "Pushing the Banker to Lv 10 right as the roster enters Band 2 prevents the Disenchanting & Profession Cap bottleneck (`Skill 75 limit`) so no crafted Leatherworking or Tailoring green ever sits un-disenchanted!"
+    },
+    {
+      "sequence_step": 8,
+      "phase_label": "BAND 3 & 4 LOCKSTEP RELAY: Banker to Lv 20 (Expert 225) -> Lv 35 (Artisan 300)",
+      "active_character_slot": "Banker to Lv 20 at Roster Lv 18; Banker to Lv 35 at Roster Lv 32",
+      "character_class_and_profs": "Full Royal Empire (Expert 225 -> Artisan 300 Cap)",
+      "start_level": 14,
+      "target_level": 60,
+      "estimated_minutes": 0,
+      "profession_unlock_action": "Keep the Golden Rule of Banker Progression: Unlock Lv 10 Banker when Roster hits Lv 8; Unlock Lv 20 Banker (plus Mage Teleport!) when Roster hits Lv 18; Unlock Lv 35 Banker (Artisan 300 Max Cap!) when Roster hits Lv 32.",
+      "seventy_percent_guild_stash": "70% funds Silk/Mageweave/Runecloth Reagent Bags, Forceful/Mystic Heavy/Thick/Rugged Armor Kits, Portable Repair Bots & Arcane Salvagers, and Level 40 Mounts.",
+      "thirty_percent_ah_liquidation": "30% of all Transmutes, Mooncloth CDs, Bags, Armor Kits, and Elixirs sold on AH.",
+      "why_this_exact_order_math": "In WoW Classic/Forever, Level 35 is the FINAL character level requirement for 300 Artisan professions. Once your Banker hits Level 35, it never needs another XP point to craft 100% of endgame Level 60 Enchants, Flasks, and Transmutes!"
+    }
+  ],
+  "disenchant_skill_matrix": [
+    {
+      "bracket_id": 1,
+      "req_enchanting_skill": 1,
+      "req_banker_char_level": 5,
+      "target_item_ilvl_range": "iLvl 5 - 15",
+      "target_equip_level_range": "Equip Lv 1 - 10",
+      "lw_tailor_bs_feeder_greens": "LW: Handstitched Leather Belt/Boots/Pants, Embossed Leather Vest/Cloak | Tailor: Brown Linen Vest/Robe, White Linen Robe | BS: Copper Chain Vest, Copper Bracers",
+      "armor_disenchant_yield": "80% Strange Dust (1-2x) | 20% Lesser Magic Essence (1-2x)",
+      "weapon_disenchant_yield": "75% Lesser Magic Essence (1-2x) | 25% Strange Dust (1-2x)",
+      "rare_blue_shard_yield": "Small Glimmering Shard",
+      "armor_kit_and_wand_unlock": "Fuels: Runed Copper Rod (Skill 1), Novice's Practice Wand, Lesser Magic Wand (Skill 10), Forceful & Mystic Medium Armor Kits (2x Strange Dust each)!"
+    },
+    {
+      "bracket_id": 2,
+      "req_enchanting_skill": 25,
+      "req_banker_char_level": 5,
+      "target_item_ilvl_range": "iLvl 16 - 20",
+      "target_equip_level_range": "Equip Lv 11 - 15",
+      "lw_tailor_bs_feeder_greens": "LW: Fine Leather Boots/Cloak/Belt, Dark Leather Tunic, Embossed Leather Pants | Tailor: Red Linen Robe, Woolen Boots, Green Woolen Vest | BS: Runed Copper Breastplate",
+      "armor_disenchant_yield": "75% Strange Dust (2-3x) | 20% Greater Magic Essence (1-2x) | 5% Small Glimmering Shard",
+      "weapon_disenchant_yield": "75% Greater Magic Essence (1-2x) | 20% Strange Dust (2-3x) | 5% Small Glimmering Shard",
+      "rare_blue_shard_yield": "Small Glimmering Shard",
+      "armor_kit_and_wand_unlock": "Fuels: Greater Magic Wand (Skill 70, Lv 13 \u2014 17.5 DPS!), Minor Speed / +50 HP / +5 Stam Heirlooms!"
+    },
+    {
+      "bracket_id": 3,
+      "req_enchanting_skill": 50,
+      "req_banker_char_level": 10,
+      "target_item_ilvl_range": "iLvl 21 - 25",
+      "target_equip_level_range": "Equip Lv 16 - 20",
+      "lw_tailor_bs_feeder_greens": "LW: Dark Leather Belt/Pants, Hillman's Leather Vest, Toughened Leather Armor | Tailor: Gray Woolen Robe, Double-stitched Woolen Shoulders | BS: Rough Bronze Leggings/Cuirass",
+      "armor_disenchant_yield": "75% Strange Dust (4-6x) | 15% Lesser Astral Essence (1-2x) | 10% Small Glimmering Shard",
+      "weapon_disenchant_yield": "75% Lesser Astral Essence (1-2x) | 15% Strange Dust (4-6x) | 10% Small Glimmering Shard",
+      "rare_blue_shard_yield": "Large Glimmering Shard",
+      "armor_kit_and_wand_unlock": "Banker hits Lv 10 (Journeyman 75-150): Unlocks Runed Silver Rod (Skill 100) + Astral Enchants."
+    },
+    {
+      "bracket_id": 4,
+      "req_enchanting_skill": 75,
+      "req_banker_char_level": 10,
+      "target_item_ilvl_range": "iLvl 26 - 30",
+      "target_equip_level_range": "Equip Lv 21 - 25",
+      "lw_tailor_bs_feeder_greens": "LW: Barbaric Gloves, Green Leather Armor, Guardian Pants | Tailor: Lesser Wizard's Robe, Azure Silk Pants/Hood | BS: Silvered Bronze Breastplate/Boots",
+      "armor_disenchant_yield": "75% Soul Dust (1-2x) | 20% Greater Astral Essence (1-2x) | 5% Large Glimmering Shard",
+      "weapon_disenchant_yield": "75% Greater Astral Essence (1-2x) | 20% Soul Dust (1-2x) | 5% Large Glimmering Shard",
+      "rare_blue_shard_yield": "Small Glowing Shard",
+      "armor_kit_and_wand_unlock": "Fuels: Forceful & Mystic Heavy Armor Kits (2x Soul Dust each!) + Minor Speed Boots!"
+    },
+    {
+      "bracket_id": 5,
+      "req_enchanting_skill": 100,
+      "req_banker_char_level": 10,
+      "target_item_ilvl_range": "iLvl 31 - 35",
+      "target_equip_level_range": "Equip Lv 26 - 30",
+      "lw_tailor_bs_feeder_greens": "LW: Guardian Armor, Barbaric Leggings, Dusky Leather Leggings | Tailor: Crimson Silk Vest/Shoulders, Azure Silk Vest | BS: Green Iron Boots/Hauberk/Helm",
+      "armor_disenchant_yield": "75% Soul Dust (2-5x) | 20% Lesser Mystic Essence (1-2x) | 5% Small Glowing Shard",
+      "weapon_disenchant_yield": "75% Lesser Mystic Essence (1-2x) | 20% Soul Dust (2-5x) | 5% Small Glowing Shard",
+      "rare_blue_shard_yield": "Large Glowing Shard",
+      "armor_kit_and_wand_unlock": "Fuels: Mystic Wand (Skill 155), Portable Arcane Salvager (gray=145), Runed Golden Rod (Skill 150)!"
+    },
+    {
+      "bracket_id": 6,
+      "req_enchanting_skill": 125,
+      "req_banker_char_level": 20,
+      "target_item_ilvl_range": "iLvl 36 - 40",
+      "target_equip_level_range": "Equip Lv 31 - 35",
+      "lw_tailor_bs_feeder_greens": "LW: Comfortable Leather Hat, Barbaric Belt, Dusky Bracers | Tailor: Crimson Silk Pantaloons, Black Mageweave Vest/Leggings | BS: Golden Scale Bracers, Heavy Mithril Shoulder",
+      "armor_disenchant_yield": "75% Vision Dust (1-2x) | 20% Greater Mystic Essence (1-2x) | 5% Large Glowing Shard",
+      "weapon_disenchant_yield": "75% Greater Mystic Essence (1-2x) | 20% Vision Dust (1-2x) | 5% Large Glowing Shard",
+      "rare_blue_shard_yield": "Small Radiant Shard",
+      "armor_kit_and_wand_unlock": "Banker hits Lv 20 (Expert 150-225): Fuels Forceful & Mystic Thick Armor Kits (2x Vision Dust each!) + Enchanted Mageweave Pouches!"
+    },
+    {
+      "bracket_id": 7,
+      "req_enchanting_skill": 150,
+      "req_banker_char_level": 20,
+      "target_item_ilvl_range": "iLvl 41 - 45",
+      "target_equip_level_range": "Equip Lv 36 - 40",
+      "lw_tailor_bs_feeder_greens": "LW: Nightscape Headband/Tunic/Pants, Turtle Scale Breastplate | Tailor: White Bandit Mask (1x Bolt of Mageweave Shuffle!), Crimson Silk Robe | BS: Heavy Mithril Breastplate/Boots",
+      "armor_disenchant_yield": "75% Vision Dust (2-5x) | 20% Lesser Nether Essence (1-2x) | 5% Small Radiant Shard",
+      "weapon_disenchant_yield": "75% Lesser Nether Essence (1-2x) | 20% Vision Dust (2-5x) | 5% Small Radiant Shard",
+      "rare_blue_shard_yield": "Large Radiant Shard",
+      "armor_kit_and_wand_unlock": "THE WHITE BANDIT MASK SHUFFLE: Tailor crafts White Bandit Masks for 1x Bolt of Mageweave -> Banker DEs into 2-5x Vision Dust / Lesser Nether Essence for massive AH profit!"
+    },
+    {
+      "bracket_id": 8,
+      "req_enchanting_skill": 175,
+      "req_banker_char_level": 20,
+      "target_item_ilvl_range": "iLvl 46 - 50",
+      "target_equip_level_range": "Equip Lv 41 - 45",
+      "lw_tailor_bs_feeder_greens": "LW: Nightscape Boots, Big Voodoo Robe/Mask, Tough Scorpid Breastplate | Tailor: Red Mageweave Pants/Headband, Tuxedo Shirt | BS: Mithril Coif, Ornate Mithril Pants",
+      "armor_disenchant_yield": "75% Dream Dust (1-2x) | 20% Greater Nether Essence (1-2x) | 5% Large Radiant Shard",
+      "weapon_disenchant_yield": "75% Greater Nether Essence (1-2x) | 20% Dream Dust (1-2x) | 5% Large Radiant Shard",
+      "rare_blue_shard_yield": "Small Brilliant Shard",
+      "armor_kit_and_wand_unlock": "Fuels: Forceful & Mystic Rugged Armor Kits (2x Dream Dust each!) + Runed Truesilver Rod (Skill 200)!"
+    },
+    {
+      "bracket_id": 9,
+      "req_enchanting_skill": 200,
+      "req_banker_char_level": 35,
+      "target_item_ilvl_range": "iLvl 51 - 55",
+      "target_equip_level_range": "Equip Lv 46 - 50",
+      "lw_tailor_bs_feeder_greens": "LW: Wicked Leather Gauntlets/Bracers, Runic Leather Headband | Tailor: Brightcloth Robe/Cloak, Runecloth Belt/Tunic | BS: Thorium Belt/Bracers/Armor",
+      "armor_disenchant_yield": "75% Dream Dust (2-5x) | 20% Lesser Eternal Essence (1-2x) | 5% Small Brilliant Shard",
+      "weapon_disenchant_yield": "75% Lesser Eternal Essence (1-2x) | 20% Dream Dust (2-5x) | 5% Small Brilliant Shard",
+      "rare_blue_shard_yield": "Large Brilliant Shard",
+      "armor_kit_and_wand_unlock": "Banker hits Lv 35 (Artisan 225-300): Unlocks all endgame Enchants & Transmutes!"
+    },
+    {
+      "bracket_id": 10,
+      "req_enchanting_skill": 225,
+      "req_banker_char_level": 35,
+      "target_item_ilvl_range": "iLvl 56 - 65+",
+      "target_equip_level_range": "Equip Lv 51 - 60",
+      "lw_tailor_bs_feeder_greens": "LW: Wicked Leather Headband/Belt, Runic Leather Bracers | Tailor: Runecloth Headband/Boots/Gloves, Wizardweave | BS: Imperial Plate Belt/Bracers, Radiant Boots",
+      "armor_disenchant_yield": "75% Illusion Dust (1-5x) | 20% Greater Eternal Essence (1-3x) | 5% Large Brilliant Shard",
+      "weapon_disenchant_yield": "75% Greater Eternal Essence (1-3x) | 20% Illusion Dust (1-5x) | 5% Large Brilliant Shard",
+      "rare_blue_shard_yield": "Large Brilliant Shard / Nexus Crystal",
+      "armor_kit_and_wand_unlock": "Fuels: Runed Arcanite Rod (Skill 290), Enchanted Runecloth Bags, Big Bag of Enchantment, Crusader, +30 Spellpower!"
+    }
+  ],
+  "ah_30_70_liquidity_ledger": [
+    {
+      "ledger_id": 1,
+      "level_band": "Band 1 (Lv 1-10)",
+      "source_profession": "Skinning / LW",
+      "commodity_or_product": "Light Leather & Ruined Scraps",
+      "guild_retention_70_pct_use": "70% retained by Hunter LW to craft Light Armor Kits (4 per alt) + Embossed Leather Vests for Banker DE.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Light Armor Kits (singles) + Light Leather (stacks of 10-20) OR Light Leather Reagent Bags!",
+      "optimal_ah_stack_size": "Stacks of 10 / Singles for Kits & Bags",
+      "est_profit_margin_pct": 240,
+      "why_it_sells_instantly": "Tailors, Blacksmiths, and Engineers all need Light Leather starting at Skill 25, and every fresh alt buys Light Armor Kits."
+    },
+    {
+      "ledger_id": 2,
+      "level_band": "Band 1 (Lv 1-10)",
+      "source_profession": "Tailoring",
+      "commodity_or_product": "Linen Cloth & Bolts of Linen",
+      "guild_retention_70_pct_use": "70% used by Mage Tailor to equip all 10 guild alts with 3x Linen Bags + 1x Custom Linen Reagent Bag + First Aid Bandages.",
+      "ah_liquidation_30_pct_form": "Convert 30% into Custom Linen Reagent Bags (gray=65) & 6-slot Linen Bags on the AH.",
+      "optimal_ah_stack_size": "Singles (1 Bag per listing)",
+      "est_profit_margin_pct": 310,
+      "why_it_sells_instantly": "In WoW Forever 1.60.1, Linen Reagent Bags are the #1 Day-1 purchase for every player tired of running out of bag slots."
+    },
+    {
+      "ledger_id": 3,
+      "level_band": "Band 1 (Lv 1-10)",
+      "source_profession": "Mining / BS",
+      "commodity_or_product": "Copper Ore, Bars & Rough Stone",
+      "guild_retention_70_pct_use": "70% smelted by Paladin BS into Rough Sharpening Stones, Copper Chain gear, and 1x Inert Copper Rod for our Banker.",
+      "ah_liquidation_30_pct_form": "Convert 30% into Inert Copper Rods (5x Copper Bar + 1x Rough Grinding Stone) + stacks of 10 Copper Bars.",
+      "optimal_ah_stack_size": "Singles for Rods / Stacks of 10 for Bars",
+      "est_profit_margin_pct": 420,
+      "why_it_sells_instantly": "Solo Enchanters CANNOT make their own Inert Copper Rod\u2014they are forced to buy it from a Blacksmith on the AH!"
+    },
+    {
+      "ledger_id": 4,
+      "level_band": "Band 1 (Lv 1-10)",
+      "source_profession": "Herbalism / Alchemy",
+      "commodity_or_product": "Peacebloom, Silverleaf & Earthroot",
+      "guild_retention_70_pct_use": "70% brewed by Banker Alchemist into Elixir of Lion's Strength, Elixir of Minor Strength, Minor Fortitude & Minor Mana/Healing Potions.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Elixir of Minor Strength (pairs of 2!) + Minor Mana Potions + raw Silverleaf stacks.",
+      "optimal_ah_stack_size": "Stacks of 2 (exactLW Kit qty!) or 5",
+      "est_profit_margin_pct": 280,
+      "why_it_sells_instantly": "Every Leatherworker on WoW Forever needs 2x Elixir of Minor Strength and 2x Minor Mana Potion to craft Forceful/Mystic Medium Armor Kits!"
+    },
+    {
+      "ledger_id": 5,
+      "level_band": "Band 1 (Lv 1-10)",
+      "source_profession": "Enchanting",
+      "commodity_or_product": "Strange Dust & Lesser Magic Essence",
+      "guild_retention_70_pct_use": "70% used by Banker to craft Lesser Magic Wands (Lv 5) for our Mage/Priest/Warlock + supply Strange Dust to our LW.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Lesser Magic Wands (Lv 5) + pairs of Strange Dust on the AH.",
+      "optimal_ah_stack_size": "Singles for Wands / Stacks of 2 or 5 for Dust",
+      "est_profit_margin_pct": 350,
+      "why_it_sells_instantly": "Priests, Mages, and Warlocks desperately buy a Lv 5 Lesser Magic Wand the second they reach the capital city."
+    },
+    {
+      "ledger_id": 6,
+      "level_band": "Band 2 (Lv 10-20)",
+      "source_profession": "Skinning / LW",
+      "commodity_or_product": "Medium Leather & Medium Hides",
+      "guild_retention_70_pct_use": "70% turned into Forceful Medium Armor Kits & Mystic Medium Armor Kits (4 per guild alt = 40 kits).",
+      "ah_liquidation_30_pct_form": "Convert 30% into Forceful Medium Armor Kits & Mystic Medium Armor Kits on the AH!",
+      "optimal_ah_stack_size": "Singles or Sets of 4 (Chest/Hands/Legs/Feet Bundle!)",
+      "est_profit_margin_pct": 480,
+      "why_it_sells_instantly": "99% of players don't have a synchronized Enchanter + Alchemist + Leatherworker trinity\u2014so they pay massive premiums for completed Forceful/Mystic Kits!"
+    },
+    {
+      "ledger_id": 7,
+      "level_band": "Band 2 (Lv 10-20)",
+      "source_profession": "Tailoring",
+      "commodity_or_product": "Wool Cloth & Bolts of Woolen Cloth",
+      "guild_retention_70_pct_use": "70% crafts 8-slot Woolen Bags + Woolen Reagent Bags for the roster and Banker's bank slots.",
+      "ah_liquidation_30_pct_form": "Convert 30% into Custom Woolen Reagent Bags (gray=110) & Woolen Bags.",
+      "optimal_ah_stack_size": "Singles",
+      "est_profit_margin_pct": 290,
+      "why_it_sells_instantly": "Wool drops in a narrow level window (Lv 12-22), making Wool Cloth and Woolen Reagent Bags chronically scarce and overpriced on the AH."
+    },
+    {
+      "ledger_id": 8,
+      "level_band": "Band 2 (Lv 10-20)",
+      "source_profession": "Mining / BS / Eng",
+      "commodity_or_product": "Tin, Silver, Bronze & Coarse Stone",
+      "guild_retention_70_pct_use": "70% crafts Inert Silver Rods, Coarse Sharpening Stones, Bronze Tubes, Flying Tiger Goggles, and Portable Reagent Bots.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Inert Silver Rods, Bronze Tubes (Quest item!), and Coarse Stone stacks.",
+      "optimal_ah_stack_size": "Singles for Rods/Tubes",
+      "est_profit_margin_pct": 390,
+      "why_it_sells_instantly": "Bronze Tubes are required for Duskwood 'Look to the Stars' quests, and Inert Silver Rods are mandatory for Journeyman Enchanters."
+    },
+    {
+      "ledger_id": 9,
+      "level_band": "Band 2 (Lv 10-20)",
+      "source_profession": "Herbalism / Alchemy",
+      "commodity_or_product": "Mageroyal, Briarthorn, Stranglekelp & Swiftthistle",
+      "guild_retention_70_pct_use": "70% brews Swiftness Potions, Elixir of Wisdom, Elixir of Giant Growth, and Lesser Mana Potions.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Swiftness Potions, Raw Swiftthistle, and Elixir of Giant Growth (pairs of 2 for LW Heavy Kits!).",
+      "optimal_ah_stack_size": "Stacks of 2 or 5",
+      "est_profit_margin_pct": 360,
+      "why_it_sells_instantly": "Rogues (Thistle Tea) and PvPers buy Swiftthistle/Swiftness Potions nonstop, while Leatherworkers need 2x Elixir of Giant Growth per Forceful Heavy Kit."
+    },
+    {
+      "ledger_id": 10,
+      "level_band": "Band 3 (Lv 20-30)",
+      "source_profession": "Skinning / LW",
+      "commodity_or_product": "Heavy Leather & Heavy Hides",
+      "guild_retention_70_pct_use": "70% supplies Tailor (for Small Silk Packs!), Blacksmith, Engineer (Repair Bots!), and crafts 4x Forceful/Mystic Heavy Armor Kits per alt.",
+      "ah_liquidation_30_pct_form": "Convert 30% into Forceful/Mystic Heavy Armor Kits + Heavy Quivers / Heavy Leather Ammo Pouches.",
+      "optimal_ah_stack_size": "Singles",
+      "est_profit_margin_pct": 410,
+      "why_it_sells_instantly": "Heavy Leather is the most cross-demanded leather in the game (required by Tailors for Silk Bags, Blacksmiths, and Engineers)."
+    },
+    {
+      "ledger_id": 11,
+      "level_band": "Band 3 (Lv 20-30)",
+      "source_profession": "Tailoring",
+      "commodity_or_product": "Silk Cloth & Bolts of Silk",
+      "guild_retention_70_pct_use": "70% crafts 10-slot Small Silk Packs + Silk Reagent Bags + White Bandit Masks (for DE shuffle).",
+      "ah_liquidation_30_pct_form": "Convert 30% into Silk Reagent Bags (gray=140) & Small Silk Packs.",
+      "optimal_ah_stack_size": "Singles",
+      "est_profit_margin_pct": 300,
+      "why_it_sells_instantly": "Level 20-30 players flood dungeons and immediately buy 10-slot Silk Packs and Silk Reagent Bags."
+    },
+    {
+      "ledger_id": 12,
+      "level_band": "Band 3 (Lv 20-30)",
+      "source_profession": "Mining / BS / Eng",
+      "commodity_or_product": "Iron, Gold, Heavy Stone & Mithril",
+      "guild_retention_70_pct_use": "70% crafts Inert Golden Rods, Heavy Sharpening Stones, Portable Repair Bots (gray=145), Portable Anvils, and Iron Buckles.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Deadly Blunderbusses (Ashenvale Quest!), Iron Struts, Gyrochronatoms (Hillsbrad/Badlands Quest!), and Inert Golden Rods.",
+      "optimal_ah_stack_size": "Singles",
+      "est_profit_margin_pct": 450,
+      "why_it_sells_instantly": "Quest turn-in crafted items (Deadly Blunderbuss, Gyrochronatom, Bronze Tube) sell for 400-600% over material cost to questers."
+    },
+    {
+      "ledger_id": 13,
+      "level_band": "Band 3 (Lv 20-30)",
+      "source_profession": "Fishing / Herbalism / Alchemy",
+      "commodity_or_product": "Oily Blackmouth, Bruiseweed, Kingsblood, Liferoot, Wild Steelbloom",
+      "guild_retention_70_pct_use": "70% brews Free Action Potions, Elixir of Defense, Elixir of Ogre's Strength, and Mana Potions.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Free Action Potions, Elixir of Ogre's Strength (used in Forceful Thick Kits!), and Wild Steelbloom.",
+      "optimal_ah_stack_size": "Stacks of 2 or 5",
+      "est_profit_margin_pct": 430,
+      "why_it_sells_instantly": "Free Action Potions and Wild Steelbloom are liquid gold on any server."
+    },
+    {
+      "ledger_id": 14,
+      "level_band": "Band 4 (Lv 30-40)",
+      "source_profession": "Skinning / LW",
+      "commodity_or_product": "Thick Leather & Cured Thick Hides",
+      "guild_retention_70_pct_use": "70% crafts Forceful/Mystic Thick Armor Kits + Quickdraw Quivers (+13% Ranged Haste) + Thick Ammo Pouches.",
+      "ah_liquidation_30_pct_form": "Convert 30% into Forceful/Mystic Thick Armor Kits & Quickdraw Quivers (pays for Level 40 Mounts!).",
+      "optimal_ah_stack_size": "Singles",
+      "est_profit_margin_pct": 460,
+      "why_it_sells_instantly": "Every Hunter at Level 30 buys a Quickdraw Quiver, and every melee/caster alt wants Forceful/Mystic Thick Armor Kits."
+    },
+    {
+      "ledger_id": 15,
+      "level_band": "Band 4 (Lv 30-40)",
+      "source_profession": "Tailoring & Enchanting",
+      "commodity_or_product": "Mageweave Cloth & Vision Dust",
+      "guild_retention_70_pct_use": "70% crafts 12-slot Mageweave Bags + Mageweave Reagent Bags + White Bandit Masks -> DE into Vision Dust.",
+      "ah_liquidation_30_pct_form": "Sell 30% as Mageweave Reagent Bags, Enchanted Mageweave Pouches, and stacks of 5 Vision Dust.",
+      "optimal_ah_stack_size": "Singles for Bags / Stacks of 5 for Vision Dust",
+      "est_profit_margin_pct": 380,
+      "why_it_sells_instantly": "Vision Dust is required for Forceful/Mystic Thick Armor Kits, Enchanted Mageweave Pouches, Portable Arcane Salvagers, and mid-tier enchants."
+    },
+    {
+      "ledger_id": 16,
+      "level_band": "Band 5-7 (Lv 40-60)",
+      "source_profession": "All Artisan Professions",
+      "commodity_or_product": "Runecloth, Rugged Leather, Thorium, High Herbs, Mooncloth & Transmutes",
+      "guild_retention_70_pct_use": "70% equips the 10-alt roster with 14-28 slot Bags, Bottomless Reagent Bags, Forceful/Mystic Rugged & Core Armor Kits, Pre-BiS gear, and Raid Flasks.",
+      "ah_liquidation_30_pct_form": "Liquidate 30% + Daily Cooldowns (2x Alchemy Transmutes + 3x Mooncloth CDs + Cured Rugged Hides + Arcanite Rods + Runecloth/Mooncloth Reagent Bags).",
+      "optimal_ah_stack_size": "Singles for Bags/Cooldowns / Stacks of 5 for Elixirs",
+      "est_profit_margin_pct": 520,
+      "why_it_sells_instantly": "Passive daily cooldowns alone generate 150-300g per week before counting a single mob drop."
+    }
+  ],
+  "character_analyzer_formula": [
+    {
+      "module_id": 1,
+      "module_code": "AUTO_ALT_DETECTION_AND_MANUAL_ROSTER",
+      "module_title": "Hybrid Auto-Scanner (Account-Wide SavedVariables) + 1-Click Planned Alt Registration",
+      "detection_or_math_formula": "Lua Engine Hook: On PLAYER_LOGIN / PLAYER_LEVEL_UP / SKILL_LINES_CHANGED / BAG_UPDATE / MAIL_SHOW, write character snapshot to Account-Wide SavedVariables `AltVaultDB.characters[realm][charName]` = {level, class, race, xp, maxXP, restedXP, moneyCopper, prof1={name,skill,max}, prof2={name,skill,max}, bagFreeSlots, reagentBagEquipped, armorKitsActive, zone, isBanker}. PLUS UI Input Field `AltVaultDB.plannedRoster` allowing player to type or select planned alt names/classes before even logging into them!",
+      "mode_a_solo_main_behavior": "Scans the active Single Main character's exact Level, Talent Points, Equipped Gear, Professions, and Current Zone.",
+      "mode_b_multi_alt_empire_behavior": "Automatically aggregates all logged alts + any manually entered Planned Alts into a unified 10-Slot Royal Guild Dashboard without needing external scripts.",
+      "ui_actionable_recommendation": "Displays live status badges: [LOGGED & SYNCED], [RESTED 150% CAP!], [PROFESSION CAP GATE REACHED], or [PLANNED ALT - LOG IN TO INITIALIZE]."
+    },
+    {
+      "module_id": 2,
+      "module_code": "NEXT_ALT_PRIORITY_SCORE_FORMULA",
+      "module_title": "The Mathematical 'Who Do I Level Next & For How Long?' Relay Formula",
+      "detection_or_math_formula": "NextAltPriorityScore(c) = (W_Bootstrap * BootstrapGateUrgency(c)) + (W_Banker * BankerCapBottleneck(c)) + (W_Rested * (RestedXP_Pct(c) / 150.0) * 35.0) + (W_BandLag * max(0, AvgRosterLevel - Level(c)) * 8.0) + (W_Supply * GuildMaterialStarvationWeight(c) * 25.0)",
+      "mode_a_solo_main_behavior": "In Solo Main Mode: Sets target milestone to the next Talent Spike Level (Phase 2), Gear/Quest Acquisition Milestone (Phase 4), or Profession Bracket Unlock (+5/10/20/35).",
+      "mode_b_multi_alt_empire_behavior": "In Multi-Alt Empire Mode: Evaluates all characters using `NextAltPriorityScore(c)` and highlights the #1 highest-scoring toon, telling the player: 'Log onto [Character Name] next and level from Lv X -> Lv Y (~Z mins) to unlock [Exact Milestone]!'",
+      "ui_actionable_recommendation": "Renders a glowing 'RECOMMENDED NEXT SESSION' banner with exact start level, stop level, estimated time, and why (e.g., 'Level Hunter 1->7 first to seed 15s + Light Leather + LW Greens for Banker!')."
+    },
+    {
+      "module_id": 3,
+      "module_code": "BANKER_DISENCHANT_AND_SKILL_GATE_MONITOR",
+      "module_title": "Enchanter & Alchemist Bottleneck Prevention Formula",
+      "detection_or_math_formula": "BankerReadyStatus = Check(Banker.EnchantingSkill >= RequiredDESkill(MaxCraftedGreeniLvl(Roster))) AND Check(Banker.Level >= RequiredProfTierLevel(MaxRosterLevel)). Thresholds: Roster Lv 1-9 -> Banker Lv 5 (Skill 75); Roster Lv 10-19 -> Banker Lv 10 (Skill 150); Roster Lv 20-31 -> Banker Lv 20 (Skill 225); Roster Lv 32-60 -> Banker Lv 35 (Skill 300).",
+      "mode_a_solo_main_behavior": "In Solo Mode: Checks if the player's own professions are lagging behind their current zone's node requirements (e.g., entering a Briarthorn/Tin zone with <50/65 skill).",
+      "mode_b_multi_alt_empire_behavior": "In Multi-Alt Mode: Immediately triggers a HIGH PRIORITY alert if any alt is about to craft or loot iLvl greens that exceed the Banker's current Enchanting/Alchemy tier cap!",
+      "ui_actionable_recommendation": "Advises: 'STOP! Before crafting Fine/Dark Leather greens on your Hunter, push your Banker from Lv 5 -> Lv 10 (22 mins rested) or craft 10x Runed Copper Bracers to hit Enchanting 25/50!'"
+    },
+    {
+      "module_id": 4,
+      "module_code": "SEVENTY_THIRTY_AH_LIQUIDITY_CALCULATOR",
+      "module_title": "Real-Time 70% Guild Reinvestment / 30% Auction House Split Advisor",
+      "detection_or_math_formula": "For each gathered/crafted item `i` in Bags/Bank: GuildNeed(i) = Sum(RecipeReagentsNeededForNextBand(Roster, i)); RetainQty(i) = max(GuildNeed(i), floor(0.70 * TotalCount(i))); SellOnAHQty(i) = ceil(0.30 * TotalCount(i)) converted into HighestMarginProduct(i) from `wow_forever_ah_30_70_liquidity_ledger`.",
+      "mode_a_solo_main_behavior": "In Solo Mode: Recommends selling 100% of non-class materials and reinvesting into the best AH BoE upgrades & mounts.",
+      "mode_b_multi_alt_empire_behavior": "In Multi-Alt Mode: Splits every farming haul at the mailbox into two exact lists: (A) [MAIL TO GUILD CRAFTER / BANKER (70%)] and (B) [POST ON AUCTION HOUSE (30%)] in the highest-profit form (e.g., turn 30% of Light Leather + Dust + Elixirs into Forceful Armor Kits for AH!).",
+      "ui_actionable_recommendation": "When opening a Mailbox or Auction House, displays a clean checklist: 'Mail 28x Light Leather to Hunter | Convert 12x into 3x Forceful Kits & Post on AH for ~45s!'"
+    },
+    {
+      "module_id": 5,
+      "module_code": "CUSTOM_PROGRESSION_PATH_SELECTOR",
+      "module_title": "Dual-Mode Player Lifestyle Switch: [Solo Champion Mode] vs [Royal Multi-Alt Empire Mode]",
+      "detection_or_math_formula": "PlayerProfileMode IN {'SOLO_1_TOON', 'DUO_MAIN_PLUS_BANKER', 'ROYAL_10_ALT_EMPIRE'}. Dynamically filters Phases 1-6 tables based on selected mode.",
+      "mode_a_solo_main_behavior": "SOLO_1_TOON / DUO_MAIN_PLUS_BANKER: Focuses 100% on the active toon's dynamic talent tree (Phases 1-2), compensation rules (Phase 3), nearby quest/vendor upgrades & White Heirlooms (Phase 4), and self-sufficient professions + 1 Lv 5 Banker alt.",
+      "mode_b_multi_alt_empire_behavior": "ROYAL_10_ALT_EMPIRE: Activates the full 10-character lockstep relay, cross-alt reagent routing, 4x Forceful/Mystic Armor Kit pipeline, Custom Reagent Bag distribution, and 70/30 AH Empire ledger.",
+      "ui_actionable_recommendation": "Lets any player switch seamlessly at any time: start with 1 toon + 1 Banker, or run the full 10-character Royal Guild!"
+    }
+  ]
+}

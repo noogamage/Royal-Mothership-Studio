@@ -1,0 +1,10 @@
+# Ignore raw >100MB SQLite binary (automatically reconstructed from .zlib.part* chunks)
+SQL_SI_Language_Vault.sqlite
+SQL_SI_Language_Vault.sqlite-journal
+SQL_SI_Language_Vault.sqlite-wal
+SQL_SI_Language_Vault.sqlite-shm
+cloudflared.exe
+NEC_Harvest_Targets/
+WoWForever_Addon_Vault/
+*.log
+__pycache__/

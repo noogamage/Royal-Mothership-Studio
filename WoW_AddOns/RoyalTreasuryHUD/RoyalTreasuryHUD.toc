@@ -1,0 +1,8 @@
+## Interface: 11509, 11508, 20505, 50500, 106000
+## Title: |cffffd100Royal Treasury HUD|r |cff00ff96(Bag Appraisal, Auto-Vendor & Mount Fund)|r
+## Notes: Live Bag Vendor-Value Appraisal, Cheapest-Slot Finder when bags are full, Auto-Vendor Greys & Auto-Repair, Session Gold/Hr, and Mount Goal Tracker!
+## Author: Queen Ava & King Stephen
+## Version: 1.0.0
+## SavedVariables: RoyalTreasuryHUDDB
+
+RoyalTreasuryHUD.lua

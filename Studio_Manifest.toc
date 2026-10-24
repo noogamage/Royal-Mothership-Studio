@@ -1,0 +1,32 @@
+## Interface: 202610
+## Title: Deconstruction God Studio v14.2 (Modular Node Architecture)
+## Notes: Zero-RAM Addon Data Ripper, AltVault Database Feeder, AST Harvester & Local Micro-LLM Forge
+## Author: Stephen Sean Westman
+## Version: 14.2.0
+## RootBootstrap: Studio_Bootstrap.ps1
+## SavedTroughDir: Portable_SQL_Trough
+## CsvExportDB: MasterHoldingTank_Export.csv
+## TargetAddonBridge: AltVault\DB_MasterHoldingTank.lua
+
+# GROUP 10: DATA RIPPER ENGINE & ALTVAULT BRIDGE
+Nodes\Node_10_DataModels.cs
+Nodes\Node_11_DataRegexAndHelpers.cs
+Nodes\Node_12_DataParsers.cs
+Nodes\Node_13_AltVaultBridge.cs
+
+# GROUP 20: CODE HARVESTER, AST & AI FORGE
+Nodes\Node_20_HarvesterModels.cs
+Nodes\Node_21_LegoAndSocketDNA.cs
+Nodes\Node_22_LayerQueueScanner.cs
+Nodes\Node_23_AstLanguageParsers.cs
+Nodes\Node_24_EmergentGraphEngine.cs
+Nodes\Node_25_OllamaMicroLLM.cs
+Nodes\Node_26_ManualAndHandoff.cs
+
+# GROUP 30: WINFORMS 6-TAB GUI & WORKFLOWS
+Nodes\Node_30_GuiCoreAndHud.cs
+Nodes\Node_31_GuiTab1_Scoreboard.cs
+Nodes\Node_32_GuiTab2_SqlTrough.cs
+Nodes\Node_33_GuiTab3_CodeStore.cs
+Nodes\Node_34_GuiTab4_5_RagManual.cs
+Nodes\Node_35_GuiTab6_AddonForge.cs

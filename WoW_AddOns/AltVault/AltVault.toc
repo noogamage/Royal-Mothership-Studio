@@ -1,0 +1,41 @@
+## Interface: 16001, 11504, 11505, 11506, 20504, 50400, 50401, 110105
+## Title: AltVault
+## Notes: Faction-split alt organizer, Forever 16001 Intelligence Engine, FaceVault Live 3D Runway & Voting Network, 1920x1009 20s HD Video & Photo Album Vault, and Bag/Bank/Guild Bank highlighting engine.
+## SavedVariables: AltVaultDB
+## Version: 3.0.0
+## Author: Custom
+
+# Core Logic and Data Engines (Core_Compat loads 3.3.5a Shims First!)
+Core_Compat.lua
+Core_MacroCache.lua
+Core_TalentsAndCrawler.lua
+Core_Database.lua
+DB_MasterHoldingTank.lua
+DB_Tank\DB_TankNode_01.lua
+DB_ForeverVaultData.lua
+Core_MasterLootIndex.lua
+Engine_GearScore.lua
+Engine_ForeverVaultIntelligence.lua
+Engine_Professions.lua
+Engine_VisualHelpers.lua
+Net_RadioAndChat.lua
+Net_SyncAndBroadcast.lua
+Net_SearchAndUpgrades.lua
+
+# User Interface and Visual Layers
+UI_MainFrame.lua
+UI_LeftSidebar.lua
+UI_RosterAndScannerTabs.lua
+UI_ArmoryVideoAndPoses.lua
+UI_ArmoryStage3D.lua
+UI_ArmoryBottomBoxes.lua
+UI_NetTab_VirtualChat.lua
+UI_NetTabs_GoodsAndRoster.lua
+UI_NetTab_PhotoStudio.lua
+UI_NetTab_PhotoAlbum.lua
+UI_QuestForItemAndRecipe.lua
+UI_BagOverlay.lua
+UI_GuildBankOverlay.lua
+UI_MinimapButton.lua
+Engine_AIBeacon.lua
+Engine_NECElectricalCodec.lua

@@ -1,0 +1,878 @@
+================================================================================
+MASTER AI HANDOFF & ARCHITECTURAL CONTINUITY BRIEFING (UPDATED 2026-10-20)
+ECOSYSTEM VERSION: DeconstructionGod_Studio v14.3 + AltVault v3.1 (Stealth Mode)
+================================================================================
+
+0. CRITICAL CONSTRAINTS & STANDING ORDERS FOR ANY FUTURE AI:
+--------------------------------------------------------------------------------
+1) NEVER TOUCH BACKUP:
+   Never modify, move, or delete c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\Backup.
+2) THREE ACTIVE PROJECT DIRECTORIES:
+   * Folder 1 (In-Game Addon): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\AltVault
+   * Folder 2 (Desktop Harvester & AI Forge): c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\DeconstructionGod_Studio
+   * Folder 3 (Consolidated 1,083-Addon Vault & SQL Trough): C:\Users\seanw\OneDrive\Desktop\wow forever addons (and Portable_SQL_Trough\)
+3) SPEED & STEALTH ARE PARAMOUNT:
+   * DeconstructionGod_Studio must maintain its Zero-RAM streaming speed.
+   * AltVault must remain in strict **Stealth / Clean-Citizen Mode** (5.22 MB total Lua/DB footprint, 0 idle timers, 0 unsolicited server item queries, 0 YELL addon broadcasts, 0 passive-mouseover whispers, 0 UI taint).
+
+--------------------------------------------------------------------------------
+1. CONSOLIDATED DATA TROUGH STATUS (Portable_SQL_Trough\)
+--------------------------------------------------------------------------------
+* Consolidated Third-Party Addon Folders : 1,083 folders in C:\Users\seanw\OneDrive\Desktop\wow forever addons
+  (All third-party addons across _anniversary_, _classic_, _classic_beta_, _classic_era_, and _retail_ were devoured and consolidated here so _classic_beta_\Interface\AddOns stays clean with only AltVault, DeconstructionGod_Studio, and Backup.)
+* Trough_AddonsInventory.tsv           : 965 unique parent sources (addons, SavedVariables, client binaries/logs)
+* Trough_CodeVault.tsv                 : 528,199 unique code blocks (119,734 Creative Lego Bricks, 269,149+ [Upvalues: ...] chains)
+* Trough_Blueprints.tsv                : 120,899 blueprints, hooks & native engine APIs
+* Trough_EngineAPIs_1_60_1.tsv         : 8,811 native C++ symbols ripped from WowB.exe (1.60.1.70450)
+  - 294 C_* namespaces, 2,072 native events, 6,415 global APIs/methods, 28 C++ widget classes
+* Trough_DatasetSchemas.tsv            : 5,209 structured dataset schemas
+* Trough_GameDataRecords.tsv           : 1,186,335+ game data records, including:
+  - 88,924 Forever relational IDs ripped via upgraded Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs
+  - 33,701 live server DB2 hotfix records (Item, ItemSparse, ItemSearchName, SpellActionBarPref, QuestV2, Spell, CooldownSetSpell, TradeSkillItem) ripped from _classic_beta_\Logs\Hotfix.log (Region 70, cfgContentSetID: 137)
+* Trough_PointsOfInterest.tsv          : 150 High-Priority Forever 1.60.1 Points of Interest across 6 Pillars:
+  - Pillar_0_Client_Binary_Engine (Hotfix.log live stream, General.log LimitedLuaResources 500-Timer quota bypass, Cache\ADB\enUS\DBCache.bin & *Sparse.tmp, Cache\WDB\enUS\*.wdb, FrameXML.log diagnostics)
+  - Pillar_1_HyperLeveling (XP curves, C_GossipInfo/C_QuestLog automation, 7,329 GPS coordinates)
+  - Pillar_2_GoldDominance (No-level white Twink Enchant Bases #7005, #2901, #14092, #6238; Badlands quest bottlenecks #3829, #4389, #3864; Disenchant EV matrices; unlimited vendor arbitrage)
+  - Pillar_3_AltSynergy (Race/Class/Profession synergy matrix, 28-spec BiS, 31-spec Pawn stat weights, 4,330 recipe [Orange/Yellow/Green/Grey] skill-up brackets)
+  - Pillar_4_WorldRadar (C_VignetteInfo 100+ yd pre-nameplate rare/chest detection, UNIT_TARGET raid scanner, COMBAT_LOG_EVENT_UNFILTERED enemy CD tracker)
+  - Pillar_5_Engine_Bypass (1-Timer Coroutine Ring-Buffer Scheduler, Frame/FontString Object Pool, Binary-Search String Packing)
+
+--------------------------------------------------------------------------------
+2. DECONSTRUCTION GOD STUDIO v14.3 UPGRADES (DeconstructionGod_Studio\)
+--------------------------------------------------------------------------------
+* Modular C# Architecture (Studio_Manifest.toc + Nodes\Node_10..Node_35.cs, synced to Engine_DataRipper.cs & Engine_CodeHarvester.cs):
+  - Node_11_DataRegexAndHelpers.cs & Node_12_DataParsers.cs: Added 4 new Forever table parsers (xBareNumKeyStringVal, xBareNumKeyNumTuple, xCsvFirstNumLine, xQuotedNameThresholdTuple).
+  - Node_13_AltVaultBridge.cs: Upgraded Lua raw blob output from [[ ... ]] to [===[ ... ]===] and sanitized inner brackets so Lua 5.1 never triggers 
+esting of [[...]] is deprecated.
+  - Node_32_GuiTab2_SqlTrough.cs: Added Classic_Forever_16001 Era filter and Hotfix_* Type filters to Tab [2] (SQL Trough).
+  - Node_35_GuiTab6_AddonForge.cs: Added the Matrix POIs (150) button to Tab [6] (Addon Forge) so all 150 Points of Interest from Trough_PointsOfInterest.tsv can be browsed, searched, inspected, and wired into the Micro-LLM Inventor.
+
+--------------------------------------------------------------------------------
+3. ALTVAULT v3.1 STEALTH, LIGHTWEIGHT & INTELLIGENCE OVERHAUL (AltVault\)
+--------------------------------------------------------------------------------
+* 96.8% Memory & Disk Reduction (164.2 MB -> 5.22 MB total across all 26 Lua files):
+  - Replaced the 19 multi-expansion DB_TankNode_01..19.lua files (161.3 MB) with a single 2.4 MB Forever-16001-Curated DB_Tank\DB_TankNode_01.lua (18,000 authentic Classic/Forever records) and updated AltVault.toc and Core_MasterLootIndex.lua to unpack MasterDB.RawBlobs lazily on demand and immediately free the raw strings.
+* Fixed All 3 Client Log Lua Errors (FrameXML.log & General.log):
+  1) DB_TankNode [[...]] delimiter nesting -> Fixed via [===[ ... ]===] delimiters.
+  2) DB_ForeverVaultData.lua:44440 nil global GQ -> Fixed GQ.ScoringWeightLabels to FVD.ScoringWeightLabels, unlocking all 7,329 GPS item coordinates in FVD.Coordinates.
+  3) Engine_ForeverVaultIntelligence.lua HydrateIntoMasterDB table collision -> Replaced 31,000-table login hydration loop with zero-allocation ForeverIndex:GetAllIDs(), eliminating both the MasterDB.ByItemID type collision and 15,534 static entries in AltVaultDB.SourceDB SavedVariables.
+* Stealth & Zero-Footprint Guards:
+  - 0 Idle Timers: Net_RadioAndChat.lua uses an on-demand timer (EnsureRadioDrainRunning) that runs only while sendQueue is non-empty and cancels itself when #sendQueue == 0.
+  - 0 Unsolicited Server Queries: Core_TalentsAndCrawler.lua defaults AltVaultDB.ScannerPaused = true and, when manually resumed, steps ONLY through verified ForeverIndex:GetAllIDs() item IDs (never blind-querying invalid IDs).
+  - Silent Comms: Removed "YELL" / "SAY" addon broadcasts and set peer.isSynced = false (isPublicFaceVault = true) on passive mouseover players in RecordPlayerEncounter so passive encounters are never whispered.
+* 4 Event-Driven In-Game Forever Advantage Modules (Engine_ForeverVaultIntelligence.lua):
+  1) Live Rare & Vignette Radar (VIGNETTE_MINIMAP_UPDATED + clickable [📍 Lock 3D GPS Pin] chat link)
+  2) Quest Turn-In Max-Gold & BiS Evaluator (QUEST_COMPLETE highest vendor payout + Official Forever BiS alert)
+  3) Hyper-Leveling Next-Upgrades Solver (/avintel upgrades with clickable 1-click 3D GPS links)
+  4) Gold Arbitrage, Alt Synergy & Stealth Telemetry Suite (/avintel, /avintel gold, /avintel alt)
+
+================================================================================
+================================================================================
+PROJECT HANDOFF DOCUMENT: ALTVAULT v2.8.0 (22-MODULE ARCHITECTURE + MASTER AI INDEX)
+(FOR WOW: FOREVER BETA 16001, MOP CLASSIC & WOTLK 3.3.5a)
+================================================================================
+
+1. USER & WORKFLOW RULES FOR THE AI (READ FIRST — STRICTLY ENFORCED!)
+--------------------------------------------------------------------------------
+• The user edits all files manually in Notepad++ and is not a traditional programmer.
+• DISCUSSION FIRST — NEVER WRITE CODE UNLESS EXPLICITLY ASKED:
+  Always discuss the problem, diagnose the math/architecture, and agree on the
+  exact plan with the user BEFORE generating any code files. Never dump large code
+  blocks unprompted, as it wastes tokens and user time. Always ask for confirmation
+  before writing code!
+• ASK FOR ONLY THE NEEDED FILES FIRST (CONTEXT-SAVING RULE):
+  Before modifying any feature, consult Section 5 (File Encyclopedia) and Section 6
+  (Strict AI Upload Matrix) below. Ask the user to upload ONLY the 1 or 2 specific
+  micro-modules required for the task so you can read the exact current lines before
+  proposing edits. NEVER guess at a file's contents without reading it first!
+• STRICT SINGLE-FILE-PER-TURN & "READY" TRIGGER RULE:
+  NEVER post more than ONE complete code file in a single response! Posting two
+  Lua or PowerShell files in one turn risks exceeding the output token window and
+  truncating the code. Always output File 1 of X completely, stop, and ask the
+  user to reply with the "ready" trigger before passing over File 2 of X.
+• 100% COMPLETE FILES ONLY:
+  NEVER provide partial code snippets, "insert this at line X" instructions, or
+  incomplete placeholders when modifying files. ALWAYS provide 100% complete,
+  uncut, ready-to-paste files (Ctrl+A -> Delete -> Ctrl+V) with clear block headings.
+• FILE SIZE CEILING (MAX 25–30 KB PER LUA MODULE):
+  Every Lua file in this addon has been intentionally split to stay between 2 KB
+  and 23 KB so each file has plenty of room to grow without burning context window
+  tokens. If a file ever grows past 30 KB, propose splitting it along clean `ns.*`
+  namespace boundaries.
+• SINGLE-FILE HYBRID COMPANION (`AltVault_Companion.bat`) & PURE 7-BIT ASCII:
+  The external Windows helper is a self-contained hybrid `.bat` + PowerShell +
+  inline C# launcher (`AltVault_Companion.bat`) so the user only has to double-click
+  or paste into ONE file.
+  - Windows PowerShell 5.1 reads scripts without a UTF-8 BOM as ANSI/Windows-1252.
+  - NEVER use Unicode em-dashes, smart quotes, or emoji inside `AltVault_Companion.bat`
+    (use standard 7-bit ASCII `-` only), and always use standard `for ($i = 0; ...)`
+    loops and parenthesized `($var)` expressions so copy-paste whitespace stripping
+    never breaks syntax.
+• MICRO-MODULE PUZZLE ARCHITECTURE (22 LUA MODULES):
+  The addon is divided into 22 focused, lightweight Lua micro-modules plus
+  `AltVault.toc` and the external `AltVault_Companion.bat` helper (24 active files).
+  - NEVER rename or remove the shared namespace connectors (`ns.Compat`, `ns.DB`,
+    `ns.Scanner`, `ns.GuildNet`, `ns.Armory`, `ns.NetUI`, `AltVaultMainPanel`)
+    documented in Section 5 below, as they connect the puzzle pieces across files.
+  - NOTE ON RETIRED MONOLITH FILES: Old pre-split files (`Engine_Scanner.lua`,
+    `Engine_GuildNetwork.lua`, `UI_MainPanel.lua`, `UI_ArmoryPaperDoll.lua`,
+    `UI_GuildNetworkTabs.lua`) have been permanently retired and removed.
+
+================================================================================
+2. TARGET GAME CLIENT & CRITICAL ENGINE QUIRKS (WOW: FOREVER BETA 1.60.1+)
+================================================================================
+• Primary Target Client: World of Warcraft: Forever Beta (Version 1.60.1).
+• TOC Interface Version: 16001 (## Interface: 16001).
+• Cross-Client Compatibility Shims (`Core_Compat.lua` & `Engine_GearScore.lua`):
+  In addition to WoW: Forever 16001, the codebase includes universal shims for
+  WotLK 3.3.5a and Mists of Pandaria Classic:
+  - `ns.Compat.SafeRegisterEvent(frame, eventName)`: Wraps `RegisterEvent` in `pcall`.
+  - `ns.Compat.CreateBackdropFrame(...)`: Safely handles `BackdropTemplateMixin`
+    on modern clients and legacy frame creation on 3.3.5a.
+  - `ns.Compat.SetSolidColor(tex, r, g, b, a)`: Uses `SetColorTexture` on modern
+    clients and falls back to `SetTexture` on 3.3.5a.
+  - Global `_G.C_Timer` & `_G.C_Container` polyfills: Automatically activate ONLY
+    on legacy clients (3.3.5a / 5.4.8) where those namespaces do not exist natively.
+  - `LEGACY_ITEMTYPE_TO_CLASSID` (`Engine_GearScore.lua`): Maps legacy string
+    `itemType` values to numeric `classID` values when `classID` is nil on 3.3.5a.
+  - Modern Lua math quirk: `math.atan2` can be nil in modern clients; always shim
+    with `local atan2 = math.atan2 or math.atan`.
+
+• Hybrid Engine Architecture (WoW: Forever 16001):
+  WoW: Forever runs Classic-era content (Level 60 cap, Classic 3-tree talent
+  layouts, Classic 1-300 profession skill lines, plus a new "Camping" profession)
+  on top of Blizzard's modern 12.1.5 / Midnight / Camelot Lua UI engine.
+  - Modern namespaces ARE valid and required on 16001: C_Container, C_Item,
+    C_Spell, C_Timer.After, C_Timer.NewTicker, C_Traits, C_ClassTalents,
+    C_SpecializationInfo, C_TradeSkillUI, C_ChatInfo, TooltipDataProcessor,
+    ButtonFrameTemplate, and BackdropTemplate.
+
+• CRITICAL BETA BUG #1 — SavedVariables Reset on Reload (`Core_MacroCache.lua`):
+  In Forever Beta 1.60.1, the client writes SavedVariables (`AltVaultDB`) to
+  disk on logout, but frequently fails to read them back on `/reload` or character
+  swap.
+  - WORKAROUND IN `Core_MacroCache.lua`: Maintains a truncation-safe, multi-macro
+    account-wide cache across up to 4 macros (`AV_DataCache`, `AV_DataCache2`,
+    `AV_DataCache3`, plus `AV_PhotoCache`) via `ns.DB.SaveToBetaMacro`,
+    `ns.DB.SavePhotosToBetaMacro`, and `ns.DB.RestoreFromBetaMacro`.
+  - `AV_DataCache` 1..3 store compressed character strings:
+    `Name:Class:Lvl:A/H:Race~M/F:GS:ProfBlob` (including Race, Male/Female sex
+    flag `~M` = 2 / `~F` = 3, GearScore, and all 16 profession codes and skill
+    ranks without slicing entries at the 255-char limit).
+  - `AV_PhotoCache` stores each character's Featured Tab 1 2D Photo / 16-Sheet Video
+    Slot & crop coordinates (`Name:SlotIdx:FileSlot:Zoom:PanX:PanY:StretchX:FlipFlag:GearBlob`)
+    so switching characters never loses or resets your assigned `.tga` profile
+    photos, video sheet counts, or crop settings.
+  - `AV_SlotSync` Macro (`UI_NetTab_PhotoStudio.lua`): Writes `AVSYNC|<CharTag>|1=1,2=0...`
+    whenever slots are cleared or reassigned in-game so clicking `[Sync In-Game Slots]`
+    in `AltVault_Companion.bat` physically wipes cleared slots on disk.
+
+• CRITICAL BETA BUG #2 — 3-Engine Talent Scanner (`Core_TalentsAndCrawler.lua`):
+  1. Engine A (`ScanForeverTraitCanvas` — Forever 16001): Scans the unified
+     3-column `C_Traits` canvas. Collects distinct `posY` row coordinates (within
+     150 units), sorts them top-to-bottom so `distinctY[1]` maps strictly to
+     Tier 1 (Lvl 10), and divides the horizontal `minX..maxX` span into 3 equal
+     Spec Zones (`<= 33.3%` = Spec 1 Left, `<= 66.6%` = Spec 2 Center, `> 66.6%` =
+     Spec 3 Right) mapped against `ns.DB.CLASS_TALENT_SPECS`.
+  2. Engine B (`ScanMoPTalentGrid` — MoP Classic): Scans 6/7-tier MoP talent grids
+     via `C_SpecializationInfo.GetTalentInfo` / `GetTalentInfo`.
+  3. Engine C (`ScanClassicFallbackTalents` — WotLK 3.3.5a / Classic): Scans
+     traditional 3-tab multi-rank talent trees via `GetNumTalents(s)` and
+     `GetTalentInfo(s, tIdx)`.
+
+• CRITICAL QUIRK #3 — Dual-Canvas Stage: Live 3D Model vs. 1920x1009 2D Native Art
+  & 20-Second Preloaded Multi-Sheet HD Video (`UI_ArmoryVideoAndPoses.lua` & `UI_ArmoryStage3D.lua`):
+  - When viewing a LIVE online unit (`"player"`, or a nearby `"target"` / `"party"` /
+    `"raid"` token), `UI_ArmoryStage3D.lua` displays `LiveStageCanvas` with the
+    3D `DressUpModel` (`AltVaultPaperDollModel`), 32 looping Dance/Pose routines
+    (`SNAPSHOT_POSES` in `UI_ArmoryVideoAndPoses.lua`), mouse drag rotation/pan,
+    mousewheel zoom (`50%..180%`), and the True Fullscreen Screenshot Studio
+    (`EnterFullScreenStageMode`).
+  - FULLSCREEN RECORDING LOCK FIX: `MainPanel:HideArmoryCanvas()`, `FlatPhotoCanvas:OnClick`,
+    and `NetUI.CaptureCharacterSnapshot("SCREENSHOT_EVENT")` are explicitly guarded
+    by `Armory.state.isFullScreenStage` so pressing `Shift+PrtSc` (which also fires
+    WoW's `SCREENSHOT_SUCCEEDED`) or clicking inside the window to select a ShareX
+    recording region NEVER drops the addon out of Full Screen mode!
+  - When viewing an OFFLINE Alt or OFFLINE Synced Peer, `UI_ArmoryStage3D.lua`
+    automatically switches to `FlatPhotoCanvas` and renders that character's
+    dedicated 2D `.tga` portrait (`Snapshots\<CharName>_Slot##.tga`) or 20-second
+    multi-sheet HD video reel (`Snapshots\<CharName>_Slot##_V01..V16.tga`) using
+    `Armory.PreloadTextureStackForSnap(tex, snap)` and
+    `Armory.Apply2DCropAndZoomToTexture(tex, snap)`.
+
+• CRITICAL QUIRK #4 — Master 1920x1009 Render Scale Aspect-Ratio Sync (`1.90287 : 1`)
+  & The 20-Second Preloaded 16-Sheet GPU Stack Video Engine (Option A):
+  - USER'S EXACT WOW & SHAREX CONFIGURATION:
+    * WoW Windowed Mode Resolution: `1920 x 1009` at `100%` Render Scale (`1.90287 : 1`
+      aspect ratio), `DirectX 12`, `16x Anisotropic`.
+    * ShareX Recording Workflow: The user drags/selects the inner WoW game canvas
+      (excluding the top Windows title bar and borders), producing a `1920 x 1009`
+      widescreen `.mp4` clip.
+    * ShareX Encoder Settings: Because `h264_nvenc` fails with `Cannot load nvcuda.dll`
+      on systems without NVIDIA CUDA DLLs, ShareX is configured to use `H.264 / x264`
+      (or high-bitrate `25000+ kbps`) at `30 FPS`, `CRF 15`, `ultrafast` preset.
+  - WHY PREVIOUS VIDEO APPROACHES FAILED (DO NOT REPEAT THESE BUGS!):
+    1) Asynchronous Disk-Swap Flickering (`SetTexture` mid-playback): Calling
+       `tex:SetTexture(nextChunkPath)` on a single `Texture` widget during `OnUpdate`
+       causes WoW's `16001` DirectX 12 engine to unload the texture and stream the
+       next `.tga` asynchronously from disk, rendering 1-2 blank/black frames every
+       sheet swap (strobing/flickering).
+    2) Vertical Row Inversion (`0x20` vs `0x28` TGA Header): Windows `.NET` locks
+       `BitmapData` top-to-bottom. The `.tga` header byte `header[17]` MUST be `0x28`
+       (top-left origin + 8-bit alpha) with opaque alpha (`255`). Using `0x20` flips
+       rows vertically and causes non-sequential frame jumping.
+    3) UV Grid Mismatches & Aspect Padding (Zoomed-In / Bouncing Bug): Having multiple
+       competing grid modes (`8x8`, `4x4`, `2x4`) or applying `ffmpeg` padding bars
+       caused UV coordinates in Lua to mismatch the `.tga` layout on disk, zooming in
+       400% and bouncing across partial frames.
+    4) Single-Sheet Duration Truncation (3-Second Cutoff Bug): WoW's maximum texture
+       size is `4096 x 4096` pixels. A single sheet of 32 frames at 20 FPS only holds
+       `1.6 seconds` of video (`3.2s` ping-pong), cutting off a 20-second recording.
+  - THE WORKING SOLUTION (OPTION A — PRELOADED 16-SHEET GPU STACK, LOCKED 4x8 HD GRID):
+    1) Universal Locked `4x8` Widescreen HD Grid: Every video sheet is strictly a
+       `4096 x 4096` uncompressed 32-bit `.tga` (`header[17] = 0x28` via inline C#
+       `WowNativeTgaWriter`) divided into **4 Columns x 8 Rows = 32 Widescreen HD
+       Frames per sheet** (`1024 x 512` pixels per frame, edge-to-edge Lanczos scale
+       from `1920 x 1009` with zero black padding bars).
+    2) Up to 16 Sheets per Slot (`_V01.tga` .. `_V16.tga` = 512 Frames):
+       `16 sheets x 32 frames = 512 frames` total, delivering a full **20+ seconds**
+       of continuous video at `24 FPS` (or `17s @ 30 FPS`) at full `1024 x 512` HD
+       resolution! `Ensure-CharacterSlotFiles` pre-creates placeholder `_V01.._V16.tga`
+       files for all 12 slots so WoW's file manifest always recognizes all 16 paths.
+    3) Zero-Flicker Preloaded GPU Texture Stack (`EnsureTextureStack` &
+       `PreloadTextureStackForSnap` in `UI_ArmoryVideoAndPoses.lua`): Creates a stack
+       of 16 `Texture` widgets per viewer. When a character or album card is loaded,
+       all active sheets (`1..reelSheets`) call `SetTexture()` ONCE to preload into
+       GPU VRAM. Hidden sheets are kept at `SetAlpha(0.005)` (invisible to the eye,
+       but prevents WoW's DirectX 12 renderer from evicting hidden textures from VRAM!).
+       During `OnUpdate` playback, Lua NEVER calls `SetTexture()`—it only updates
+       `SetTexCoord()` and toggles `SetAlpha(1.0)` on the active sheet and
+       `SetAlpha(0.005)` on the rest, achieving 100% zero-flicker 20s HD playback!
+    4) Auto-Reset Zoom/Pan on Video Enable: Toggling Video ON in the Edit Studio
+       automatically resets `zoom = 100, panX = 0, panY = 0, stretchX = 100` so old
+       static crop settings never zoom into a sub-region of a video frame.
+  - All 5 viewing surfaces are locked to the exact `1920 : 1009` (`1.90287 : 1`)
+    aspect ratio:
+    1) Helper Preview Box (`AltVault_Companion.bat`): `380 x 200`
+    2) Tab 1 Profile Viewport (`SyncedAspectFrame` in `UI_ArmoryStage3D.lua`):
+       Dynamically sized to `1920 : 1009` inside `ModelViewport`
+    3) Floating 2D Crop & Video Studio (`ViewBox` in `UI_NetTab_PhotoStudio.lua`):
+       `454 x 239` (scales height at `innerW / (1920/1009)`)
+    4) All 12 Tab 12 Photo Album Cards (`PhotoBox` in `UI_NetTab_PhotoAlbum.lua`):
+       `photoBoxH = math.floor((photoBoxW / (1920/1009)) + 0.5)`
+    5) In-Game Personal Pic Vault Picker (`Cells` in `UI_NetTab_PhotoStudio.lua`):
+       `135 x 71` thumbnails
+
+• CRITICAL QUIRKS #5–#9:
+  - #5 Red "Requires Level" Text on Equipped Gear Tooltips: Fixed by
+    `Scanner.CleanTooltipRedLinesForAlt` in `Engine_VisualHelpers.lua`.
+  - #6 Unknown Legacy Events: Wrapped in `ns.Compat.SafeRegisterEvent` (`pcall`).
+  - #7 12.1.5 / Camelot Frame Pool Iterators & 64-Slot Bank Tabs: Handled in
+    `UI_BagOverlay.lua` (`EnumerateValidItems` yields `(buttonFrame, true)`).
+  - #8 `INVTYPE_NON_EQUIP_IGNORE` & Multi-Profession Reagents: Checked via
+    `EQUIP_LOC_TO_SLOTS[itemEquipLoc] ~= nil` (`Engine_GearScore.lua`) and strict
+    `classID == 0` Consumable gatekeeper (`Engine_Professions.lua`).
+  - #9 Background Scanner Cursor Wrap on Resume / Turbo: Automatically resets
+    `CrawlCursorID = 150` when `>= 250000` (`Core_TalentsAndCrawler.lua` &
+    `UI_RosterAndScannerTabs.lua`).
+
+================================================================================
+3. MASTER FILE SIZE & GROUPING OVERVIEW (ALL 22 LUA MODULES < 23 KB!)
+================================================================================
+| #  | File Name                      | Size    | Group / Namespace    | Primary Responsibility                                      |
+|----|--------------------------------|---------|----------------------|-------------------------------------------------------------|
+| 1  | `Core_Compat.lua`              |  9.6 KB | Group A (`ns.Compat`)| 3.3.5a/16001 shims, C_Timer/C_Container polyfills, tables   |
+| 2  | `Core_MacroCache.lua`          | 12.6 KB | Group A (`ns.DB`)    | 4-Macro Beta cache (`AV_DataCache` 1-3 + `AV_PhotoCache`)   |
+| 3  | `Core_TalentsAndCrawler.lua`   | 14.3 KB | Group A (`ns.DB`)    | Background item crawler + 3-Engine Talent Scanner           |
+| 4  | `Core_Database.lua`            | 20.8 KB | Group A (`ns.DB`)    | Live Gear/Bag/Bank/Vault/Vendor/Loot scanner & EventFrame   |
+| 5  | `Engine_GearScore.lua`         | 18.0 KB | Group B (`ns.Scanner`)| Item/Pattern cache, GearScore math, 2H/1H upgrade logic    |
+| 6  | `Engine_Professions.lua`       | 20.5 KB | Group B (`ns.Scanner`)| Reagent skill brackets (1-600) & roster item evaluator     |
+| 7  | `Engine_VisualHelpers.lua`     | 12.7 KB | Group B (`ns.Scanner`)| Tab 6 Item Dossier builder, slot glows, tooltip red fixer  |
+| 8  | `Net_RadioAndChat.lua`         | 10.6 KB | Group C (`ns.GuildNet`)| `AV_Net` radio queue, 1-Vote character rank, Chat backend |
+| 9  | `Net_SyncAndBroadcast.lua`     | 19.2 KB | Group C (`ns.GuildNet`)| Recipe scanner, stockpile builder, packet router          |
+| 10 | `Net_SearchAndUpgrades.lua`    | 12.5 KB | Group C (`ns.GuildNet`)| Network mat locator, craftable upgrades, consumables list |
+| 11 | `UI_MainFrame.lua`             | 21.2 KB | Group D (`MainPanel`)| Main window, Top Header Bar, Side Tabs 1-6, Card Row List   |
+| 12 | `UI_LeftSidebar.lua`           | 18.4 KB | Group D (`MainPanel`)| Split Left Sidebar (Alts + Guild Members), scaling, `/av`   |
+| 13 | `UI_RosterAndScannerTabs.lua`  | 22.8 KB | Group D (`MainPanel`)| Tab 6 Scanner Meter & Dossier UI + Tabs 2, 3, 4, 5          |
+| 14 | `UI_ArmoryVideoAndPoses.lua`   | 15.5 KB | Group E (`ns.Armory`)| 32 Poses & Dropdown + 16-Sheet GPU Stack Video Math         |
+| 15 | `UI_ArmoryStage3D.lua`         | 19.0 KB | Group E (`ns.Armory`)| Tab 1 3D/2D Viewport, Fullscreen Studio, 19 Gear Slots      |
+| 16 | `UI_ArmoryBottomBoxes.lua`     | 21.6 KB | Group E (`ns.Armory`)| Tab 1 Bottom 3 Boxes (Bags, Bank, Stats/Profs) & Layout     |
+| 17 | `UI_NetTab_VirtualChat.lua`    | 20.8 KB | Group F (`ns.NetUI`) | `NetHeader` bar (Tabs 7-11), 4-line Chatbox, Tab 11 UI      |
+| 18 | `UI_NetTabs_GoodsAndRoster.lua`| 22.6 KB | Group F (`ns.NetUI`) | Tabs 7 (Gear), 8 (Mats), 9 (Cons), 10 (Synced Roster)       |
+| 19 | `UI_NetTab_PhotoStudio.lua`    | 21.4 KB | Group G (`ns.NetUI`) | Photo DB/Sync helpers, Pic Vault Picker & 20s Video Studio  |
+| 20 | `UI_NetTab_PhotoAlbum.lua`     | 17.2 KB | Group G (`ns.NetUI`) | Snapshot capture, `PSNAP`/`PVOTE` events & Tab 12 Gallery   |
+| 21 | `UI_BagOverlay.lua`            | 14.3 KB | Group H (Overlays)   | Live Bag & Bank slot border glows + GameTooltip flyout      |
+| 22 | `UI_GuildBankOverlay.lua`      |  2.2 KB | Group H (Overlays)   | Live Guild Bank slot border glows                           |
+| 23 | `UI_MinimapButton.lua`         |  3.6 KB | Group H (Overlays)   | Orbiting minimap button & live database progress tooltip    |
+| 24 | `AltVault_Companion.bat`       | 28.5 KB | External Windows App | Hybrid `.bat` + PowerShell GUI + C# `.TGA` & FFmpeg builder |
+
+================================================================================
+4. EXACT `AltVault.toc` MANIFEST & LOAD ORDER (22 LUA FILES)
+================================================================================
+## Interface: 16001
+## Title: AltVault
+## Notes: Faction-split alt organizer, upgrade tracker, Virtual Guild Mesh, 1920x1009 20s HD Video & Photo Album Vault, and Bag/Bank/Guild Bank highlighting engine (Forever 16001 & WotLK 3.3.5a Compatible).
+## SavedVariables: AltVaultDB
+## Version: 2.8.0
+## Author: Custom
+
+# Core Logic and Data Engines (Core_Compat loads 3.3.5a Shims First!)
+Core_Compat.lua
+Core_MacroCache.lua
+Core_TalentsAndCrawler.lua
+Core_Database.lua
+Engine_GearScore.lua
+Engine_Professions.lua
+Engine_VisualHelpers.lua
+Net_RadioAndChat.lua
+Net_SyncAndBroadcast.lua
+Net_SearchAndUpgrades.lua
+
+# User Interface and Visual Layers
+UI_MainFrame.lua
+UI_LeftSidebar.lua
+UI_RosterAndScannerTabs.lua
+UI_ArmoryVideoAndPoses.lua
+UI_ArmoryStage3D.lua
+UI_ArmoryBottomBoxes.lua
+UI_NetTab_VirtualChat.lua
+UI_NetTabs_GoodsAndRoster.lua
+UI_NetTab_PhotoStudio.lua
+UI_NetTab_PhotoAlbum.lua
+UI_BagOverlay.lua
+UI_GuildBankOverlay.lua
+UI_MinimapButton.lua
+
+================================================================================
+5. CATEGORIZED FILE ENCYCLOPEDIA & PUZZLE CONNECTORS (EXPORTS & IMPORTS)
+================================================================================
+
+--------------------------------------------------------------------------------
+GROUP A: CORE DATABASE, SHIMS, MACRO CACHE & TALENT/ITEM CRAWLER (`ns.Compat`, `ns.DB`)
+--------------------------------------------------------------------------------
+1. `Core_Compat.lua` (9.6 KB)
+   • Controls: Loads first. Initializes `ns.Compat` and `ns.DB`, creates cross-client
+     frame/texture shims, installs global `_G.C_Timer` and `_G.C_Container` polyfills
+     for 3.3.5a, creates the shared hidden tooltip `ns.DB.ScanTip`, and defines all
+     master profession/race/spec lookup tables.
+   • Exports on `ns`:
+     - `ns.Compat.SafeRegisterEvent(frame, eventName)`
+     - `ns.Compat.CreateBackdropFrame(frameType, frameName, parentFrame, extraTemplate)`
+     - `ns.Compat.SetSolidColor(tex, r, g, b, a)`
+     - `ns.DB.MAX_CRAWL_ID` (`250000`), `ns.DB.ScanTip`
+     - `ns.DB.PRIMARY_PROFESSIONS`, `ns.DB.TRACKED_PROFESSIONS`,
+       `ns.DB.NON_CONSUMING_GATHER_PROFS`, `ns.DB.PROF_TO_CODE`, `ns.DB.CODE_TO_PROF`
+     - `ns.DB.RACE_TO_FACTION`, `ns.DB.RACE_FILE_DISPLAY`,
+       `ns.DB.CLASS_TALENT_SPECS`, `ns.DB.DEFAULT_CLASS_ROLE`
+
+2. `Core_MacroCache.lua` (12.6 KB)
+   • Controls: Solves Forever 16001's `SavedVariables` reload wipe bug using up to
+     3 account-wide character macros (`AV_DataCache`, `AV_DataCache2`, `AV_DataCache3`)
+     plus `AV_PhotoCache` for featured 2D/Video `<CharName>_Slot##.tga` assignments
+     and crop/zoom/sheet settings (`Name:SlotIdx:FileSlot:Zoom:PanX:PanY:StretchX:FlipFlag:GearBlob`),
+     and initializes/sanitizes `AltVaultDB` tables on startup.
+   • Requires from `Core_Compat.lua`: `ns.DB.PROF_TO_CODE`, `ns.DB.CODE_TO_PROF`,
+     `ns.DB.NON_CONSUMING_GATHER_PROFS`, `ns.DB.RACE_TO_FACTION`, `ns.DB.DEFAULT_CLASS_ROLE`.
+   • Exports on `ns.DB`:
+     - `ns.DB.EncodeAllProfsForMacro(profTable)`
+     - `ns.DB.DecodeAllProfsFromMacro(profBlob, c)`
+     - `ns.DB.SaveToBetaMacro()`
+     - `ns.DB.SavePhotosToBetaMacro()`
+     - `ns.DB.RestoreFromBetaMacro()`
+     - `ns.DB.InitializeDatabase()`
+
+3. `Core_TalentsAndCrawler.lua` (14.3 KB)
+   • Controls: Houses the controllable silent background server item crawler
+     (with `250,000` cursor wrap fix and `/avstop` slash command) and the
+     3-Engine Talent & XP Scanner (Forever 16001 `C_Traits` canvas, MoP 6-tier grid,
+     and Classic/3.3.5a 3-tab trees).
+   • Requires: `ns.DB.ScanTip`, `ns.DB.CLASS_TALENT_SPECS`, `ns.DB.DEFAULT_CLASS_ROLE`,
+     `ns.Scanner.CacheItemData`.
+   • Exports on `ns.DB`:
+     - `ns.DB.GetDatabaseStats()`, `ns.DB.IsScannerPaused()`,
+       `ns.DB.SetScannerPaused(paused)`, `ns.DB.SetTurboMode(enabled)`,
+       `ns.DB.IsTurboMode()`, `ns.DB.SetCrawlCursor(newID)`
+     - `ns.DB.StartSilentBackgroundScanner()`
+     - `ns.DB.ScanTalentsAndXP(charData)`
+
+4. `Core_Database.lua` (20.8 KB)
+   • Controls: Live character data collector (Gear slots 1..19, Bags 0..4, Bank
+     `-1` & `5..17`, Guild Vault tabs `1..8`, Race, Sex, XP%, 16 Professions),
+     self-learning trade skill reagent/vendor/trainer/loot source recorder, and
+     master WoW event dispatcher (`EventFrame`).
+   • Requires: `ns.Compat.SafeRegisterEvent`, `ns.DB.InitializeDatabase`,
+     `ns.DB.RestoreFromBetaMacro`, `ns.DB.SaveToBetaMacro`, `ns.DB.ScanTalentsAndXP`,
+     `ns.DB.StartSilentBackgroundScanner`, `ns.Scanner.CacheItemData`,
+     `ns.Scanner.CalculateCharacterGearScore`.
+   • Exports on `ns.DB`:
+     - `ns.DB.RecordReagentInGlobalDB(...)`
+     - `ns.DB.SyncCurrentCharacterData()`
+     - `ns.DB.ScanCharacterBags()`, `ns.DB.ScanCharacterBank()`, `ns.DB.ScanGuildVault()`
+
+--------------------------------------------------------------------------------
+GROUP B: ITEM SCANNER, GEARSCORE, PROFESSIONS & VISUAL GLOW ENGINE (`ns.Scanner`)
+--------------------------------------------------------------------------------
+5. `Engine_GearScore.lua` (18.0 KB)
+   • Controls: Initializes `ns.Scanner`, caches item & pattern metadata into
+     `AltVaultDB.ItemCache` and `AltVaultDB.PatternDB`, calculates item and
+     character GearScore, evaluates class/armor/weapon/talent-role suitability,
+     and computes 2H vs 1H+Offhand gear upgrades.
+   • Exports on `ns.Scanner`:
+     - `Scanner.ItemScanTip`, `Scanner.EQUIP_LOC_TO_SLOTS`, `Scanner.EQUIP_LOC_LABELS`,
+       `Scanner.QUALITY_NAMES`, `Scanner.QUALITY_HEX`, `Scanner.BIND_TYPE_LABELS`
+     - `Scanner.ExtractItemID(item)`, `Scanner.FetchItemStatsTable(link)`,
+       `Scanner.DetectGearStatRole(link)`, `Scanner.ExtractCraftedNameFromPattern(name)`,
+       `Scanner.ScanAndCachePatternDetails(...)`
+     - `Scanner.CacheItemData(item, strictFilter)`, `Scanner.FetchItemInfo(item)`,
+       `Scanner.FetchDetailedILvl(item)`
+     - `Scanner.CalculateItemGearScore(item, fallbackSlotID)`,
+       `Scanner.CalculateCharacterGearScore(gearTable)`,
+       `Scanner.FormatGearScoreColor(gs)`
+     - `Scanner.CanAltUseAndWantItem(altData, item)`,
+       `Scanner.CheckItemUpgradeForAlt(altName, item)`
+
+6. `Engine_Professions.lua` (20.5 KB)
+   • Controls: Multi-profession reagent & recipe classifier across all 16 professions
+     (skill 1–600) with strict `classID == 0` Consumable gatekeeper and gathering
+     profession exclusions, plus the roster-wide item evaluator.
+   • Requires from `Engine_GearScore.lua`: `Scanner.EQUIP_LOC_TO_SLOTS`,
+     `Scanner.ExtractItemID`, `Scanner.FetchItemInfo`,
+     `Scanner.ScanAndCachePatternDetails`, `Scanner.ExtractCraftedNameFromPattern`,
+     `Scanner.CheckItemUpgradeForAlt`.
+   • Exports on `ns.Scanner`:
+     - `Scanner.NON_CONSUMING_GATHER_PROFS`
+     - `Scanner.GetMaterialProfessionsList(itemLinkOrID)`
+     - `Scanner.IsMaterialNeededForAlt(altName, itemLinkOrID)`
+     - `Scanner.EvaluateItemForRoster(itemLinkOrID, factionFilter)`
+
+7. `Engine_VisualHelpers.lua` (12.7 KB)
+   • Controls: Tab 6 full item dossier builder (`GetItemFullDossier`), vendor money
+     string formatter, shared slot border glow & bounce pulse animation engine,
+     and the tooltip red-line level requirement fixer for offline alts.
+   • Requires from `Engine_GearScore.lua` & `Engine_Professions.lua`:
+     `Scanner.ItemScanTip`, `Scanner.ExtractItemID`, `Scanner.FetchDetailedILvl`,
+     `Scanner.DetectGearStatRole`, `Scanner.NON_CONSUMING_GATHER_PROFS`,
+     `Scanner.EQUIP_LOC_LABELS`, `Scanner.QUALITY_NAMES`, `Scanner.QUALITY_HEX`,
+     `Scanner.BIND_TYPE_LABELS`, `Scanner.GetMaterialProfessionsList`.
+   • Exports on `ns.Scanner`:
+     - `Scanner.FormatMoneyString(copper)`
+     - `Scanner.GetItemFullDossier(itemLinkOrID)`
+     - `Scanner.ApplyPulseAnimation(frame, enablePulse)`
+     - `Scanner.ApplySlotBorderGlow(buttonFrame, triggerStatus)`
+     - `Scanner.CleanTooltipRedLinesForAlt(tooltip, altData, isEquippedItem)`
+
+--------------------------------------------------------------------------------
+GROUP C: VIRTUAL GUILD NETWORK, VOTING LEDGER, RADIO & STOCKPILES (`ns.GuildNet`)
+--------------------------------------------------------------------------------
+8. `Net_RadioAndChat.lua` (10.6 KB)
+   • Controls: Initializes `ns.GuildNet`, filters offline-player system whisper spam,
+     manages the throttled `AV_Net` multi-channel & whisper packet queue (`0.25s`
+     ticker), powers the Permanent 1-Vote-Per-Player Community Ranking Engine
+     (`AltVaultDB.CharacterVotes`), and runs the Virtual Guild Chatroom backend.
+   • Exports on `ns.GuildNet`:
+     - `GuildNet.PREFIX`, `GuildNet.CLASS_HEX`, `GuildNet.PROF_SHORT`,
+       `GuildNet.SHORT_TO_PROF`, `GuildNet.EQUIP_SLOTS`, `GuildNet.seenChatMsgIDs`
+     - `GuildNet.EnsureGuildNetTables()`, `GuildNet.StripRealm(name)`,
+       `GuildNet.ExtractID(linkOrID)`, `GuildNet.IsPeerOnline(peerName)`,
+       `GuildNet.EnqueuePacket(msg, explicitDist, whisperTarget)`
+     - `GuildNet.GetCharacterRatingSummary(targetName)`,
+       `GuildNet.CanLocalPlayerVoteFor(targetName)`,
+       `GuildNet.CastPermanentVote(targetName, voteVal)`,
+       `GuildNet.RecordIncomingVote(targetName, voterName, voteVal)`
+     - `GuildNet.AppendChatHistory(senderName, senderClass, text)`,
+       `GuildNet.SendVirtualChatMessage(rawText)`
+
+9. `Net_SyncAndBroadcast.lua` (19.2 KB)
+   • Controls: Scans open trade skill windows to record recipe schematics + reagent
+     counts (`AltVaultDB.RecipeDB`), aggregates account-wide tradeable stockpiles,
+     broadcasts `HB`, `GEAR`, `PEERS`, `VOTES`, `MATS`, `CONS`, and `REC` packets,
+     processes all incoming `AV_Net` packets, and dispatches network events.
+   • Requires from `Net_RadioAndChat.lua`: `GuildNet.PREFIX`, `GuildNet.PROF_SHORT`,
+     `GuildNet.SHORT_TO_PROF`, `GuildNet.EQUIP_SLOTS`, `GuildNet.EnsureGuildNetTables`,
+     `GuildNet.StripRealm`, `GuildNet.ExtractID`, `GuildNet.EnqueuePacket`,
+     `GuildNet.RecordIncomingVote`, `GuildNet.AppendChatHistory`, `GuildNet.seenChatMsgIDs`.
+   • Exports on `ns.GuildNet`:
+     - `GuildNet.ScanOpenProfessionRecipes()`
+     - `GuildNet.GetConsumableCategory(itemID, itemName, itemSubType, equipLoc)`
+     - `GuildNet.BroadcastPlayerState(forceAll, explicitDist, whisperTarget)`
+     - `GuildNet.RequestGuildSync()`
+     - `GuildNet.RequestDirectWhisperSync(targetPlayerName)`
+
+10. `Net_SearchAndUpgrades.lua` (12.5 KB)
+    • Controls: Cross-references crafting materials across Account Alts, Guild Vaults,
+      and Synced Peers (`LocateMaterialAcrossNetwork`), matches craftable gear
+      upgrades against Alts and Synced Peers (`GetCraftableGearUpgrades`), and
+      aggregates network-wide consumables (`GetGuildConsumablesList`).
+    • Requires from `Net_RadioAndChat.lua` & `Net_SyncAndBroadcast.lua`:
+      `GuildNet.EnsureGuildNetTables`, `GuildNet.ExtractID`,
+      `GuildNet.GetConsumableCategory`, `GuildNet.IsPeerOnline`.
+    • Exports on `ns.GuildNet`:
+      - `GuildNet.LocateMaterialAcrossNetwork(itemID, faction)`
+      - `GuildNet.GetCraftableGearUpgrades(faction)`
+      - `GuildNet.GetMaterialCraftUpgradeNotes(itemLinkOrID, faction)`
+      - `GuildNet.GetGuildConsumablesList(faction, categoryFilter)`
+
+--------------------------------------------------------------------------------
+GROUP D: PRIMARY WINDOW, LEFT SIDEBAR & TABS 2–6 (`AltVaultMainPanel`)
+--------------------------------------------------------------------------------
+11. `UI_MainFrame.lua` (21.2 KB)
+    • Controls: Creates the movable/resizable `AltVaultMainPanel` window, Top Header
+      Bar (`AllianceBtn`, `HordeBtn`, `FontSlider`, `ButtonScaleSlider`), Exterior
+      Side-Tabs 1–6 + `RegisterExternalTab` API, shared `MainPanel._state` table,
+      and the Framed Card Row List renderer (`RenderRowList`) used by Tabs 2–11.
+    • Exports on `AltVaultMainPanel`:
+      - `MainPanel._state`, `MainPanel.charButtons`, `MainPanel.peerButtons`,
+        `MainPanel.contentRows`, `MainPanel.exteriorTabs`,
+        `MainPanel.externalTabRenderers`, `MainPanel.ScrollFrame`, `MainPanel.ScrollChild`
+      - `MainPanel:GetWindowScaleFactor()`, `MainPanel:GetButtonScale()`,
+        `MainPanel:GetTopHeaderHeight()`, `MainPanel:GetLeftColumnOffset()`,
+        `MainPanel:GetBaseContentTopY()`
+      - `MainPanel:StyleControlButton(...)`, `MainPanel:StyleControlEditBox(...)`,
+        `MainPanel:FitControlsRowInsideBar(...)`
+      - `MainPanel:RegisterExternalTab(...)`, `MainPanel:SwitchToTab(tabID)`,
+        `MainPanel:GetActiveViewMode()`, `MainPanel:GetSelectedFaction()`,
+        `MainPanel:GetSelectedCharacter()`, `MainPanel:GetSelectedSyncedPeer()`,
+        `MainPanel:SetSelectedSyncedPeer(peerName)`
+      - `MainPanel:RenderRowList(rowEntries)`, `MainPanel:HideListAndDBFrames()`,
+        `MainPanel:SetScrollTopOffset(topY)`
+
+12. `UI_LeftSidebar.lua` (18.4 KB)
+    • Controls: Builds the Split Left Sidebar (Top: `AltRosterScroll` for Account Alts
+      with automatic logged-in player selection and #1 top-of-list sorting on login
+      and `/av`; Bottom: `VAULT GUILD MEMBERS` banner, `PeerSearchBox`, and
+      `PeerRosterScroll` with search-to-top sorting and pulsing cyan/green need-glows),
+      handles responsive window/button layout scaling (`ApplyGlobalButtonScaling`),
+      and registers `/av` and `/altvault`.
+    • Requires from `UI_MainFrame.lua`: `MainPanel` layout helpers and button tables.
+    • Exports on `AltVaultMainPanel`:
+      - `MainPanel:UpdateLeftSidebarHighlights()`
+      - `MainPanel:ApplyGlobalButtonScaling(keepSlidersLocked)`
+      - `MainPanel:UpdateLayoutSizes()`
+      - `MainPanel:RefreshPeerSidebarList()`
+      - `MainPanel:RefreshView()`
+
+13. `UI_RosterAndScannerTabs.lua` (22.8 KB)
+    • Controls: Builds the Tab 6 Graphic Scanner Meter (`DBHeaderFrame`, `ScannerBar`,
+      `SearchBox`, `Scan From ID`, `Turbo`, `Stop/Resume Scan`), renders the Tab 6
+      Item Dossier & Database Explorer (`RenderDatabaseExplorerPane`), and renders
+      Tabs 2 (`BAGS`), 3 (`BANK`), 4 (`GUILD`), and 5 (`TALENTS`) via `RenderActivePane`.
+    • Exports on `AltVaultMainPanel`:
+      - `MainPanel.DBHeaderFrame`
+      - `MainPanel:ScaleDBHeaderControls(bScale, leftX, baseTopY)`
+      - `MainPanel:UpdateScannerMeter()`
+      - `MainPanel:RenderDatabaseExplorerPane()`
+      - `MainPanel:AppendTalentTreeRows(rows, data)`
+      - `MainPanel:RenderActivePane()`
+      - `MainPanel:RenderGuildVaultPane()`
+
+--------------------------------------------------------------------------------
+GROUP E: TAB 1 VISUAL PAPERDOLL ARMORY, VIDEO/POSE ENGINE & 3 BOTTOM BOXES (`ns.Armory`)
+--------------------------------------------------------------------------------
+14. `UI_ArmoryVideoAndPoses.lua` (15.5 KB) — *Split Module 1 of 3 for Tab 1*
+    • Controls: Initializes `ns.Armory`, defines `1920x1009` aspect constants,
+      `CLASS_COLOR_RGB`, `QUALITY_RGB`, the 32 looping Dance/Pose routines
+      (`SNAPSHOT_POSES`), the Pose Dropdown Menu (`TogglePoseDropdownMenu`,
+      `HidePoseDropdownMenu`), the Option A Preloaded 16-Sheet GPU Stack Video Engine
+      (`EnsureTextureStack`, `PreloadTextureStackForSnap`,
+      `ResolveFlipbookGlobalFrameIndex`, `Apply2DCropAndZoomToTexture`), and the
+      3D camera transform & featured snapshot resolvers.
+    • Exports on `ns.Armory`:
+      - `Armory.CreateBackdrop`, `Armory.SetSolid`, `Armory.STANDARD_FONT`,
+        `Armory.BASE_PANEL_W`, `Armory.BASE_PANEL_H`, `Armory.SNAPSHOT_FOLDER`,
+        `Armory.MAX_REEL_SHEETS` (`16`), `Armory.MASTER_RENDER_W` (`1920`),
+        `Armory.MASTER_RENDER_H` (`1009`), `Armory.MASTER_ASPECT_RATIO` (`1920/1009`)
+      - `Armory.state`, `Armory.SanitizeCharTag(charName)`,
+        `Armory.CLASS_COLOR_RGB`, `Armory.QUALITY_RGB`, `Armory.GetItemIconTexture`
+      - `Armory.SNAPSHOT_POSES`, `Armory.SetModelLoopingPose(modelFrame, poseIdx)`,
+        `Armory.TickModelLoopingPose(modelFrame, elapsed)`,
+        `Armory.HidePoseDropdownMenu()`, `Armory.TogglePoseDropdownMenu(...)`
+      - `Armory.EnsureTextureStack(parentFrame, primaryTex, insetPx)`,
+        `Armory.PreloadTextureStackForSnap(primaryTex, snap)`,
+        `Armory.ResolveFlipbookGlobalFrameIndex(snap)`,
+        `Armory.Apply2DCropAndZoomToTexture(primaryTex, snap, explicitGlobalFrame)`
+      - `Armory.ApplyCameraTransformToModel(...)`,
+        `Armory.FindLiveUnitTokenForName(charName)`,
+        `Armory.GetSavedModelZoom(charName)`,
+        `Armory.ResolveFeaturedSnapshotForCharacter(charName)`
+
+15. `UI_ArmoryStage3D.lua` (19.0 KB) — *Split Module 2 of 3 for Tab 1*
+    • Controls: Creates `ArmoryCanvas`, `PaperDollStage`, `StageHeaderText`, and
+      `ModelViewport` containing the `1920x1009` aspect-locked `SyncedAspectFrame`
+      with dual canvases (`LiveStageCanvas` 3D `DressUpModel` + `FlatPhotoCanvas`
+      2D/Video viewer), the True Fullscreen Screenshot Studio (`FullScreenToolbar`,
+      `EnterFullScreenStageMode`, `ExitFullScreenStageMode`), `LeftControlsAnchor`
+      (`ModelZoomSlider`, `DanceBtn`, `SnapPhotoBtn`), `RightRatingCluster`
+      (`ThumbsUpBtn`, `ThumbsDownBtn`, `RankingScoreText`), and the 19 PaperDoll
+      equipment slot buttons.
+    • Requires: All exports from `UI_ArmoryVideoAndPoses.lua`.
+    • Exports on `ns.Armory` & `AltVaultMainPanel`:
+      - `MainPanel:HideArmoryCanvas()`
+      - `Armory.ArmoryCanvas`, `Armory.PaperDollStage`, `Armory.StageHeaderText`,
+        `Armory.ModelViewport`, `Armory.FlatPhotoCanvas`, `Armory.LeftControlsAnchor`,
+        `Armory.ModelZoomSlider`, `Armory.zoomTitle`, `Armory.DanceBtn`,
+        `Armory.SnapPhotoBtn`, `Armory.RightRatingCluster`
+      - `Armory.EnterFullScreenStageMode()`, `Armory.ExitFullScreenStageMode()`
+      - `Armory.ApplyCharacterModelZoom(pct)`, `Armory.TriggerModelDanceEmote(enable)`,
+        `Armory.ConfigureAndDress3DCharacterModel(charName, charData)`,
+        `Armory.UpdateRatingDisplay()`
+      - `Armory.LEFT_DOLL_SLOTS`, `Armory.RIGHT_DOLL_SLOTS`,
+        `Armory.BOTTOM_DOLL_SLOTS`, `Armory.paperDollSlotBtns`
+
+16. `UI_ArmoryBottomBoxes.lua` (21.6 KB) — *Split Module 3 of 3 for Tab 1*
+    • Controls: Creates and populates the 3 Bottom Interactive Dashboard Boxes in
+      Tab 1 (`BagContainerBox`, `BankContainerBox`, `StatsContainerBox` with green
+      profession StatusBars) and defines `MainPanel:RenderVisualCharacterDashboard`
+      to layout the entire Tab 1 visual armory.
+    • Requires: Frame & helper exports from `UI_ArmoryVideoAndPoses.lua` and
+      `UI_ArmoryStage3D.lua`.
+    • Exports on `AltVaultMainPanel`:
+      - `MainPanel:RenderVisualCharacterDashboard(charName, charData, isSyncedPeer)`
+
+--------------------------------------------------------------------------------
+GROUP F: EXTERIOR TABS 7–11 (VIRTUAL GUILD UI & CHATROOM) (`ns.NetUI`)
+--------------------------------------------------------------------------------
+17. `UI_NetTab_VirtualChat.lua` (20.8 KB)
+    • Controls: Initializes `ns.NetUI`, builds the auto-scaling `NetHeader` top bar
+      shared by Tabs 7–11, builds the 4-line scrollable `ChatInputContainer` and
+      Single-Insert Shift-Click Item Link Interceptor (`0.40s` guard + `StackSplitFrame`
+      hide), provides the Smart Mail/Whisper helper (`ContactOrMailSyncedPlayer`)
+      and `ItemRefTooltip` popup opener, and defines the Tab 11 (`VIRTUAL_CHAT`)
+      renderer.
+    • Exports on `ns.NetUI`:
+      - `NetUI.state` (`selectedRecipeForMats`, `matSearchFilterText`,
+        `activeConsCategory`, `inspectedPeerName`)
+      - `NetUI.ConfigureHeaderForMode(mode)`
+      - `NetUI.ContactOrMailSyncedPlayer(targetName, itemLinkOrName, isSendingGift)`
+      - `NetUI.OpenItemLinkPopupWindow(fullItemLink)`
+      - `NetUI.RenderVirtualGuildChatTab(panel)`
+
+18. `UI_NetTabs_GoodsAndRoster.lua` (22.6 KB)
+    • Controls: Defines the renderers for Tab 7 (`GUILD_GEAR`), Tab 8 (`GUILD_MATS`),
+      Tab 9 (`GUILD_CONS`), and Tab 10 (`SYNCED_ROSTER`), registers Tabs 7, 8, 9,
+      10, and 11 in order on `AltVaultMainPanel`, and hooks `GameTooltip` to display
+      craftable guild gear upgrade notes on crafting materials.
+    • Requires from `UI_NetTab_VirtualChat.lua`: `NetUI.ConfigureHeaderForMode`,
+      `NetUI.ContactOrMailSyncedPlayer`, `NetUI.RenderVirtualGuildChatTab`.
+
+--------------------------------------------------------------------------------
+GROUP G: EXTERIOR TAB 12 (PHOTO ALBUM, PIC VAULT & 20s VIDEO STUDIO) (`ns.NetUI`)
+--------------------------------------------------------------------------------
+19. `UI_NetTab_PhotoStudio.lua` (21.4 KB) — *Split Module 1 of 2 for Tab 12*
+    • Controls:
+      1) Album Database & Sync Helpers (`EnsureCharacterAlbumSlotsPopulated`,
+         `SaveCharacterSlotsToCharacterTable`, `WriteHelperSlotSyncMacro` for
+         `AV_SlotSync`, `ClearAlbumSlotInGame`).
+      2) 1-Vote-Per-Photo Competition & Network Broadcast Helpers
+         (`GetPhotoVoteSummary`, `BroadcastSnapshotToGuild`,
+         `CastPhotoCompetitionVote`, `GuildNet.GetPhotoVoteCount`).
+      3) The In-Game Personal Pic Vault & Slot Manager Window
+         (`AltVaultPersonalPicVaultPicker` / `OpenPersonalPicVaultPicker`) with
+         1–12 Target Slot selector bar (`[Slot 1]..[Slot 12]`), `[Clear Album Slot #]`,
+         `[-> Slot #]`, and `[Tab 1]` quick-assign buttons.
+      4) The Floating `1920x1009` Preloaded 16-Sheet 20s Video & Crop Studio Window
+         (`AltVaultPhotoEditFlyout` / `OpenPhotoEditFlyout`) with `[Video: OFF / ON]`,
+         `[Loop / Ping-Pong]`, `[Sheets - / +]`, `[FPS - / +]`, live duration
+         readout, `[Set Tab 1 Pic]`, `[Locked/Unlocked]`, and `[Clear Slot]`.
+    • Requires from `UI_ArmoryVideoAndPoses.lua`: `Armory.EnsureTextureStack`,
+      `Armory.PreloadTextureStackForSnap`, `Armory.ResolveFlipbookGlobalFrameIndex`,
+      `Armory.Apply2DCropAndZoomToTexture`.
+    • Exports on `ns.NetUI` & `ns.GuildNet`:
+      - `NetUI.albumState`, `NetUI.CreateBackdrop`, `NetUI.STANDARD_FONT`,
+        `NetUI.MAX_FEATURED_SLOTS` (`12`), `NetUI.MAX_REEL_SHEETS` (`16`),
+        `NetUI.SNAPSHOT_FOLDER`, `NetUI.MASTER_ASPECT_RATIO`
+      - `NetUI.SanitizeCharacterTag(charName)`,
+        `NetUI.FormatCharacterSlotFilename(charName, fileSlotNum)`,
+        `NetUI.FormatCharacterSlotTexturePath(charName, fileSlotNum)`
+      - `NetUI.WriteHelperSlotSyncMacro(charName)`,
+        `NetUI.EnsureCharacterAlbumSlotsPopulated(charName)`,
+        `NetUI.SaveCharacterSlotsToCharacterTable(charName)`,
+        `NetUI.EnsureAlbumTables()`, `NetUI.HidePhotoAlbumFrames()`
+      - `NetUI.EnsureStack(...)`, `NetUI.ResolveGlobalFlipFrame(snap)`,
+        `NetUI.Apply2DCrop(...)`, `NetUI.Load2DScreenshotIntoTexture(tex, snap)`
+      - `NetUI.ClearAlbumSlotInGame(charName, slotIdx)`,
+        `NetUI.GetPhotoVoteSummary(photoID)`,
+        `NetUI.BroadcastSnapshotToGuild(snap, isAvatar)`,
+        `NetUI.CastPhotoCompetitionVote(photoID)`,
+        `GuildNet.GetPhotoVoteCount(photoID)`
+      - `NetUI.OpenPersonalPicVaultPicker(targetCharName, targetAlbumSlot)`,
+        `NetUI.RefreshLiveGalleryCardForSnapshot(snapID)`,
+        `NetUI.OpenPhotoEditFlyout(snapID)`
+
+20. `UI_NetTab_PhotoAlbum.lua` (17.2 KB) — *Split Module 2 of 2 for Tab 12*
+    • Controls:
+      1) `NetUI.CaptureCharacterSnapshot` (assigns a `.tga` file slot into an album
+         slot, guarded by `Armory.state.isFullScreenStage` so `Shift+PrtSc` never
+         exits Full Screen mode) and `NetUI.SetAsOfflineAvatar`.
+      2) `AlbumEventFrame` (`SCREENSHOT_SUCCEEDED` listener and incoming `PVOTE` /
+         `PSNAP` network packet handler).
+      3) `NetUI.RenderPhotoAlbumTab(panel)` (builds `AltVaultPhotoAlbumCanvas`, top
+         action bar, 12-card 1920:1009 gallery grid, Competition Leaderboard filter,
+         and `OnUpdate` multi-card video animator) and registers Tab 12 on `MainPanel`.
+    • Requires: All helper & studio exports from `UI_NetTab_PhotoStudio.lua`.
+    • Exports on `ns.NetUI`:
+      - `NetUI.CaptureCharacterSnapshot(sourceTag, overrideCharName, explicitSlotIdx, explicitFileSlot)`
+      - `NetUI.SetAsOfflineAvatar(snapshotID, overrideAuthor)`
+      - `NetUI.RenderPhotoAlbumTab(panel)`
+
+--------------------------------------------------------------------------------
+GROUP H: LIVE BAG, BANK, GUILD BANK OVERLAYS, MINIMAP & WINDOWS COMPANION
+--------------------------------------------------------------------------------
+21. `UI_BagOverlay.lua` (14.3 KB)
+    • Controls: Applies live upgrade (green) and profession (cyan) border glows and
+      next-level pulse animations across Combined Bags, individual bags, classic
+      Bank slots, and Camelot 64-slot `BankPanel` tabs, plus appends `[AltVault]
+      GearScore`, `Used By Trades`, and roster recommendations to `GameTooltip`.
+    • Exports on `ns`: `ns.RefreshLiveContainerGlows()`
+
+22. `UI_GuildBankOverlay.lua` (2.2 KB)
+    • Controls: Scans open Guild Bank tabs (`1..98`) and applies live upgrade/
+      profession slot border glows.
+
+23. `UI_MinimapButton.lua` (3.6 KB)
+    • Controls: Orbiting minimap button (`AltVaultCleanButton`) with drag positioning
+      and a live-updating tooltip showing indexed items, patterns, and server scan
+      progress percentage.
+    • Exports on `ns`: `ns.UpdateMinimapPosition()`
+
+24. `AltVault_Companion.bat` (28.5 KB — Single-File Hybrid Batch + PowerShell + C#)
+    • Controls: External Windows GUI helper located in `Interface\AddOns\AltVault\`.
+      - Single-file hybrid launcher (`.bat` header invokes PowerShell + inline C#
+        `WowNativeTgaWriter` on itself—no separate `.ps1` file required).
+      - Auto-discovers real `AltVault` characters from `macros-cache.txt`
+        (`AV_DataCache` pattern `Name:CLASS:Level:H/A:`) and `MyPicsVault\*.png`,
+        and pre-allocates `<Char>_Slot01..12.tga` plus `_V01.._V16.tga` placeholders
+        so WoW's file manifest recognizes all 16 sheet paths per slot.
+      - Converts `1920x1009` WoW screenshots (`Screenshots\WoWScrnShot*.*`) and
+        `PrtSc` Windows Clipboard captures into lossless `2048x2048` 32-bit `.tga`
+        slot files (`header[17] = 0x28` top-left origin).
+      - Extracts up to 16 sheets (`512 frames = 20+ seconds @ 24 FPS`, configurable
+        `Max Video Sec: 2-30s` and `Video FPS: 8-60 FPS`) of `1024x512` Widescreen
+        HD frames (`4 cols x 8 rows` per `4096x4096` sheet, edge-to-edge Lanczos +
+        unsharp scaling with zero black padding bars) from `.mp4` / `.gif` clips.
+      - Saves `.png` and multi-sheet `_V01.._V16.tmp` backups in `MyPicsVault\`
+        so `[Assign to Slot]` restores all 16 sheets, and includes `[Sync In-Game Slots]`
+        (reads `AV_SlotSync` from `macros-cache.txt`), `[Delete Pic + Slot]`,
+        `[Wipe All 12 Slots Clean]`, and `[Remove Alt]` (`Snapshots\IgnoredAlts.txt`).
+
+================================================================================
+6. STRICT AI UPLOAD MATRIX: WHICH FILE(S) TO ASK THE USER TO UPLOAD
+================================================================================
+INSTRUCTIONS FOR THE NEXT AI:
+Always read this `PROJECT HANDOFF DOCUMENT.txt` first. When the user asks to
+fix, tweak, or add a feature, ask the user to upload ONLY the 1 or 2 files listed
+below for that specific subsystem so you can inspect the exact code before editing:
+
+• 32 Dance/Pose Routines, Pose Dropdown Menu, 16-Sheet GPU Stack Video Math,
+  UV Crop/Zoom Calculations, or 3D Camera Transform Math:
+  -> Ask user to upload: `UI_ArmoryVideoAndPoses.lua`
+
+• Tab 1 3D/2D Viewport Frame, Fullscreen Screenshot Studio, Zoom Slider,
+  Pose/Snap Buttons, Thumbs Up/Down Rating Buttons, or 19 Equipment Slot Buttons:
+  -> Ask user to upload: `UI_ArmoryStage3D.lua`
+     (plus `UI_ArmoryVideoAndPoses.lua` ONLY if changing pose/video math)
+
+• Tab 1 Bottom 3 Dashboard Boxes (Bag Grid, Bank Grid, Right-Hand Stats &
+  Profession Bars) or Overall Tab 1 Responsive Layout Positioning:
+  -> Ask user to upload: `UI_ArmoryBottomBoxes.lua`
+
+• In-Game Personal Pic Vault Picker (`AltVaultPersonalPicVaultPicker`), Floating
+  20s Video & Crop Edit Studio (`AltVaultPhotoEditFlyout`), `AV_SlotSync` Macro,
+  Slot Clearing, or Photo Vote Counting / Broadcast Helpers:
+  -> Ask user to upload: `UI_NetTab_PhotoStudio.lua`
+
+• Tab 12 12-Card Photo Gallery Grid, Competition Leaderboard View, Top Bar
+  Buttons (`+ Fullscreen Studio`, `Pic Vault`, `Mount All 12`), or `PSNAP`/`PVOTE`
+  Incoming Network Events:
+  -> Ask user to upload: `UI_NetTab_PhotoAlbum.lua`
+     (plus `UI_NetTab_PhotoStudio.lua` ONLY if also changing the popup editors)
+
+• External Windows 20s HD Video & Photo Helper GUI, C# `.TGA` Builder, `PrtSc`
+  Saver, FFmpeg Video Extraction, or `AV_DataCache` / `AV_SlotSync` Scanner:
+  -> Ask user to upload: `AltVault_Companion.bat`
+
+• Left Sidebar (Account Alts list, Logged-In Default Selection, "VAULT GUILD
+  MEMBERS" list, Member Search, or Window/Button Scale Sliders):
+  -> Ask user to upload: `UI_LeftSidebar.lua`
+
+• Main Window Frame, Top Header Bar, Side-Tab Buttons, or Card Row List Styling:
+  -> Ask user to upload: `UI_MainFrame.lua`
+
+• Tab 6 (Scanner Meter, Turbo/Stop Buttons, Item Dossier View) or Tabs 2–5:
+  -> Ask user to upload: `UI_RosterAndScannerTabs.lua`
+     (and `Engine_VisualHelpers.lua` if changing Dossier data fields)
+
+• Tab 11 (Virtual Guild Chat, 4-Line Prompt, Shift-Click Item Linking, Echo)
+  or Top `NetHeader` Bar for Tabs 7–11:
+  -> Ask user to upload: `UI_NetTab_VirtualChat.lua`
+     (and `Net_RadioAndChat.lua` if changing network packet format)
+
+• Tabs 7, 8, 9, or 10 (Guild Gear Needs, Mat Search, Consumables Net, Synced Roster):
+  -> Ask user to upload: `UI_NetTabs_GoodsAndRoster.lua`
+     (and `Net_SearchAndUpgrades.lua` if changing search/matching math)
+
+• GearScore Math, 2H vs 1H Upgrade Logic, or Class/Stat Suitability:
+  -> Ask user to upload: `Engine_GearScore.lua`
+
+• Profession Reagent Matching (1–600), Gathering Exclusions, or Consumable Gatekeeper:
+  -> Ask user to upload: `Engine_Professions.lua`
+
+• Live Bag/Bank Slot Glows or GameTooltip Upgrade/Profession Flyout Lines:
+  -> Ask user to upload: `UI_BagOverlay.lua`
+
+• 4-Macro Beta Cache (`AV_DataCache` 1–3 + `AV_PhotoCache`):
+  -> Ask user to upload: `Core_MacroCache.lua`
+
+• 3-Engine Talent Scanner (`C_Traits` / MoP / Classic) or Background Crawler:
+  -> Ask user to upload: `Core_TalentsAndCrawler.lua`
+
+• Live Character/Bag/Bank/Vault/Vendor/Trainer/Loot Event Scanning:
+  -> Ask user to upload: `Core_Database.lua`
+
+================================================================================
+SECTION 9: OCTOBER 20, 2026 ARCHITECTURAL UPGRADES & COMPLETED MILESTONES
+================================================================================
+1. CONSENT-BASED WHISPER SYNC & WAITLIST QUEUE (`AltVaultDB.SyncQueue`):
+   * Eliminated all unsolicited public channel/whisper broadcasts (`BroadcastRadioPing`
+     and mass whisper sweeps removed). No popup ever interrupts a player in raids,
+     dungeons, or combat.
+   * All incoming `[Request Sync]` whispers (`SYNC_REQ`) and granular category requests
+     (`REQ_CAT|BAGS`, `BANK`, `RECIPES`, `TALENTS`, `VGUILD`, `ALT|<AltName>`) are
+     silently placed into a persistent Waitlist Queue (`AltVaultDB.SyncQueue`) inside
+     the repurposed `[Sync Queue]` tab (`UI_NetTabs_GoodsAndRoster.lua`).
+   * Added `[DND: ON/OFF]` (`AltVaultDB.SyncDND`) to auto-decline incoming requests
+     while busy, and `[Block FoF: ON/OFF]` (`AltVaultDB.BlockFriendsOfFriends`) so
+     synced partners cannot expose your name when sharing their Virtual Guild roster.
+   * One-Way Caller ID Preview (`ns.previewQueueEntry`): Clicking `[Preview]` on a
+     queued player displays their introductory Caller ID card (Name, Level, Race,
+     Class, Guild, Professions, and 16 equipped item IDs) on the Armory 3D Stage
+     without transmitting any of your data back until `[Accept]` is clicked.
+   * Granular "Closed Until Requested" Categories: Initial sync sends ONLY the Basic
+     Profile (16 equipped items + profession levels). Bags, Bank, Recipes, Talents,
+     Alts (one at a time), and Virtual Guild Roster remain locked behind `[Request ...]`
+     buttons (`UI_ArmoryBottomBoxes.lua` and `UI_NetTabs_GoodsAndRoster.lua`).
+   * Added Virtual Guild Chatroom (`VCHAT|<message>`) in `Net_SyncAndBroadcast.lua`
+     and `UI_NetTab_VirtualChat.lua` so mutually synced players can chat across guilds.
+
+2. OPEN-WORLD GLOWING NAMEPLATE BEACON (`AltVaultDB.NameplateGlowEnabled`):
+   * Added `[Nameplate Glow: ON/OFF]` (`AltVaultNameplateGlowToggleBtn`) at the
+     top-left of `PaperDollStage` in `UI_ArmoryStage3D.lua`.
+   * Hooked `NAME_PLATE_UNIT_ADDED` and `NAME_PLATE_UNIT_REMOVED` in
+     `Net_SyncAndBroadcast.lua`. Nearby players with `AltVault` who have their glow
+     enabled exchange a lightweight hidden addon handshake (`BEACON|1` / `BEACON|0`)
+     and render a pulsing Cyan/Gold border + `★ [AltVault User]` / `★ [AltVault Synced]`
+     badge above their nameplate (visible only to other `AltVault` users).
+
+3. FIXED OFFLINE ALT PORTRAITS & 3D MANNEQUIN FALLBACK (`UI_ArmoryStage3D.lua`):
+   * Fixed `ConfigureAndDress3DCharacterModel` in `UI_ArmoryStage3D.lua` where
+     `ModelStage:SetUnit("player")` was previously forcing the logged-in character's
+     body onto every offline alt tab (`Shadow`, `Electra`, `Jaxx`, `Virus`, `Evil`,
+     `Katinka`, `Yess`).
+   * Clicking an offline alt now automatically displays their saved `.tga` Profile
+     Photo / 20s HD Video Reel (`FlatPhotoCanvas`) by default so their true race, sex,
+     and appearance are preserved, and uses `RACE_MANNEQUIN_NPCS` (`SetCreature`)
+     when manually toggled via `[View: 3D / Reel]` (`AltVaultToggle3DReelBtn`).
+
+4. FULL PROJECT BACKUP CREATED (`Interface\AddOns\Backup\`):
+   * Created a complete reference backup of both `AltVault` and `DeconstructionGod_Studio`
+     inside `c:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\Backup\`.
+================================================================================

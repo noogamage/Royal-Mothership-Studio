@@ -1,0 +1,11 @@
+﻿## Interface: 11509, 11508, 11507, 11506, 11505, 11504, 11503, 11404, 16001, 20504, 20505, 20506, 30403, 30404, 30405, 38000, 38001, 38002, 40400, 40401, 40402, 50503, 50504, 120100, 120105
+## Title: |cFFFFD100The Kingdom Forge|r |cFF00FF96[Royal Classic & Forever Suite]|r
+## Notes: Royal Graphics-Driven Talent Simulator, Armor Mannequin & Heirloom Forge, Revealed Map & Gathering Atlas, and 3D Animated Queen Ava Liaison across all 7 Phases.
+## Author: King Stephen & Queen Ava (DeconstructionGod Studio)
+## Version: 1.0.0-Forever
+## SavedVariables: TheKingdomForgeDB
+
+DB_KingdomForgeVault.lua
+DB_RevealedMapData.lua
+Core_KingdomForge.lua
+UI_KingdomForge.lua
