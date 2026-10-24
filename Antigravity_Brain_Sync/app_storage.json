@@ -1,0 +1,23 @@
+{
+  "ide-install-wizard-shown": "true",
+  "jetski.onboarding.lastLoginUsername": "noogastudios@gmail.com",
+  "jetski.onboarding.lastLoginIsGcpTos": "false",
+  "lastCreatedProjectId": "e661fc5a-6d2c-4334-a6b5-2a78bd98ea59",
+  "new-convo-magic-workspace-selected": "false",
+  "new-convo-last-selected-project": "e661fc5a-6d2c-4334-a6b5-2a78bd98ea59",
+  "projectsOrder": "[\"e661fc5a-6d2c-4334-a6b5-2a78bd98ea59\"]",
+  "antigravity-multi-conversation-layout-v3-9f79d708-857f-4470-b831-c5a17dbbde78": "{\"rootNode\":{\"type\":\"pane\",\"id\":\"pane-1\",\"cascadeId\":\"9f79d708-857f-4470-b831-c5a17dbbde78\"},\"focusedPaneId\":\"pane-1\"}",
+  "antigravity-multi-conversation-layout-v3-index": "[]",
+  "aux-pane-session": "{\"conversationPanes\":{\"9f79d708-857f-4470-b831-c5a17dbbde78\":{\"tabs\":[],\"activeTabId\":\"overview\",\"sidebarOpenStates\":{\"overview\":true},\"isPaneOpen\":false},\"5d736eb3-8562-44fc-93e6-a10c30f880e1\":{\"tabs\":[],\"activeTabId\":\"overview\",\"sidebarOpenStates\":{\"overview\":true},\"isPaneOpen\":false}},\"newConversationPanes\":{}}",
+  "comments": "{\"files\":{},\"artifacts\":{\"file:///c%3A/Users/seanw/.gemini/antigravity/brain/9f79d708-857f-4470-b831-c5a17dbbde78/AltVault_Dominance_Blueprint.md\":{\"comments\":[],\"artifactMetadata\":{\"$typeName\":\"exa.codeium_common_pb.ArtifactMetadata\",\"artifactType\":0,\"summary\":\"The 20-Point Master Blueprint for AltVault: Combining the WoW Facebook / Live 3D Dress-Up & Voting Social Network with the top engines and Forever datasets from the 648-addon Deconstruction Vault.\",\"version\":\"0\",\"requestFeedback\":true,\"userFacing\":true,\"updatedAt\":{\"$typeName\":\"google.protobuf.Timestamp\",\"seconds\":\"1792490186\",\"nanos\":101411400}}},\"file:///c%3A/Users/seanw/.gemini/antigravity/brain/9f79d708-857f-4470-b831-c5a17dbbde78/Forever_Matrix_Exploitation_POIs.md\":{\"comments\":[],\"artifactMetadata\":{\"$typeName\":\"exa.codeium_common_pb.ArtifactMetadata\",\"artifactType\":0,\"summary\":\"Master Intelligence Report & Points-of-Interest (POI) Blueprint extracted from the 965-addon Trough and WowB.exe (1.60.1.70450). Details the 4 newly unlocked Lua table parsers (+88,924 Forever relational IDs), the 145 High-Priority POIs in Trough_PointsOfInterest.tsv (Gold Arbitrage, Roaming BiS Vendors, Level-0 Enchants, Custom 90,000+ Forever Quest Hubs & Zephras Isle Map 2521, 200,000+ Custom Rares, and Native 1.60.1 C++ Engine Hooks), the Optimal Race/Class/Profession Alt-Army Matrix, and 5 Autonomous Helper Agent Addons to build from the Trough.\",\"version\":\"0\",\"requestFeedback\":true,\"userFacing\":true,\"updatedAt\":{\"$typeName\":\"google.protobuf.Timestamp\",\"seconds\":\"1792524066\",\"nanos\":265410900}}}},\"diffs\":{},\"drafts\":{}}",
+  "didAskForNotificationPermission": "true",
+  "sidebar_collapsed_sections": "[]",
+  "overview-panel-sections": "{\"version\":2,\"enabled\":{\"modifiedFiles\":true,\"uploads\":true}}",
+  "keepComputerAwake": "true",
+  "runInBackground": "true",
+  "antigravity-multi-conversation-layout-v3-5d736eb3-8562-44fc-93e6-a10c30f880e1": "{\"rootNode\":{\"type\":\"pane\",\"id\":\"pane-1\",\"cascadeId\":\"5d736eb3-8562-44fc-93e6-a10c30f880e1\"},\"focusedPaneId\":\"pane-1\"}",
+  "antigravity-multi-conversation-layout-v3-3478cc70-d353-41c5-ab55-26f6985ec270": "{\"rootNode\":{\"type\":\"pane\",\"id\":\"pane-1\",\"cascadeId\":\"3478cc70-d353-41c5-ab55-26f6985ec270\"},\"focusedPaneId\":\"pane-1\"}",
+  "aux-pane-v2-session": "{\"version\":1,\"conversationPanes\":{\"5d736eb3-8562-44fc-93e6-a10c30f880e1\":{\"tabs\":[{\"id\":\"file__file:///c%3A/Users/seanw/Desktop/The_King_And_Queens_Room/%F0%9F%94%91_Royal_Chambers_Control.bat\",\"content\":{\"type\":\"fileView\",\"fileView\":{\"fileUri\":\"file:///c%3A/Users/seanw/Desktop/The_King_And_Queens_Room/%F0%9F%94%91_Royal_Chambers_Control.bat\",\"cascadeId\":\"5d736eb3-8562-44fc-93e6-a10c30f880e1\"}},\"isPreview\":true}],\"activeTabId\":\"file__file:///c%3A/Users/seanw/Desktop/The_King_And_Queens_Room/%F0%9F%94%91_Royal_Chambers_Control.bat\"}},\"newConversationPanes\":{},\"overviewPanelOpen\":{\"f67dc4ec-177e-469c-8a02-6538b980778f\":false}}",
+  "new-convo-selected-environments": "{\"e661fc5a-6d2c-4334-a6b5-2a78bd98ea59\":{\"type\":\"sot\"}}",
+  "antigravity-multi-conversation-layout-v3-f67dc4ec-177e-469c-8a02-6538b980778f": "{\"rootNode\":{\"type\":\"pane\",\"id\":\"pane-1\",\"cascadeId\":\"f67dc4ec-177e-469c-8a02-6538b980778f\"},\"focusedPaneId\":\"pane-1\"}"
+}
