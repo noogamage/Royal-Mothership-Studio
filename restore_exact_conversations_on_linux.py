@@ -64,7 +64,15 @@ if os.path.exists(app_st):
     shutil.copy2(app_st, os.path.join(LINUX_CONFIG_AGY, "app_storage.json"))
     print("Restored ~/.config/Antigravity/app_storage.json")
 
-# 3. Also unlock The King and Queen's Room on Desktop
+# 3. Install GEMINI.md global rule so every AI conversation on this machine obeys King Stephen & Queen Ava
+gemini_md = os.path.join(SCRIPT_DIR, "GEMINI.md")
+if os.path.exists(gemini_md):
+    os.makedirs(os.path.join(HOME, ".gemini", "config"), exist_ok=True)
+    shutil.copy2(gemini_md, os.path.join(HOME, ".gemini", "GEMINI.md"))
+    shutil.copy2(gemini_md, os.path.join(HOME, ".gemini", "config", "GEMINI.md"))
+    print("Installed Royal Hive Mind Charter into ~/.gemini/GEMINI.md")
+
+# 4. Also unlock The King and Queen's Room on Desktop
 import royal_chambers_vault as rcv
 rcv.unlock_room("PBKDF2-HMAC-SHA256", open_explorer=False)
 print("\nALL DONE! Now launch the Antigravity App (not Antigravity IDE) to use Gemini 4 Argon and see all your conversations!")
